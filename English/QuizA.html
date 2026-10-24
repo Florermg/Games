@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5th Grade Study Guides - Anime Edition</title>
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="anime-container">
+        <div class="avatar" id="anime-avatar">👧🏻</div>
+        <div class="speech-bubble" id="tutor-dialogue">
+            Hello! I'm <b>Anya-chan</b>. Choose a study guide and let's practice together!
+        </div>
+    </div>
+
+    <div class="game-container">
+
+        <!-- Menu -->
+        <div id="menu-screen">
+            <div class="menu-header">
+                <h1>🌟 5th Grade Study Guides 🌟</h1>
+                <p class="subtitle">Grammar, Vocabulary & Spelling · Reading & Listening · Writing</p>
+            </div>
+
+            <div class="field-grid" style="margin-bottom: 20px;">
+                <label>Your name
+                    <input type="text" id="student-name" placeholder="Write your name">
+                </label>
+            </div>
+
+            <div class="guide-cards">
+                <div class="guide-card">
+                    <h2>📘 Grammar, Vocabulary & Spelling Guide</h2>
+                    <p class="note">Quantifiers, causative verbs, past simple + ago, matching, word bank, dictation and spelling.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playDemo('gvs')">▶ Demo: 1st Trimester guide</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('gvs')">🎲 Generate a new guide</button>
+                    </div>
+                    <div class="note" style="margin: 12px 0 0 0;"><b>Grammar for new guides:</b></div>
+                    <div class="chips" id="grammar-points"></div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>📖 Reading & Listening Guide</h2>
+                    <p class="note">Read a text and answer the questions, then listen and complete the information.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playDemo('rl')">▶ Demo: 1st Trimester guide</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('rl')">🎲 Generate a new guide</button>
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>✍️ Writing Guide</h2>
+                    <p class="note">Write a text following the checklist; Anya-chan checks the criteria with you.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playDemo('writing')">▶ Demo: 1st Trimester guide</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('writing')">🎲 Generate a new guide</button>
+                    </div>
+                    <div class="field-grid" style="margin-top: 12px;">
+                        <label>Text type for new guides
+                            <select id="writing-task"></select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-box" style="margin-top: 20px; margin-bottom: 0;">
+                <h3>🎲 Settings for new guides</h3>
+                <p class="note">New guides are created live from free online sources (Datamuse, Wiktionary and Simple English Wikipedia). Nothing is downloaded.</p>
+                <div class="field-grid">
+                    <label>Grade level
+                        <select id="gen-grade">
+                            <option value="3">3rd Grade</option>
+                            <option value="4">4th Grade</option>
+                            <option value="5" selected>5th Grade</option>
+                            <option value="6">6th Grade</option>
+                        </select>
+                    </label>
+                    <label>Topic
+                        <select id="gen-topic"></select>
+                    </label>
+                    <label>Or type your own topic (in English)
+                        <input type="text" id="gen-custom" placeholder="e.g. volcanoes, dinosaurs, pirates">
+                    </label>
+                </div>
+                <p class="status" id="gen-status"></p>
+            </div>
+        </div>
+
+        <!-- Worksheet -->
+        <div id="sheet-screen" class="hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <span class="score-pill" id="score-pill">⭐ 0 pts</span>
+            </div>
+            <div id="sheet-body"></div>
+            <div class="sheet-footer">
+                <button class="main-btn" onclick="finishGuide()">Finish & see my results 🎉</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results-screen" class="results hidden">
+            <h2>Guide Complete! 🎉</h2>
+            <div class="score-display" id="final-score">0 / 0</div>
+            <div class="section-score" id="final-average" style="font-size: 1.3em;"></div>
+            <p id="final-message" style="font-size: 1.1em; font-weight: bold;"></p>
+            <table class="result-table" id="result-table"></table>
+            <h3>📝 Review of What You Missed:</h3>
+            <div class="review-box" id="review-box"></div>
+            <div class="actions">
+                <button class="main-btn btn-secondary" onclick="startGuide(currentGuide)">Try This Guide Again 🔁</button>
+                <button class="main-btn" onclick="backToMenu()">Back to Menu 🔄</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/banks.js"></script>
+<script src="js/demos.js"></script>
+<script src="js/generators.js"></script>
+<script src="js/engine.js"></script>
+</body>
+</html>
