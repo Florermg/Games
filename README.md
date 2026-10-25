@@ -25,7 +25,7 @@ Se usa la impresión del navegador (PC, iPhone, iPad, Android), que también per
 
 Desde el menú, dos secciones de consulta, con selector de grado (3° a 6°) y de tiempos verbales: por defecto, los del grado; también "All tenses" o los que se marquen.
 
-- **📗 Grammar Cards**: 22 tarjetas en 3 grupos.
+- **📗 Grammar Cards**: 22 tarjetas en 3 grupos. Cada tarjeta muestra la fórmula de la oración (por ejemplo *Subject + have / has + past participle*); en las de tiempos, para afirmativa, negativa y pregunta, arriba de los sujetos con *play*.
   - Las 10 de tiempos verbales tienen uso, estructura (afirmativa, negativa y pregunta), palabras clave y 2 ejemplos.
   - Hay 4 de temas de las guías (quantifiers, causative, past simple + *ago*, comparatives) y 8 de temas básicos (pronombres, posesivos, artículos, plurales, *there is/are*, preposiciones de lugar y de tiempo, *can / can't*).
   - Los temas que cambian con el tiempo muestran un ejemplo en cada tiempo elegido.
