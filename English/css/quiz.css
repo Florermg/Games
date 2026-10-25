@@ -994,6 +994,193 @@ p.card-formula {
     margin: 6px 0 0 0;
 }
 
+/* ---------- Notebook (GAMES-13) ---------- */
+
+.nb-pages {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.nb-pages label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 220px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.nb-armed {
+    background: var(--incorrect);
+    color: white;
+}
+
+/* A page of a lined notebook */
+.nb-paper {
+    background: #fffef7;
+    border: 2px solid #e8e2c8;
+    border-radius: 12px;
+    padding: 12px 14px 8px 14px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.nb-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 8px;
+}
+
+.nb-head input {
+    flex: 1 1 200px;
+    font-weight: bold;
+}
+
+.nb-date {
+    color: var(--muted);
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+#nb-text {
+    display: block;
+    width: 100%;
+    min-height: 260px;
+    resize: vertical;
+    line-height: 32px;
+    padding: 4px 10px;
+    font-size: 1.05em;
+    border-color: #e8e2c8;
+    background-color: #fffef7;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #c9dcf2 31px, #c9dcf2 32px);
+    background-attachment: local;
+    background-position: 0 4px;
+}
+
+.nb-count {
+    text-align: right;
+    color: var(--muted);
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.nb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0 6px 0;
+}
+
+.nb-online {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nb-online input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--secondary);
+}
+
+#nb-results h3 {
+    color: var(--secondary);
+    margin: 16px 0 6px 0;
+}
+
+.nb-marked {
+    background: #fffef7;
+    border: 2px solid #e8e2c8;
+    border-radius: 12px;
+    padding: 12px 14px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.nb-mark {
+    background: #ffe3e3;
+    border-bottom: 3px solid var(--incorrect);
+    border-radius: 3px;
+    padding: 0 2px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.nb-mark.nb-spelling {
+    background: #fff1d6;
+    border-bottom-color: #f39c12;
+}
+
+.nb-mark.nb-punctuation {
+    background: #e6e4ff;
+    border-bottom-color: var(--secondary);
+}
+
+.nb-insert {
+    font-weight: bold;
+}
+
+.nb-n {
+    font-size: 0.7em;
+    font-weight: bold;
+    color: var(--incorrect);
+    margin-left: 1px;
+}
+
+.nb-list {
+    margin: 0;
+    padding-left: 26px;
+}
+
+.nb-item {
+    border-left: 4px solid var(--incorrect);
+    background: white;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+}
+
+.nb-item.nb-spelling {
+    border-left-color: #f39c12;
+}
+
+.nb-item.nb-punctuation {
+    border-left-color: var(--secondary);
+}
+
+.nb-why {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 2px 0 6px 0;
+}
+
+.nb-fixes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.nb-source {
+    font-size: 0.75em;
+    background: #e6e4ff;
+    color: var(--secondary);
+    border-radius: 8px;
+    padding: 1px 6px;
+}
+
+.nb-ok {
+    font-weight: bold;
+    color: var(--correct);
+    font-size: 1.1em;
+}
+
 /* ---------- Pets (GAMES-9): always visible at the bottom of the window ---------- */
 
 #pets {
@@ -1611,5 +1798,67 @@ body.pets-hidden .pet {
 
     body {
         padding-bottom: 0;
+    }
+}
+
+/* ---------- Notebook printed page (GAMES-13) ---------- */
+
+@media print {
+    .nb-print-meta {
+        margin: 0 0 10pt 0;
+    }
+
+    .nb-print-title {
+        font-size: 14pt;
+        margin: 0 0 6pt 0;
+    }
+
+    .nb-print-text {
+        border: 1px solid #888;
+        border-radius: 4pt;
+        padding: 8pt 10pt;
+        line-height: 1.9;
+        overflow-wrap: anywhere;
+    }
+
+    .nb-print .nb-mark {
+        background: none;
+        border: none;
+        border-bottom: 1.5px solid black;
+        border-radius: 0;
+        padding: 0;
+        color: black;
+    }
+
+    .nb-print .nb-n {
+        color: black;
+        font-size: 7.5pt;
+    }
+
+    .nb-print-heading {
+        font-size: 12.5pt;
+        margin: 14pt 0 4pt 0;
+        break-after: avoid;
+    }
+
+    .nb-print-list {
+        margin: 0;
+        padding-left: 18pt;
+    }
+
+    .nb-print-list li {
+        margin-bottom: 4pt;
+        break-inside: avoid;
+    }
+
+    .nb-print-why {
+        font-size: 10pt;
+        color: #333;
+    }
+
+    .nb-print-note {
+        margin-top: 12pt;
+        font-size: 9.5pt;
+        font-style: italic;
     }
 }

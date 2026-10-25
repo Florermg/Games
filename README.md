@@ -52,6 +52,17 @@ Desde el menú, dos secciones de consulta, con selector de grado (3° a 6°) y d
 
 Los ejemplos y las traducciones están escritos a mano; conviene que una maestra los revise antes de usarlos en clase. Sin internet, las tarjetas y los verbos de la lista funcionan igual.
 
+## My Notebook
+
+Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en inglés.
+
+- **✔ Check my writing** marca los errores en el texto, numerados, con una explicación sencilla y la corrección. **Use** aplica la sugerencia.
+- **Sin internet**, el juego revisa con sus propias reglas los errores típicos de primaria: *I* y mayúsculas, punto final, *a / an*, *he plays / they play*, *don't / doesn't*, *am / is / are*, *was / were*, el pasado con *yesterday / ago / last…*, el verbo base después de *didn't / can / will…* y palabras repetidas.
+- **En línea** (casilla *Also check online*, encendida por defecto), también revisa LanguageTool, que agrega ortografía y otros casos.
+  - **Privacidad**: con la casilla encendida, el texto del alumno se envía a languagetool.org para revisarlo, y la pantalla lo avisa. Con la casilla apagada, nada sale del equipo.
+- Las páginas se **guardan solas en el navegador del equipo**, con su fecha (no en internet). Se pueden crear páginas nuevas y borrarlas con dos toques. En modo privado, el cuaderno avisa que no puede guardar.
+- **🖨 Print** imprime la página con el nombre, la fecha, los errores marcados y las sugerencias, para entregarla a la maestra.
+
 ## Fuentes públicas
 
 Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
@@ -60,6 +71,7 @@ Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
 - **Wiktionary**: definiciones.
 - **Simple English Wikipedia**: textos de lectura y de *listening*, con su atribución CC BY-SA.
 - **MyMemory**: traducción de verbos que no están en la lista.
+- **LanguageTool**: revisión de gramática y ortografía del cuaderno, solo si el alumno deja encendida la revisión en línea.
 
 Lo que llega de ellas pasa por filtros de contenido no apto.
 
