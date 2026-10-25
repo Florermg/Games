@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5th Grade Study Guides - Anime Edition</title>
-    <link rel="stylesheet" href="css/quiz.css?v=4f0fac8b">
+    <link rel="stylesheet" href="css/quiz.css?v=0b777494">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
         <div id="menu-screen">
             <div class="menu-header">
                 <h1>🌟 5th Grade Study Guides 🌟</h1>
-                <p class="subtitle">Grammar, Vocabulary & Spelling · Reading & Listening · Writing</p>
+                <p class="subtitle">Grammar, Vocabulary & Spelling · Reading & Listening · Writing · My Notebook</p>
             </div>
 
             <div class="field-grid" style="margin-bottom: 20px;">
@@ -63,6 +63,14 @@
                         <label>Text type for new guides
                             <select id="writing-task"></select>
                         </label>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>📓 My Notebook</h2>
+                    <p class="note">Write freely in English, like in your notebook. Anya-chan checks your grammar and gives you suggestions. Your pages are saved on this device.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openNotebook()">📓 Open my notebook</button>
                     </div>
                 </div>
 
@@ -139,6 +147,38 @@
             <div id="verb-selection" class="verb-selection"></div>
         </div>
 
+        <!-- Notebook (GAMES-13) -->
+        <div id="notebook-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <button class="small-btn" onclick="printNotebook()">🖨 Print</button>
+            </div>
+            <h1>📓 My Notebook</h1>
+            <div class="nb-pages">
+                <label>Page
+                    <select id="nb-pages"></select>
+                </label>
+                <button class="small-btn" onclick="newNotebookPageClick()">➕ New page</button>
+                <button class="small-btn" id="nb-delete" onclick="deleteNotebookPage()">🗑 Delete page</button>
+            </div>
+            <p class="status error" id="nb-save-note"></p>
+            <div class="nb-paper">
+                <div class="nb-head">
+                    <input type="text" id="nb-title" maxlength="80" placeholder="Title (optional)" aria-label="Title">
+                    <span class="nb-date" id="nb-date"></span>
+                </div>
+                <textarea id="nb-text" maxlength="5000" rows="12" placeholder="Write here in English, like in your notebook..." aria-label="Your text" spellcheck="false" autocorrect="off"></textarea>
+                <div class="nb-count" id="nb-words"></div>
+            </div>
+            <div class="nb-actions">
+                <button class="main-btn" id="nb-check" onclick="checkNotebook()">✔ Check my writing</button>
+                <label class="nb-online"><input type="checkbox" id="nb-online"> Also check online</label>
+            </div>
+            <p class="note" id="nb-online-note">🌐 To check online, your text is sent to languagetool.org. Turn this off to keep your text only on this device.</p>
+            <p class="status" id="nb-status"></p>
+            <div id="nb-results" aria-live="polite"></div>
+        </div>
+
         <!-- Worksheet -->
         <div id="sheet-screen" class="hidden">
             <div class="sheet-top">
@@ -188,8 +228,10 @@
 <script src="js/verbs-data.js?v=593c63e1"></script>
 <script src="js/conjugation.js?v=dc9458b5"></script>
 <script src="js/grammar-cards.js?v=a8cc7a1e"></script>
+<script src="js/notebook-check.js?v=72cb7aee"></script>
 <script src="js/engine.js?v=efa6704a"></script>
 <script src="js/reference.js?v=ba256368"></script>
+<script src="js/notebook.js?v=edb510df"></script>
 <script src="js/pets.js?v=2f1fc3a3"></script>
 </body>
 </html>

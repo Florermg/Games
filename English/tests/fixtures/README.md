@@ -7,11 +7,13 @@ Estos archivos permiten que `npm test` pruebe los generadores de guías **sin in
 | `gvs-recycling-g5.json` | Guía de gramática, tema Recycling, 5° grado, con *quantifiers*, causativos, *ago* y comparativos | 7 | Datamuse, Wiktionary | 2026-10-24 |
 | `rl-space-g5.json` | Guía de Reading & Listening, tema Space & Planets, 5° grado | 11 | Simple English Wikipedia, Datamuse | 2026-10-24 |
 | `writing-animals-g5.json` | Guía de Writing (carta), tema Animals, 5° grado | 13 | Datamuse, Simple English Wikipedia | 2026-10-24 |
+| `languagetool-footbal.json`, `languagetool-mixed.json` | Respuestas de LanguageTool para el cuaderno (GAMES-13); cada archivo guarda el texto enviado y la respuesta, no se indexan por URL | — | LanguageTool | 2026-10-25 |
 
 ## Licencias y atribución
 
 - **Simple English Wikipedia** (<https://simple.wikipedia.org>) y **Wiktionary** (<https://en.wiktionary.org>): los textos y las oraciones de ejemplo están bajo [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/). Se guardan sin modificar, solo para pruebas; el juego muestra la fuente de cada texto en pantalla.
 - **Datamuse** (<https://www.datamuse.com/api/>): API pública y gratuita; las definiciones que devuelve provienen de Wiktionary (CC BY-SA).
+- **LanguageTool** (<https://languagetool.org>): API pública y gratuita. Las dos respuestas se grabaron a mano con `curl` (POST a `/v2/check`, `language=en-US`); para regrabarlas, repetir la petición con el texto de cada archivo.
 
 ## Cómo regrabar
 
