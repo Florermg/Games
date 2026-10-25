@@ -41,7 +41,7 @@ const DEMO_GUIDES = {
                     },
                     {
                         text: "My math homework today won't even take five minutes. I just have ___ math problems.",
-                        answers: ["a few"],
+                        answers: ["few"],
                         tip: "If it takes less than five minutes, there is a small number of problems.",
                         explanation: "'A few' is used for a small number of countable things."
                     },
