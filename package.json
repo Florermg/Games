@@ -1,0 +1,13 @@
+{
+  "name": "games",
+  "private": true,
+  "description": "Juegos educativos web (el primero: guías de estudio de inglés en English/). Sin dependencias: estos scripts son solo para desarrollo.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test \"English/tests/**/*.test.mjs\"",
+    "test:coverage": "node --test --experimental-test-coverage \"English/tests/**/*.test.mjs\"",
+    "fixtures:record": "node English/tests/fixtures/record.mjs"
+  }
+}
