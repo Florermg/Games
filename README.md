@@ -48,6 +48,28 @@ Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
 
 Lo que llega de ellas pasa por filtros de contenido no apto.
 
+## Publicar una versión
+
+El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por eso `QuizA.html` pide cada archivo con una versión en su dirección (`js/engine.js?v=efa6704a`), calculada de su contenido. Cuando un archivo cambia, cambia su versión y todos los navegadores lo descargan otra vez; los que no cambiaron siguen saliendo de la caché.
+
+1. Después de cambiar cualquier archivo de `English/js/` o `English/css/`, y antes del commit:
+   ```sh
+   npm run versions   # actualiza los ?v= de QuizA.html y dice qué archivos cambiaron
+   npm test           # falla si alguna versión quedó desactualizada
+   ```
+2. Sube al servidor (`nutritrack.mx/quiz/`) los mismos archivos de siempre:
+   - `English/QuizA.html`
+   - `English/css/`
+   - `English/js/`
+
+   No subas `tests/`, `tools/` ni `documentacion/`: no se usan en el navegador.
+3. Comprueba que llegó la versión nueva. Abre la página normal, sin forzar la recarga, y luego:
+   - En la consola del navegador, `[...document.scripts].map(s => s.src)` debe mostrar los mismos `?v=` que tu `QuizA.html`.
+   - En la pestaña Network, los archivos que cambiaron se descargan y los demás salen *from disk cache*.
+   - Prueba 🖨 Print y la consola: no debe haber errores.
+
+Si olvidas el paso 1, el check `Tests` del PR sale en ❌ y nombra los archivos.
+
 ## Pruebas
 
 Requisito: Node 24. No hay dependencias, así que no hace falta `npm install`.
@@ -56,6 +78,7 @@ Requisito: Node 24. No hay dependencias, así que no hace falta `npm install`.
 |---|---|
 | `npm test` | Ejecuta todas las pruebas, **sin internet**, en menos de un minuto. |
 | `npm run test:coverage` | Igual, con un reporte informativo de cobertura por archivo. |
+| `npm run versions` | Actualiza la versión de los archivos en `QuizA.html` (ver "Publicar una versión"). |
 | `npm run fixtures:record` | Regraba las respuestas de las fuentes externas que usan las pruebas (necesita internet; ver `English/tests/fixtures/README.md`). |
 
 Algunas pruebas aparecen como `todo` (⚠ `# GAMES-2`): describen brechas conocidas en celulares e iPad y **no** hacen fallar la suite. Node las lista bajo "failing tests", pero el comando termina con código 0. GAMES-2 las convierte en pruebas normales cuando las corrige.
