@@ -20,6 +20,11 @@ export const SCENARIOS = {
         seed: 11,
         expression: `generateReadingGuide({ grade: 5, topic: Object.assign({ name: TOPICS.space.label }, TOPICS.space), onStatus: () => {} })`
     },
+    'listening-space-g5': {
+        seed: 17,
+        expression: `generateListeningGuide({ grade: 5, topic: Object.assign({ name: TOPICS.space.label, key: 'space' }, TOPICS.space),
+            audioType: 'facts', onStatus: () => {} })`
+    },
     'writing-animals-g5': {
         seed: 13,
         expression: `generateWritingGuide({ grade: 5, topic: Object.assign({ name: TOPICS.animals.label }, TOPICS.animals),
