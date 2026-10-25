@@ -128,9 +128,9 @@ description: "Task list for 001-linea-base-quality-gate"
 **Independent Test**: un PR con las pruebas en verde muestra ✅ en menos de 5 minutos; un commit con una mutación muestra ❌ y la prueba que falló.
 
 - [X] T021 [US2] Crear `.github/workflows/tests.yml` según contracts/ci-workflow.md: workflow `Tests`, disparadores `push` y `pull_request` a `main`, job `tests` en `ubuntu-latest` con `timeout-minutes: 5`, `actions/checkout@v4`, `actions/setup-node@v4` con `node-version: 24`, y el paso `npm test`
-- [ ] T022 [US2] **Pedir autorización** y crear el commit de la implementación (Phases 1–4) en la rama `001-linea-base-quality-gate`; **pedir autorización aparte** para el push de la rama (`git push -u origin 001-linea-base-quality-gate`); **pedir autorización aparte** para abrir el PR hacia `main` con `gh pr create`, referenciando GAMES-1
-- [ ] T023 [US2] Verificar en el PR que el check `Tests / tests` aparece y termina en ✅ en menos de 5 minutos (SC-005); anotar el tiempo en `specs/001-linea-base-quality-gate/validation.md`
-- [ ] T024 [US2] Prueba del fallo (quickstart §6.3): **con autorización**, hacer commit y push de una mutación de quickstart §3 (por ejemplo, la de `demos.js`), confirmar ❌ y que el PR muestra la prueba fallida, y **con autorización** revertir el commit, hacer push y confirmar ✅
+- [X] T022 [US2] **Pedir autorización** y crear el commit de la implementación (Phases 1–4) en la rama `001-linea-base-quality-gate`; **pedir autorización aparte** para el push de la rama (`git push -u origin 001-linea-base-quality-gate`); **pedir autorización aparte** para abrir el PR hacia `main` con `gh pr create`, referenciando GAMES-1
+- [X] T023 [US2] Verificar en el PR que el check `Tests / tests` aparece y termina en ✅ en menos de 5 minutos (SC-005); anotar el tiempo en `specs/001-linea-base-quality-gate/validation.md`
+- [X] T024 [US2] Prueba del fallo (quickstart §6.3): **con autorización**, hacer commit y push de una mutación de quickstart §3 (por ejemplo, la de `demos.js`), confirmar ❌ y que el PR muestra la prueba fallida, y **con autorización** revertir el commit, hacer push y confirmar ✅
 
 **Checkpoint**: la US2 está completa: el gate es visible en cada cambio.
 
@@ -142,8 +142,8 @@ description: "Task list for 001-linea-base-quality-gate"
 
 **Independent Test**: recorrido de FR-001 a FR-030a en el navegador y en dispositivos reales, comparado con el registro de T002.
 
-- [ ] T025 [US3] Repetir el recorrido de quickstart §4 sobre la rama, comparar con la sección "Línea base" de `specs/001-linea-base-quality-gate/validation.md` y registrar el resultado (SC-006). Si aparece una diferencia, corregir el código o, si la spec estaba mal, corregir primero `spec.md` (Principio I)
-- [ ] T026 [US3] Recorrer FR-001 a FR-030 en `specs/001-linea-base-quality-gate/spec.md` contra el juego (menú, demos, una guía generada de cada tipo con internet) y marcar en `validation.md` cada requisito como confirmado o corregido
+- [X] T025 [US3] Repetir el recorrido de quickstart §4 sobre la rama, comparar con la sección "Línea base" de `specs/001-linea-base-quality-gate/validation.md` y registrar el resultado (SC-006). Si aparece una diferencia, corregir el código o, si la spec estaba mal, corregir primero `spec.md` (Principio I)
+- [X] T026 [US3] Recorrer FR-001 a FR-030 en `specs/001-linea-base-quality-gate/spec.md` contra el juego (menú, demos, una guía generada de cada tipo con internet) y marcar en `validation.md` cada requisito como confirmado o corregido
 - [ ] T027 [US3] Recorrido en dispositivos reales (quickstart §5): servir `English/` en la red local y, con el usuario, recorrer menú, tres demos y resultados en iPhone, iPad, Android y PC. Registrar en `validation.md` el resultado por dispositivo (FR-030a, SC-007) y agregar un comentario en GAMES-2 con toda brecha nueva (por ejemplo, la lectura en voz alta en Safari de iOS)
 
 **Checkpoint**: las tres historias están completas.
@@ -153,8 +153,8 @@ description: "Task list for 001-linea-base-quality-gate"
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 - [X] T028 [P] Documentar en `README.md` (raíz) cómo abrir el juego, cómo correr `npm test`, `npm run test:coverage` y `npm run fixtures:record`, y qué hace el check `Tests` (FR-034)
-- [ ] T029 Ejecutar la tabla de mutaciones de quickstart §3 (7 áreas): aplicar cada cambio, confirmar que falla el archivo indicado, revertir con `git checkout -- <archivo>` y registrar el resultado en `validation.md` (SC-003)
-- [ ] T030 Enmendar `.specify/memory/constitution.md` a 1.0.1 (PATCH): resolver `TODO(QUALITY_GATE_SETUP)` en el Principio IV (el gate existe: workflow `Tests` + `npm test`, con bloqueo de proceso) y en el Sync Impact Report, y actualizar `Last Amended`
+- [X] T029 Ejecutar la tabla de mutaciones de quickstart §3 (7 áreas): aplicar cada cambio, confirmar que falla el archivo indicado, revertir con `git checkout -- <archivo>` y registrar el resultado en `validation.md` (SC-003)
+- [X] T030 Enmendar `.specify/memory/constitution.md` a 1.0.1 (PATCH): resolver `TODO(QUALITY_GATE_SETUP)` en el Principio IV (el gate existe: workflow `Tests` + `npm test`, con bloqueo de proceso) y en el Sync Impact Report, y actualizar `Last Amended`
 - [ ] T031 **Pedir autorización** para el commit de T025–T030 y **autorización aparte** para su push a la rama del PR; confirmar ✅ en el PR
 - [ ] T032 Cierre en Jira (Principio III, paso 5): verificar que `tasks.md` no tiene tareas eliminadas ni alteradas en su alcance respecto al checklist comentado en GAMES-1; **pedir autorización** para integrar el PR a `main`; confirmar ✅ en `main`; actualizar la descripción de GAMES-1 con "**Implementado**" (archivos, pruebas, cobertura informativa de `npm run test:coverage`, rama, PR y commit) y transicionar GAMES-1 a "Listo"
 
