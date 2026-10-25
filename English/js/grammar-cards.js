@@ -17,7 +17,11 @@ const GRAMMAR_CARDS = [
     {
         id: "presentSimple", group: "tenses", title: "Present simple",
         explanation: "Use it for habits, routines and facts that are always true.",
-        structure: { affirmative: "I / you / we / they play · he / she / it plays", negative: "don't / doesn't + verb", question: "Do / Does + subject + verb?" },
+        structure: {
+            affirmative: "I / you / we / they play · he / she / it plays",
+            negative: "I / you / we / they don't play · he / she / it doesn't play",
+            question: "Do I / you / we / they play? · Does he / she / it play?"
+        },
         keywords: ["every day", "always", "usually", "often", "sometimes", "never"],
         examples: [
             { en: "I brush my teeth every morning.", es: "Me lavo los dientes todas las mañanas." },
@@ -27,7 +31,11 @@ const GRAMMAR_CARDS = [
     {
         id: "presentContinuous", group: "tenses", title: "Present continuous",
         explanation: "Use it for actions that are happening right now or around now.",
-        structure: { affirmative: "am / is / are + verb-ing", negative: "am not / isn't / aren't + verb-ing", question: "Am / Is / Are + subject + verb-ing?" },
+        structure: {
+            affirmative: "I am playing · you / we / they are playing · he / she / it is playing",
+            negative: "I'm not playing · you / we / they aren't playing · he / she / it isn't playing",
+            question: "Am I playing? · Are you / we / they playing? · Is he / she / it playing?"
+        },
         keywords: ["now", "right now", "at the moment", "today", "Look!", "Listen!"],
         examples: [
             { en: "Look! The baby is sleeping.", es: "¡Mira! El bebé está durmiendo." },
@@ -37,7 +45,11 @@ const GRAMMAR_CARDS = [
     {
         id: "presentPerfect", group: "tenses", title: "Present perfect",
         explanation: "Use it for life experiences and for past actions that are connected to now.",
-        structure: { affirmative: "have / has + past participle", negative: "haven't / hasn't + past participle", question: "Have / Has + subject + past participle?" },
+        structure: {
+            affirmative: "I / you / we / they have played · he / she / it has played",
+            negative: "I / you / we / they haven't played · he / she / it hasn't played",
+            question: "Have I / you / we / they played? · Has he / she / it played?"
+        },
         keywords: ["already", "yet", "just", "ever", "never", "since", "for"],
         examples: [
             { en: "I have already finished my homework.", es: "Ya he terminado mi tarea." },
@@ -47,7 +59,11 @@ const GRAMMAR_CARDS = [
     {
         id: "presentPerfectContinuous", group: "tenses", title: "Present perfect continuous",
         explanation: "Use it for actions that started in the past and are still happening now.",
-        structure: { affirmative: "have / has been + verb-ing", negative: "haven't / hasn't been + verb-ing", question: "Have / Has + subject + been + verb-ing?" },
+        structure: {
+            affirmative: "I / you / we / they have been playing · he / she / it has been playing",
+            negative: "I / you / we / they haven't been playing · he / she / it hasn't been playing",
+            question: "Have I / you / we / they been playing? · Has he / she / it been playing?"
+        },
         keywords: ["for", "since", "all day", "lately", "How long...?"],
         examples: [
             { en: "She has been reading for two hours.", es: "Ella ha estado leyendo durante dos horas." },
@@ -57,7 +73,11 @@ const GRAMMAR_CARDS = [
     {
         id: "pastSimple", group: "tenses", title: "Past simple",
         explanation: "Use it for actions that finished at a specific time in the past.",
-        structure: { affirmative: "verb + -ed, or the irregular past (went, ate)", negative: "didn't + verb", question: "Did + subject + verb?" },
+        structure: {
+            affirmative: "I / you / he / she / it / we / they played (irregular: went, ate)",
+            negative: "I / you / he / she / it / we / they didn't play",
+            question: "Did I / you / he / she / it / we / they play?"
+        },
         keywords: ["yesterday", "last week", "ago", "in 2020", "when I was little"],
         examples: [
             { en: "We visited the museum last Friday.", es: "Visitamos el museo el viernes pasado." },
@@ -67,7 +87,11 @@ const GRAMMAR_CARDS = [
     {
         id: "pastContinuous", group: "tenses", title: "Past continuous",
         explanation: "Use it for an action in progress at a moment in the past, often interrupted by another action.",
-        structure: { affirmative: "was / were + verb-ing", negative: "wasn't / weren't + verb-ing", question: "Was / Were + subject + verb-ing?" },
+        structure: {
+            affirmative: "I / he / she / it was playing · you / we / they were playing",
+            negative: "I / he / she / it wasn't playing · you / we / they weren't playing",
+            question: "Was I / he / she / it playing? · Were you / we / they playing?"
+        },
         keywords: ["while", "when", "at 8 o'clock last night", "all morning"],
         examples: [
             { en: "I was reading when the phone rang.", es: "Estaba leyendo cuando sonó el teléfono." },
@@ -77,7 +101,11 @@ const GRAMMAR_CARDS = [
     {
         id: "pastPerfect", group: "tenses", title: "Past perfect",
         explanation: "Use it for an action that happened before another action in the past.",
-        structure: { affirmative: "had + past participle", negative: "hadn't + past participle", question: "Had + subject + past participle?" },
+        structure: {
+            affirmative: "I / you / he / she / it / we / they had played",
+            negative: "I / you / he / she / it / we / they hadn't played",
+            question: "Had I / you / he / she / it / we / they played?"
+        },
         keywords: ["before", "after", "already", "by the time", "never ... before"],
         examples: [
             { en: "The movie had already started when we arrived.", es: "La película ya había empezado cuando llegamos." },
@@ -87,7 +115,11 @@ const GRAMMAR_CARDS = [
     {
         id: "futureWill", group: "tenses", title: "Future (will)",
         explanation: "Use it for predictions, promises and decisions you make at the moment of speaking.",
-        structure: { affirmative: "will + verb", negative: "won't + verb", question: "Will + subject + verb?" },
+        structure: {
+            affirmative: "I / you / he / she / it / we / they will play",
+            negative: "I / you / he / she / it / we / they won't play",
+            question: "Will I / you / he / she / it / we / they play?"
+        },
         keywords: ["tomorrow", "next year", "soon", "I think...", "probably"],
         examples: [
             { en: "I think it will rain tomorrow.", es: "Creo que lloverá mañana." },
@@ -97,7 +129,11 @@ const GRAMMAR_CARDS = [
     {
         id: "futureGoingTo", group: "tenses", title: "Future (going to)",
         explanation: "Use it for plans, and for things you can see are going to happen.",
-        structure: { affirmative: "am / is / are going to + verb", negative: "am not / isn't / aren't going to + verb", question: "Am / Is / Are + subject + going to + verb?" },
+        structure: {
+            affirmative: "I am going to play · you / we / they are going to play · he / she / it is going to play",
+            negative: "I'm not going to play · you / we / they aren't going to play · he / she / it isn't going to play",
+            question: "Am I going to play? · Are you / we / they going to play? · Is he / she / it going to play?"
+        },
         keywords: ["next week", "this weekend", "tonight", "Look at those clouds!"],
         examples: [
             { en: "We are going to visit my grandma this weekend.", es: "Vamos a visitar a mi abuela este fin de semana." },
@@ -107,7 +143,11 @@ const GRAMMAR_CARDS = [
     {
         id: "futureContinuous", group: "tenses", title: "Future continuous",
         explanation: "Use it for an action that will be in progress at a moment in the future.",
-        structure: { affirmative: "will be + verb-ing", negative: "won't be + verb-ing", question: "Will + subject + be + verb-ing?" },
+        structure: {
+            affirmative: "I / you / he / she / it / we / they will be playing",
+            negative: "I / you / he / she / it / we / they won't be playing",
+            question: "Will I / you / he / she / it / we / they be playing?"
+        },
         keywords: ["at this time tomorrow", "at 9 o'clock tonight", "this time next week"],
         examples: [
             { en: "At this time tomorrow, I will be flying to Cancún.", es: "Mañana a esta hora estaré volando a Cancún." },
@@ -292,7 +332,8 @@ function grammarCardHtml(card) {
     if (card.structure) {
         html += '<table class="card-structure">' +
             [["+", card.structure.affirmative], ["−", card.structure.negative], ["?", card.structure.question]]
-                .map(([sign, text]) => '<tr><th>' + sign + '</th><td>' + escapeHtml(text) + '</td></tr>').join('') +
+                // One line per group of subjects, so a group never wraps in the middle (GAMES-7)
+                .map(([sign, text]) => '<tr><th>' + sign + '</th><td>' + text.split(' · ').map(escapeHtml).join('<br>') + '</td></tr>').join('') +
             '</table><p class="card-keywords"><b>Keywords:</b> ' + card.keywords.map(escapeHtml).join(', ') + '</p>';
     }
     html += '<ul class="card-examples">' + card.examples.map(printExample).join('') + '</ul>';
