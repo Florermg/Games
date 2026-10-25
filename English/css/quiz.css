@@ -951,6 +951,17 @@ select:focus, input[type="text"]:focus, textarea:focus {
     padding: 2px 4px;
 }
 
+/* Formula of the sentence (GAMES-12) */
+.card-formula {
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+p.card-formula {
+    margin: 0 0 8px 0;
+    font-size: 0.92em;
+}
+
 .card-keywords {
     margin: 0 0 6px 0;
     font-size: 0.92em;
@@ -1485,14 +1496,20 @@ body.pets-hidden .pet {
         margin: 0 0 8pt 0;
     }
 
+    /* Cards are inline blocks, not grid items: Safari splits grid items between pages
+       even with break-inside: avoid, and never splits an inline block (GAMES-12).
+       The negative margin takes back the gap after the last card of each row. */
     .print-cards {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8pt;
-        align-items: start;
+        display: block;
+        margin-right: -8pt;
     }
 
     .print-card {
+        display: inline-block;
+        vertical-align: top;
+        box-sizing: border-box;
+        width: calc(50% - 8.5pt);
+        margin: 0 8pt 8pt 0;
         border: 1.5px solid black;
         border-radius: 6pt;
         padding: 6pt 8pt;
@@ -1503,17 +1520,10 @@ body.pets-hidden .pet {
         color: black;
     }
 
-    .print-card.wide {
-        grid-column: span 2;
-    }
-
-    /* 1 column per sheet (GAMES-8): every card takes the whole width */
-    .print-cards.one-column {
-        grid-template-columns: 1fr;
-    }
-
-    .print-cards.one-column .print-card.wide {
-        grid-column: auto;
+    /* Wide cards, and every card with 1 column per sheet (GAMES-8), take the whole width */
+    .print-card.wide,
+    .print-cards.one-column .print-card {
+        width: calc(100% - 8.5pt);
     }
 
     .print-card h3 {
@@ -1554,6 +1564,14 @@ body.pets-hidden .pet {
     }
 
     .print-card .card-keywords {
+        margin: 0 0 3pt 0;
+    }
+
+    .print-card .card-formula {
+        color: black;
+    }
+
+    .print-card p.card-formula {
         margin: 0 0 3pt 0;
     }
 
