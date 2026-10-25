@@ -56,3 +56,10 @@
 - `npm test` 10 veces seguidas: **10/10 con `tests 146 · pass 144 · fail 0 · todo 2`**. Las 2 pendientes siguen siendo las de GAMES-2 ("form controls use a font of at least 16px…" y "touch controls are at least 44px tall").
 - Recorrido de GAMES-1 sobre el código final de la rama: **huella `f1 b9 82 7e 2c 76`** (4,817 caracteres), idéntica a la línea base. Agregar la impresión no cambió nada del juego en pantalla. Sin errores en consola.
 - **Pendiente**: T021, el recorrido en dispositivos reales (PC, iPad, iPhone y Android) con el usuario.
+
+## Recorrido en dispositivos reales (T021): aplazado
+
+- **Decisión del usuario (2026-10-24)**: "subamos la versión así como está y deja las pruebas como pendientes". Se integra GAMES-3 sin probar la impresión en PC, iPad, iPhone y Android reales.
+- **Qué sí está validado**: la impresión en Chrome de escritorio, con los 6 PDFs de las demos revisados (T019–T020), y que imprimir no cambia la hoja en pantalla (T011).
+- **Qué queda pendiente**: abrir la impresión del sistema y "Guardar como PDF" en Safari de iOS/iPadOS y en Chrome de Android (FR-018, SC-006). Se sigue en **GAMES-4**, junto con el T027 de GAMES-1.
+- **Cambio de alcance documentado** (Principio III, paso 5): T021 no se elimina; queda abierta y marcada como aplazada. T022 (checkpoint de US3) se cubre con el comentario de cierre en Jira.

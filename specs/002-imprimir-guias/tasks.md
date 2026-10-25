@@ -107,8 +107,8 @@ description: "Task list for 002-imprimir-guias"
 
 - [X] T019 [P] [US3] Crear `specs/002-imprimir-guias/validate-print/print-harness.html` (carga `../../../English/css/quiz.css` y los scripts de `English/js/` sin `engine.js`, y pone en `#print-area` `buildPrintHtml(DEMO_GUIDES[kind], version)` según `?kind=&version=`) y `specs/002-imprimir-guias/validate-print/run.sh`. El script genera con Chrome sin ventana (`--print-to-pdf --no-pdf-header-footer`) los 6 PDFs en una carpeta temporal y revisa con `pdfinfo`/`pdftotext` el tamaño carta, la ausencia de textos de pantalla ("Check answers", "Finish", "Menu", "Anya-chan", "pts") y, en la hoja del alumno, la ausencia de palabras del dictado y de oraciones del guion
 - [X] T020 [US3] Ejecutar `validate-print/run.sh` y revisar a ojo los 6 PDFs: ningún reactivo partido entre páginas (SC-004) y cada hoja del alumno reconocible frente a su PDF de `English/documentacion/` (SC-005); ajustar estilos si hace falta y registrar en `validation.md`
-- [ ] T021 [US3] Recorrido en dispositivos reales (quickstart §4) con el usuario: imprimir o guardar como PDF la hoja y la clave en PC, iPad, iPhone y Android; registrar por dispositivo en `validation.md` (SC-006) y comentar en GAMES-2 toda brecha táctil nueva del botón o del panel
-- [ ] T022 [US3] Jira: comentario de checkpoint en GAMES-3 (US3 completada)
+- [ ] T021 [US3] ⏸ **PENDIENTE, aplazada por decisión del usuario (2026-10-24); se sigue en GAMES-4** — Recorrido en dispositivos reales (quickstart §4) con el usuario: imprimir o guardar como PDF la hoja y la clave en PC, iPad, iPhone y Android; registrar por dispositivo en `validation.md` (SC-006) y comentar en GAMES-2 toda brecha táctil nueva del botón o del panel
+- [X] T022 [US3] Jira: comentario de checkpoint en GAMES-3 (US3 completada)
 
 ---
 
@@ -116,7 +116,7 @@ description: "Task list for 002-imprimir-guias"
 
 - [X] T023 [P] Documentar en `README.md` (raíz) el botón 🖨 Print y sus dos versiones
 - [X] T024 Ejecutar `npm test` (10 veces, mismo resultado), confirmar que las pruebas pendientes de GAMES-2 siguen como `todo` y que la huella del recorrido de GAMES-1 no cambió; registrar en `validation.md`
-- [ ] T025 **Pedir autorización** y crear el commit de la historia en `002-imprimir-guias`
+- [X] T025 **Pedir autorización** y crear el commit de la historia en `002-imprimir-guias`
 - [ ] T026 Cuando el PR #1 (GAMES-1) esté integrado en `main`: **con autorización**, rebasar `002-imprimir-guias` sobre `main` si hace falta; **con autorización aparte**, hacer push de la rama; **con autorización aparte**, abrir el PR hacia `main` referenciando GAMES-3. Confirmar el check `Tests` en ✅
 - [ ] T027 Cierre en Jira (Principio III, paso 5): verificar que `tasks.md` no tiene tareas eliminadas ni alteradas en su alcance respecto al checklist comentado en GAMES-3; **pedir autorización** para integrar el PR; confirmar ✅ en `main`; actualizar la descripción de GAMES-3 con "**Implementado**" y transicionarla a "Listo"
 
