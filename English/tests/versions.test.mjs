@@ -4,10 +4,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ENGLISH_DIR } from './helpers/game-context.mjs';
-import { fileVersion, listReferences, stampVersions, checkVersions } from '../tools/versions.mjs';
+import { fileVersion, listReferences, stampVersions, checkVersions, PET_IMAGES, readGameFile as readForVersion } from '../tools/versions.mjs';
 
 const PAGE = path.join(ENGLISH_DIR, 'QuizA.html');
-const readGameFile = (file) => fs.readFileSync(path.join(ENGLISH_DIR, file), 'utf8');
+const readGameFile = (file) => readForVersion(ENGLISH_DIR, file);
 
 // A tiny set of files for the examples
 const FILES = { 'js/a.js': 'const a = 1;\n', 'js/b.js': 'const b = 2;\n', 'css/s.css': 'body { color: red; }\n' };
@@ -65,9 +65,10 @@ test('checkVersions finds missing versions, outdated versions and missing files'
     assert.deepEqual(checkVersions(stamped, readFake(withoutB)).map(p => p.path + ' ' + p.problem), ['js/b.js missing-file']);
 });
 
-test('QuizA.html asks for its 12 files with a version (SC-002)', () => {
+test('QuizA.html asks for its 13 files with a version (SC-002)', () => {
     const references = listReferences(fs.readFileSync(PAGE, 'utf8'));
-    assert.equal(references.length, 12, references.map(r => r.path).join(', '));
+    // 1 CSS + 12 JS (pets.js since GAMES-9)
+    assert.equal(references.length, 13, references.map(r => r.path).join(', '));
     assert.equal(references.filter(r => r.path.startsWith('css/')).length, 1);
     assert.ok(references.every(r => r.version), 'without version: ' + references.filter(r => !r.version).map(r => r.path).join(', '));
 });
@@ -76,4 +77,44 @@ test('every version in QuizA.html matches its file: if not, run npm run versions
     const problems = checkVersions(fs.readFileSync(PAGE, 'utf8'), readGameFile);
     const message = problems.map(p => '  ' + p.path + ': ' + p.problem).join('\n');
     assert.deepEqual(problems, [], 'QuizA.html asks for files with a wrong version:\n' + message + '\nRun `npm run versions` and commit QuizA.html.');
+});
+
+// ---------- Own pet images, optional (GAMES-9, FR-008, FR-009) ----------
+
+const PET_SAMPLE = '<div id="pets" data-cat-image="" data-dog-image=""></div>\n<script src="js/a.js"></script>';
+const PNG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0xff, 0x10]);
+
+test('fileVersion of an image uses its bytes as they are', () => {
+    const v = fileVersion(PNG);
+    assert.match(v, /^[0-9a-f]{8}$/);
+    assert.notEqual(fileVersion(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0xfe, 0x10])), v, 'one byte changes the version');
+    assert.deepEqual(PET_IMAGES, { cat: 'img/pet-cat.png', dog: 'img/pet-dog.png' });
+});
+
+test('stampVersions writes the version of an own image when it exists, and leaves it empty when not', () => {
+    const files = { 'js/a.js': 'a', 'img/pet-cat.png': PNG };
+    const first = stampVersions(PET_SAMPLE, readFake(files));
+    assert.ok(first.html.includes('data-cat-image="img/pet-cat.png?v=' + fileVersion(PNG) + '"'), first.html);
+    assert.ok(first.html.includes('data-dog-image=""'), 'no dog image: empty, and not an error');
+    assert.ok(first.changed.includes('img/pet-cat.png'));
+    assert.deepEqual(stampVersions(first.html, readFake(files)).changed, [], 'idempotent');
+    // The image is removed: back to empty
+    const removed = stampVersions(first.html, readFake({ 'js/a.js': 'a' }));
+    assert.ok(removed.html.includes('data-cat-image=""'));
+    assert.ok(removed.changed.includes('img/pet-cat.png'));
+});
+
+test('checkVersions finds an own image whose version is missing, old or left behind', () => {
+    const files = { 'js/a.js': 'a', 'img/pet-cat.png': PNG };
+    const stamped = stampVersions(PET_SAMPLE, readFake(files)).html;
+    assert.deepEqual(checkVersions(stamped, readFake(files)), []);
+    const problems = (html, f) => checkVersions(html, readFake(f)).map(p => p.path + ' ' + p.problem);
+    assert.deepEqual(problems(stampVersions(PET_SAMPLE, readFake({ 'js/a.js': 'a' })).html, files), ['img/pet-cat.png pet-image-outdated'], 'image added without npm run versions');
+    assert.deepEqual(problems(stamped, { ...files, 'img/pet-cat.png': Buffer.from([1, 2, 3]) }), ['img/pet-cat.png pet-image-outdated'], 'image changed');
+    assert.deepEqual(problems(stamped, { 'js/a.js': 'a' }), ['img/pet-cat.png pet-image-outdated'], 'image deleted');
+});
+
+test('readGameFile reads images as bytes and code as text', () => {
+    assert.ok(Buffer.isBuffer(readForVersion(ENGLISH_DIR, 'img/pet-cat.png', () => PNG)));
+    assert.equal(typeof readForVersion(ENGLISH_DIR, 'js/api.js'), 'string');
 });

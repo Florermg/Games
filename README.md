@@ -61,6 +61,7 @@ El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por
    - `English/QuizA.html`
    - `English/css/`
    - `English/js/`
+   - `English/img/`, solo si pusiste imágenes propias de las mascotas
 
    No subas `tests/`, `tools/` ni `documentacion/`: no se usan en el navegador.
 3. Comprueba que llegó la versión nueva. Abre la página normal, sin forzar la recarga, y luego:
@@ -69,6 +70,16 @@ El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por
    - Prueba 🖨 Print y la consola: no debe haber errores.
 
 Si olvidas el paso 1, el check `Tests` del PR sale en ❌ y nombra los archivos.
+
+### Imágenes propias de las mascotas (opcional)
+
+El gatito negro y el pastor alemán están dibujados en el juego. Para usar imágenes 3D propias en su lugar, con permiso de uso:
+
+1. Guarda la imagen como `English/img/pet-cat.png` (gato) o `English/img/pet-dog.png` (perro). Debe ser PNG cuadrado con fondo transparente; se recomienda de 240 × 240 px o más.
+2. Ejecuta `npm run versions`. Escribe en `QuizA.html` la versión de la imagen, para que llegue a todos los navegadores.
+3. Sube también la carpeta `English/img/` al servidor.
+
+Para volver al dibujo, borra la imagen y vuelve a correr `npm run versions`. Si una imagen no carga, el juego muestra el dibujo.
 
 ## Pruebas
 

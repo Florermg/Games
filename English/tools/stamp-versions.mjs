@@ -3,13 +3,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { stampVersions } from './versions.mjs';
+import { stampVersions, readGameFile } from './versions.mjs';
 
 const englishDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const page = path.join(englishDir, 'QuizA.html');
 
 try {
-    const { html, changed } = stampVersions(fs.readFileSync(page, 'utf8'), (file) => fs.readFileSync(path.join(englishDir, file), 'utf8'));
+    const { html, changed } = stampVersions(fs.readFileSync(page, 'utf8'), (file) => readGameFile(englishDir, file));
     if (!changed.length) {
         console.log('All versions are up to date.');
     } else {
