@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- Development tool of GAMES-3 (not part of the game): renders the printed version of a demo
+     so that run.sh can save it as a PDF. Usage: print-harness.html?kind=gvs|rl|writing&version=student|key -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Print harness</title>
+    <link rel="stylesheet" href="../../../English/css/quiz.css">
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="screen-only-marker">SCREEN ONLY: this text must not be printed</div>
+    <div id="print-area"></div>
+</div>
+<script src="../../../English/js/api.js"></script>
+<script src="../../../English/js/banks.js"></script>
+<script src="../../../English/js/demos.js"></script>
+<script src="../../../English/js/generators.js"></script>
+<script src="../../../English/js/grading.js"></script>
+<script src="../../../English/js/print.js"></script>
+<script>
+    const params = new URLSearchParams(location.search);
+    const guide = DEMO_GUIDES[params.get('kind') || 'gvs'];
+    document.getElementById('print-area').innerHTML = buildPrintHtml(guide, params.get('version') || 'student');
+</script>
+</body>
+</html>

@@ -94,6 +94,13 @@
         <div id="sheet-screen" class="hidden">
             <div class="sheet-top">
                 <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <div class="print-menu">
+                    <button class="small-btn" id="print-btn" onclick="togglePrintPanel()" aria-expanded="false">🖨 Print</button>
+                    <div class="print-panel hidden" id="print-panel">
+                        <button class="small-btn" onclick="printGuide('student')">📄 Student sheet</button>
+                        <button class="small-btn" id="print-key-btn" onclick="printGuide('key')">🔑 Answer key</button>
+                    </div>
+                </div>
                 <span class="score-pill" id="score-pill">⭐ 0 pts</span>
             </div>
             <div id="sheet-body"></div>
@@ -117,6 +124,7 @@
             </div>
         </div>
     </div>
+    <div id="print-area" aria-hidden="true"></div>
 </div>
 
 <script src="js/api.js"></script>
@@ -124,6 +132,7 @@
 <script src="js/demos.js"></script>
 <script src="js/generators.js"></script>
 <script src="js/grading.js"></script>
+<script src="js/print.js"></script>
 <script src="js/engine.js"></script>
 </body>
 </html>
