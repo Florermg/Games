@@ -139,3 +139,72 @@ test('verb cards keep the order of the selection and show the chosen tenses only
     assert.ok(!html.includes('Present simple'));
     for (const text of ['swam', 'She swam', 'will swim', 'got up', 'Ella se levantó', 'will eat']) assert.ok(html.includes(text), text);
 });
+
+// ---------- Subjects in the structure of the tense cards (GAMES-7) ----------
+
+const ALL = 'I / you / he / she / it / we / they';
+// Reviewed by hand: subject-verb agreement of every line (FR-003, SC-002)
+const STRUCTURES = {
+    presentSimple: [
+        'I / you / we / they play · he / she / it plays',
+        "I / you / we / they don't play · he / she / it doesn't play",
+        'Do I / you / we / they play? · Does he / she / it play?'
+    ],
+    presentContinuous: [
+        'I am playing · you / we / they are playing · he / she / it is playing',
+        "I'm not playing · you / we / they aren't playing · he / she / it isn't playing",
+        'Am I playing? · Are you / we / they playing? · Is he / she / it playing?'
+    ],
+    presentPerfect: [
+        'I / you / we / they have played · he / she / it has played',
+        "I / you / we / they haven't played · he / she / it hasn't played",
+        'Have I / you / we / they played? · Has he / she / it played?'
+    ],
+    presentPerfectContinuous: [
+        'I / you / we / they have been playing · he / she / it has been playing',
+        "I / you / we / they haven't been playing · he / she / it hasn't been playing",
+        'Have I / you / we / they been playing? · Has he / she / it been playing?'
+    ],
+    pastSimple: [
+        ALL + ' played (irregular: went, ate)',
+        ALL + " didn't play",
+        'Did ' + ALL + ' play?'
+    ],
+    pastContinuous: [
+        'I / he / she / it was playing · you / we / they were playing',
+        "I / he / she / it wasn't playing · you / we / they weren't playing",
+        'Was I / he / she / it playing? · Were you / we / they playing?'
+    ],
+    pastPerfect: [ALL + ' had played', ALL + " hadn't played", 'Had ' + ALL + ' played?'],
+    futureWill: [ALL + ' will play', ALL + " won't play", 'Will ' + ALL + ' play?'],
+    futureGoingTo: [
+        'I am going to play · you / we / they are going to play · he / she / it is going to play',
+        "I'm not going to play · you / we / they aren't going to play · he / she / it isn't going to play",
+        'Am I going to play? · Are you / we / they going to play? · Is he / she / it going to play?'
+    ],
+    futureContinuous: [ALL + ' will be playing', ALL + " won't be playing", 'Will ' + ALL + ' be playing?']
+};
+
+test('every structure line of the 10 tense cards names the 7 subjects and a form of play (FR-001, FR-002, FR-004)', () => {
+    for (const card of CARDS.filter(c => c.group === 'tenses')) {
+        for (const part of ['affirmative', 'negative', 'question']) {
+            const line = card.structure[part];
+            for (const subject of ['I', 'you', 'he', 'she', 'it', 'we', 'they']) {
+                assert.match(line, new RegExp('(^|[^A-Za-z])' + subject + '([^A-Za-z]|$)', subject === 'I' ? '' : 'i'), card.id + ' ' + part + ' has no "' + subject + '": ' + line);
+            }
+            assert.match(line, /\bplay(s|ing|ed)?\b/, card.id + ' ' + part + ' has no form of play: ' + line);
+        }
+    }
+});
+
+test('the 30 structure lines are the reviewed ones (FR-003, SC-002)', () => {
+    for (const card of CARDS.filter(c => c.group === 'tenses')) {
+        assert.deepEqual([card.structure.affirmative, card.structure.negative, card.structure.question], STRUCTURES[card.id], card.id);
+    }
+});
+
+test('each group of subjects goes on its own line of the card (GAMES-7)', () => {
+    const html = build({ kind: 'grammar', items: ['presentPerfect'], tenses: ['presentPerfect'] });
+    assert.ok(html.includes('I / you / we / they have played<br>he / she / it has played'), html);
+    assert.ok(!html.includes(' · he / she / it has played'));
+});
