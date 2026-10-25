@@ -237,3 +237,83 @@ test('columns other than 1 or 2 is an error', () => {
     const selection = { kind: 'grammar', items: ['articles'], tenses: ['presentSimple'] };
     for (const columns of [3, 0, '1', null]) assert.throws(() => build({ ...selection, columns }), String(columns));
 });
+
+// ---------- Formula of the sentence on every card (GAMES-12) ----------
+
+const BASE = 'verb in base form';
+// Reviewed by hand: each formula matches the subjects line and the examples of its card (FR-003, SC-002)
+const TENSE_FORMULAS = {
+    presentSimple: ['Subject + ' + BASE + ' (he / she / it: verb + -s)', "Subject + don't / doesn't + " + BASE, 'Do / Does + subject + ' + BASE + '?'],
+    presentContinuous: ['Subject + am / is / are + verb-ing', "Subject + am not / isn't / aren't + verb-ing", 'Am / Is / Are + subject + verb-ing?'],
+    presentPerfect: ['Subject + have / has + past participle', "Subject + haven't / hasn't + past participle", 'Have / Has + subject + past participle?'],
+    presentPerfectContinuous: ['Subject + have / has + been + verb-ing', "Subject + haven't / hasn't + been + verb-ing", 'Have / Has + subject + been + verb-ing?'],
+    pastSimple: ['Subject + verb in past (-ed or irregular)', "Subject + didn't + " + BASE, 'Did + subject + ' + BASE + '?'],
+    pastContinuous: ['Subject + was / were + verb-ing', "Subject + wasn't / weren't + verb-ing", 'Was / Were + subject + verb-ing?'],
+    pastPerfect: ['Subject + had + past participle', "Subject + hadn't + past participle", 'Had + subject + past participle?'],
+    futureWill: ['Subject + will + ' + BASE, "Subject + won't + " + BASE, 'Will + subject + ' + BASE + '?'],
+    futureGoingTo: ['Subject + am / is / are + going to + ' + BASE, "Subject + am not / isn't / aren't + going to + " + BASE, 'Am / Is / Are + subject + going to + ' + BASE + '?'],
+    futureContinuous: ['Subject + will be + verb-ing', "Subject + won't be + verb-ing", 'Will + subject + be + verb-ing?']
+};
+const TOPIC_FORMULAS = {
+    quantifiers: 'all / most / some / a few / none + of + the / my + noun + verb · all / most / some / a few + noun + verb',
+    causative: 'Subject + have / get + object + past participle',
+    pastAgo: 'Subject + verb in past simple + amount of time + ago',
+    comparatives: 'Subject + verb + adjective-er + than + noun · Subject + verb + more + adjective + than + noun',
+    subjectPronouns: 'I / you / he / she / it / we / they + verb',
+    possessives: 'my / your / his / her / its / our / their + noun',
+    articles: 'a + noun with a consonant sound · an + noun with a vowel sound · the + a specific noun',
+    plurals: 'noun + -s · noun ending in -s, -sh, -ch or -x + -es · consonant + y → -ies',
+    thereIsAre: 'There is + one thing · There are + two or more things',
+    prepositionsPlace: 'Subject + be + preposition + place',
+    prepositionsTime: 'at + clock time · on + day or date · in + month, year or season',
+    canCant: "Subject + can / can't + " + BASE
+};
+const AUXILIARIES = ['am', 'is', 'are', 'was', 'were', 'do', 'does', 'did', 'have', 'has', 'had', 'will', 'be', 'been', 'going',
+    "don't", "doesn't", "didn't", "isn't", "aren't", "wasn't", "weren't", "haven't", "hasn't", "hadn't", "won't"];
+
+test('the 30 formulas of the tense cards are the reviewed ones (FR-001, FR-003)', () => {
+    for (const card of CARDS.filter(c => c.group === 'tenses')) {
+        assert.deepEqual([card.formula.affirmative, card.formula.negative, card.formula.question], TENSE_FORMULAS[card.id], card.id);
+        for (const part of ['affirmative', 'negative', 'question']) {
+            assert.match(card.formula[part], /\bsubject\b/i, card.id + ' ' + part);
+            assert.ok(card.formula[part].includes(' + '), card.id + ' ' + part);
+        }
+        assert.ok(card.formula.question.endsWith('?'), card.id);
+    }
+});
+
+test('every auxiliary of a tense formula is in its subjects line (FR-004)', () => {
+    for (const card of CARDS.filter(c => c.group === 'tenses')) {
+        for (const part of ['affirmative', 'negative', 'question']) {
+            const line = card.structure[part].replace(/I'm/g, 'I am').toLowerCase();
+            const words = card.formula[part].toLowerCase().split(/[^a-z']+/);
+            for (const aux of AUXILIARIES.filter(a => words.includes(a))) {
+                assert.match(line, new RegExp("(^|[^a-z'])" + aux + "([^a-z']|$)"), card.id + ' ' + part + ': "' + aux + '" is not in ' + line);
+            }
+        }
+    }
+});
+
+test('the 12 formulas of the other topics are the reviewed ones (FR-002, FR-003)', () => {
+    for (const card of CARDS.filter(c => c.group !== 'tenses')) {
+        assert.equal(card.formula, TOPIC_FORMULAS[card.id], card.id);
+        assert.ok(card.formula.includes(' + '), card.id);
+    }
+});
+
+test('the card shows the formula before the subjects, on screen and on paper (FR-001, FR-005)', () => {
+    const html = build({ kind: 'grammar', items: ['presentPerfect'], tenses: ['presentPerfect'] });
+    assert.equal(countClass(html, 'card-formula'), 3);
+    assert.ok(html.includes('<div class="card-formula">Subject + have / has + past participle</div>I / you / we / they have played<br>he / she / it has played'), html);
+    assert.ok(html.includes('<div class="card-formula">Have / Has + subject + past participle?</div>'), html);
+    const view = cardsFor(['presentPerfect']).find(c => c.id === 'presentPerfect');
+    assert.deepEqual(view.formula, CARDS.find(c => c.id === 'presentPerfect').formula);
+});
+
+test('a topic card shows "Structure:" with one line per part (FR-002)', () => {
+    const html = build({ kind: 'grammar', items: ['prepositionsTime', 'causative'], tenses: ['presentSimple'] });
+    assert.equal(countClass(html, 'card-formula'), 2);
+    assert.ok(html.includes('<p class="card-formula"><b>Structure:</b> at + clock time<br>on + day or date<br>in + month, year or season</p>'), html);
+    assert.ok(html.includes('<b>Structure:</b> Subject + have / get + object + past participle</p>'), html);
+    for (const card of cardsFor(TENSE_IDS).filter(c => c.group !== 'tenses')) assert.equal(card.formula, TOPIC_FORMULAS[card.id], card.id);
+});

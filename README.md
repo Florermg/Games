@@ -1,6 +1,6 @@
 # Games
 
-Juegos educativos web. El primero es el de **inglés** (`English/`), con las guías de estudio de 5° de primaria (Grammar, Vocabulary & Spelling; Reading & Listening; Writing): las demos del 1er trimestre y guías nuevas generadas por grado y tema desde fuentes públicas.
+Juegos educativos web. El primero es el de **inglés** (`English/`), con las guías de estudio de 5° de primaria (Grammar, Vocabulary & Spelling; Reading & Listening; Writing; Listening): las demos del 1er trimestre y guías nuevas generadas por grado y tema desde fuentes públicas.
 
 ## Abrir el juego
 
@@ -21,11 +21,26 @@ Dentro de cualquier guía abierta (demo o generada), el botón **🖨 Print** of
 
 Se usa la impresión del navegador (PC, iPhone, iPad, Android), que también permite **guardar como PDF**. Imprimir no necesita internet. En las guías generadas, imprime la hoja y la clave antes de cerrar la guía: no se guardan.
 
+## Listening
+
+La tarjeta **🎧 Listening** del menú usa el grado y el tema de *Settings for new guides* y tiene tres etapas:
+
+1. **Listen and read**: la voz en inglés del navegador lee el texto oración por oración, y cada oración aparece como subtítulo ("3 / 7").
+2. **Listen again**: el mismo audio, sin subtítulos.
+3. **Quiz**: 5 o 6 preguntas de opción múltiple, con dos intentos, pistas y resultados, como en las otras guías. El audio se puede volver a escuchar sin subtítulos.
+
+Hay dos tipos de audio (selector **Audio type**):
+
+- **📖 Story or dialogue**: una historia o un diálogo por cada uno de los 18 temas (`English/js/listening-stories.js`), escritos a mano con sus preguntas. En los diálogos cada personaje tiene su propia entonación. Funciona sin internet.
+- **🌐 Facts about the topic**: un texto de Simple English Wikipedia, con preguntas generadas como en la guía Reading.
+
+Según el grado se escuchan de 5 (3°) a 8 (6°) oraciones, y la voz va de más lenta a más rápida. Se imprime como las otras guías: la hoja del alumno no trae el texto, y la clave lo trae para leerlo en voz alta. Conviene que una maestra revise las historias antes de usarlas en clase.
+
 ## Gramática y verbos
 
 Desde el menú, dos secciones de consulta, con selector de grado (3° a 6°) y de tiempos verbales: por defecto, los del grado; también "All tenses" o los que se marquen.
 
-- **📗 Grammar Cards**: 22 tarjetas en 3 grupos.
+- **📗 Grammar Cards**: 22 tarjetas en 3 grupos. Cada tarjeta muestra la fórmula de la oración (por ejemplo *Subject + have / has + past participle*); en las de tiempos, para afirmativa, negativa y pregunta, arriba de los sujetos con *play*.
   - Las 10 de tiempos verbales tienen uso, estructura (afirmativa, negativa y pregunta), palabras clave y 2 ejemplos.
   - Hay 4 de temas de las guías (quantifiers, causative, past simple + *ago*, comparatives) y 8 de temas básicos (pronombres, posesivos, artículos, plurales, *there is/are*, preposiciones de lugar y de tiempo, *can / can't*).
   - Los temas que cambian con el tiempo muestran un ejemplo en cada tiempo elegido.
@@ -54,7 +69,7 @@ Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
 
 - **Datamuse**: palabras y verificación de verbos.
 - **Wiktionary**: definiciones.
-- **Simple English Wikipedia**: textos de lectura, con su atribución CC BY-SA.
+- **Simple English Wikipedia**: textos de lectura y de *listening*, con su atribución CC BY-SA.
 - **MyMemory**: traducción de verbos que no están en la lista.
 - **LanguageTool**: revisión de gramática y ortografía del cuaderno, solo si el alumno deja encendida la revisión en línea.
 

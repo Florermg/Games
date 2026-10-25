@@ -12,11 +12,12 @@ const SIMPLE_WIKI_URL = "https://simple.wikipedia.org/w/api.php";
 
 // Word difficulty per grade, based on word frequency (occurrences per million words).
 // Lower frequency = less common = harder word.
+// listeningSentences and speechRate: length and voice speed of the Listening guide (GAMES-11)
 const GRADE_LEVELS = {
-    3: { label: "3rd Grade", minFreq: 12,  maxFreq: Infinity, maxLength: 8,  spellingMinLength: 4, passageSentences: 6 },
-    4: { label: "4th Grade", minFreq: 6,   maxFreq: Infinity, maxLength: 10, spellingMinLength: 5, passageSentences: 7 },
-    5: { label: "5th Grade", minFreq: 2.5, maxFreq: 250,      maxLength: 12, spellingMinLength: 6, passageSentences: 9 },
-    6: { label: "6th Grade", minFreq: 1,   maxFreq: 150,      maxLength: 13, spellingMinLength: 7, passageSentences: 11 }
+    3: { label: "3rd Grade", minFreq: 12,  maxFreq: Infinity, maxLength: 8,  spellingMinLength: 4, passageSentences: 6,  listeningSentences: 5, speechRate: 0.8 },
+    4: { label: "4th Grade", minFreq: 6,   maxFreq: Infinity, maxLength: 10, spellingMinLength: 5, passageSentences: 7,  listeningSentences: 6, speechRate: 0.85 },
+    5: { label: "5th Grade", minFreq: 2.5, maxFreq: 250,      maxLength: 12, spellingMinLength: 6, passageSentences: 9,  listeningSentences: 7, speechRate: 0.9 },
+    6: { label: "6th Grade", minFreq: 1,   maxFreq: 150,      maxLength: 13, spellingMinLength: 7, passageSentences: 11, listeningSentences: 8, speechRate: 0.95 }
 };
 
 // ml = "means like" query, trigger = words associated with it, describe = noun to find adjectives for,
@@ -359,9 +360,13 @@ async function findArticle(query, minSentences, minFreq) {
 
 const Speech = {
     voice: null,
+    // Changes on every cancel, so the events of a stopped reading are ignored
+    token: 0,
+    // Chrome loses the events of utterances it garbage-collects: keep them here
+    queue: [],
 
     supported() {
-        return "speechSynthesis" in window;
+        return typeof window !== "undefined" && "speechSynthesis" in window;
     },
 
     pickVoice() {
@@ -372,20 +377,50 @@ const Speech = {
             || null;
     },
 
-    speak(text, rate) {
-        if (!this.supported()) return false;
+    utterance(text, rate, pitch) {
         if (!this.voice) this.pickVoice();
-        window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "en-US";
         if (this.voice) utterance.voice = this.voice;
         utterance.rate = rate || 0.9;
-        window.speechSynthesis.speak(utterance);
+        if (pitch) utterance.pitch = pitch;
+        return utterance;
+    },
+
+    cancel() {
+        this.token++;
+        this.queue = [];
+        window.speechSynthesis.cancel();
+    },
+
+    speak(text, rate) {
+        if (!this.supported()) return false;
+        this.cancel();
+        window.speechSynthesis.speak(this.utterance(text, rate));
+        return true;
+    },
+
+    // Reads the sentences one after another (GAMES-11). onSentence(i) runs when sentence i
+    // starts (the subtitles follow it) and onEnd when the last one ends. pitches: optional,
+    // one per sentence, so each character of a dialogue sounds different.
+    speakSequence(sentences, rate, onSentence, onEnd, pitches) {
+        if (!this.supported()) return false;
+        this.cancel();
+        const token = this.token;
+        sentences.forEach((sentence, i) => {
+            const utterance = this.utterance(sentence, rate, pitches && pitches[i]);
+            utterance.onstart = () => { if (token === this.token && onSentence) onSentence(i); };
+            if (i === sentences.length - 1) {
+                utterance.onend = () => { if (token === this.token && onEnd) onEnd(); };
+            }
+            this.queue.push(utterance);
+            window.speechSynthesis.speak(utterance);
+        });
         return true;
     },
 
     stop() {
-        if (this.supported()) window.speechSynthesis.cancel();
+        if (this.supported()) this.cancel();
     }
 };
 

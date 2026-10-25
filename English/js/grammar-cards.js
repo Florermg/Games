@@ -22,6 +22,11 @@ const GRAMMAR_CARDS = [
             negative: "I / you / we / they don't play · he / she / it doesn't play",
             question: "Do I / you / we / they play? · Does he / she / it play?"
         },
+        formula: {
+            affirmative: "Subject + verb in base form (he / she / it: verb + -s)",
+            negative: "Subject + don't / doesn't + verb in base form",
+            question: "Do / Does + subject + verb in base form?"
+        },
         keywords: ["every day", "always", "usually", "often", "sometimes", "never"],
         examples: [
             { en: "I brush my teeth every morning.", es: "Me lavo los dientes todas las mañanas." },
@@ -35,6 +40,11 @@ const GRAMMAR_CARDS = [
             affirmative: "I am playing · you / we / they are playing · he / she / it is playing",
             negative: "I'm not playing · you / we / they aren't playing · he / she / it isn't playing",
             question: "Am I playing? · Are you / we / they playing? · Is he / she / it playing?"
+        },
+        formula: {
+            affirmative: "Subject + am / is / are + verb-ing",
+            negative: "Subject + am not / isn't / aren't + verb-ing",
+            question: "Am / Is / Are + subject + verb-ing?"
         },
         keywords: ["now", "right now", "at the moment", "today", "Look!", "Listen!"],
         examples: [
@@ -50,6 +60,11 @@ const GRAMMAR_CARDS = [
             negative: "I / you / we / they haven't played · he / she / it hasn't played",
             question: "Have I / you / we / they played? · Has he / she / it played?"
         },
+        formula: {
+            affirmative: "Subject + have / has + past participle",
+            negative: "Subject + haven't / hasn't + past participle",
+            question: "Have / Has + subject + past participle?"
+        },
         keywords: ["already", "yet", "just", "ever", "never", "since", "for"],
         examples: [
             { en: "I have already finished my homework.", es: "Ya he terminado mi tarea." },
@@ -63,6 +78,11 @@ const GRAMMAR_CARDS = [
             affirmative: "I / you / we / they have been playing · he / she / it has been playing",
             negative: "I / you / we / they haven't been playing · he / she / it hasn't been playing",
             question: "Have I / you / we / they been playing? · Has he / she / it been playing?"
+        },
+        formula: {
+            affirmative: "Subject + have / has + been + verb-ing",
+            negative: "Subject + haven't / hasn't + been + verb-ing",
+            question: "Have / Has + subject + been + verb-ing?"
         },
         keywords: ["for", "since", "all day", "lately", "How long...?"],
         examples: [
@@ -78,6 +98,11 @@ const GRAMMAR_CARDS = [
             negative: "I / you / he / she / it / we / they didn't play",
             question: "Did I / you / he / she / it / we / they play?"
         },
+        formula: {
+            affirmative: "Subject + verb in past (-ed or irregular)",
+            negative: "Subject + didn't + verb in base form",
+            question: "Did + subject + verb in base form?"
+        },
         keywords: ["yesterday", "last week", "ago", "in 2020", "when I was little"],
         examples: [
             { en: "We visited the museum last Friday.", es: "Visitamos el museo el viernes pasado." },
@@ -91,6 +116,11 @@ const GRAMMAR_CARDS = [
             affirmative: "I / he / she / it was playing · you / we / they were playing",
             negative: "I / he / she / it wasn't playing · you / we / they weren't playing",
             question: "Was I / he / she / it playing? · Were you / we / they playing?"
+        },
+        formula: {
+            affirmative: "Subject + was / were + verb-ing",
+            negative: "Subject + wasn't / weren't + verb-ing",
+            question: "Was / Were + subject + verb-ing?"
         },
         keywords: ["while", "when", "at 8 o'clock last night", "all morning"],
         examples: [
@@ -106,6 +136,11 @@ const GRAMMAR_CARDS = [
             negative: "I / you / he / she / it / we / they hadn't played",
             question: "Had I / you / he / she / it / we / they played?"
         },
+        formula: {
+            affirmative: "Subject + had + past participle",
+            negative: "Subject + hadn't + past participle",
+            question: "Had + subject + past participle?"
+        },
         keywords: ["before", "after", "already", "by the time", "never ... before"],
         examples: [
             { en: "The movie had already started when we arrived.", es: "La película ya había empezado cuando llegamos." },
@@ -119,6 +154,11 @@ const GRAMMAR_CARDS = [
             affirmative: "I / you / he / she / it / we / they will play",
             negative: "I / you / he / she / it / we / they won't play",
             question: "Will I / you / he / she / it / we / they play?"
+        },
+        formula: {
+            affirmative: "Subject + will + verb in base form",
+            negative: "Subject + won't + verb in base form",
+            question: "Will + subject + verb in base form?"
         },
         keywords: ["tomorrow", "next year", "soon", "I think...", "probably"],
         examples: [
@@ -134,6 +174,11 @@ const GRAMMAR_CARDS = [
             negative: "I'm not going to play · you / we / they aren't going to play · he / she / it isn't going to play",
             question: "Am I going to play? · Are you / we / they going to play? · Is he / she / it going to play?"
         },
+        formula: {
+            affirmative: "Subject + am / is / are + going to + verb in base form",
+            negative: "Subject + am not / isn't / aren't + going to + verb in base form",
+            question: "Am / Is / Are + subject + going to + verb in base form?"
+        },
         keywords: ["next week", "this weekend", "tonight", "Look at those clouds!"],
         examples: [
             { en: "We are going to visit my grandma this weekend.", es: "Vamos a visitar a mi abuela este fin de semana." },
@@ -148,6 +193,11 @@ const GRAMMAR_CARDS = [
             negative: "I / you / he / she / it / we / they won't be playing",
             question: "Will I / you / he / she / it / we / they be playing?"
         },
+        formula: {
+            affirmative: "Subject + will be + verb-ing",
+            negative: "Subject + won't be + verb-ing",
+            question: "Will + subject + be + verb-ing?"
+        },
         keywords: ["at this time tomorrow", "at 9 o'clock tonight", "this time next week"],
         examples: [
             { en: "At this time tomorrow, I will be flying to Cancún.", es: "Mañana a esta hora estaré volando a Cancún." },
@@ -159,6 +209,7 @@ const GRAMMAR_CARDS = [
     {
         id: "quantifiers", group: "guides", title: "Quantifiers",
         explanation: "Quantifiers say how much or how many: all, most, some, a few, no / none.",
+        formula: "all / most / some / a few / none + of + the / my + noun + verb · all / most / some / a few + noun + verb",
         changesWithTense: true,
         examplesByTense: {
             presentSimple: [{ en: "Most of my classmates walk to school.", es: "La mayoría de mis compañeros camina a la escuela." }],
@@ -176,6 +227,7 @@ const GRAMMAR_CARDS = [
     {
         id: "causative", group: "guides", title: "Causative (have / get something done)",
         explanation: "Use have or get + object + past participle when another person does something for you.",
+        formula: "Subject + have / get + object + past participle",
         changesWithTense: true,
         examplesByTense: {
             presentSimple: [{ en: "My mom has her hair cut every month.", es: "A mi mamá le cortan el pelo cada mes." }],
@@ -191,6 +243,7 @@ const GRAMMAR_CARDS = [
     {
         id: "pastAgo", group: "guides", title: "Past simple + ago",
         explanation: "Use ago to say how long before now something happened: amount of time + ago.",
+        formula: "Subject + verb in past simple + amount of time + ago",
         note: "Ago is used only with the past simple.",
         examples: [
             { en: "I went to Paris two years ago.", es: "Fui a París hace dos años." },
@@ -200,6 +253,7 @@ const GRAMMAR_CARDS = [
     {
         id: "comparatives", group: "guides", title: "Comparatives",
         explanation: "Add -er to short adjectives and use more with long ones, then than: bigger than, more beautiful than.",
+        formula: "Subject + verb + adjective-er + than + noun · Subject + verb + more + adjective + than + noun",
         changesWithTense: true,
         examplesByTense: {
             presentSimple: [{ en: "My dog is bigger than your cat.", es: "Mi perro es más grande que tu gato." }],
@@ -217,6 +271,7 @@ const GRAMMAR_CARDS = [
     {
         id: "subjectPronouns", group: "basics", title: "Subject pronouns",
         explanation: "Subject pronouns take the place of the person or thing that does the action: I, you, he, she, it, we, they.",
+        formula: "I / you / he / she / it / we / they + verb",
         examples: [
             { en: "Ana is my friend. She is ten years old.", es: "Ana es mi amiga. Ella tiene diez años." },
             { en: "Tom and I play soccer. We play every Saturday.", es: "Tom y yo jugamos futbol. Jugamos todos los sábados." }
@@ -225,6 +280,7 @@ const GRAMMAR_CARDS = [
     {
         id: "possessives", group: "basics", title: "Possessive adjectives",
         explanation: "They say who something belongs to: my, your, his, her, its, our, their. They go before a noun.",
+        formula: "my / your / his / her / its / our / their + noun",
         examples: [
             { en: "This is my backpack.", es: "Esta es mi mochila." },
             { en: "The dog wags its tail.", es: "El perro mueve su cola." }
@@ -233,6 +289,7 @@ const GRAMMAR_CARDS = [
     {
         id: "articles", group: "basics", title: "Articles (a / an / the)",
         explanation: "Use a before a consonant sound, an before a vowel sound, and the for something specific.",
+        formula: "a + noun with a consonant sound · an + noun with a vowel sound · the + a specific noun",
         examples: [
             { en: "I have a cat and an orange fish.", es: "Tengo un gato y un pez naranja." },
             { en: "The cat is sleeping on the sofa.", es: "El gato está durmiendo en el sillón." }
@@ -241,6 +298,7 @@ const GRAMMAR_CARDS = [
     {
         id: "plurals", group: "basics", title: "Plurals",
         explanation: "Most nouns add -s. After -s, -sh, -ch or -x add -es; consonant + y changes to -ies. Some are irregular: child → children.",
+        formula: "noun + -s · noun ending in -s, -sh, -ch or -x + -es · consonant + y → -ies",
         examples: [
             { en: "two boxes, three babies, five children", es: "dos cajas, tres bebés, cinco niños" },
             { en: "My feet are cold.", es: "Tengo los pies fríos." }
@@ -249,6 +307,7 @@ const GRAMMAR_CARDS = [
     {
         id: "thereIsAre", group: "basics", title: "There is / there are",
         explanation: "Use there is with one thing and there are with many things to say that something exists.",
+        formula: "There is + one thing · There are + two or more things",
         changesWithTense: true,
         examplesByTense: {
             presentSimple: [{ en: "There is a park near my house.", es: "Hay un parque cerca de mi casa." }],
@@ -262,6 +321,7 @@ const GRAMMAR_CARDS = [
     {
         id: "prepositionsPlace", group: "basics", title: "Prepositions of place",
         explanation: "They say where something is: in, on, under, next to, behind, between, in front of.",
+        formula: "Subject + be + preposition + place",
         examples: [
             { en: "The cat is under the table.", es: "El gato está debajo de la mesa." },
             { en: "The bank is between the school and the park.", es: "El banco está entre la escuela y el parque." }
@@ -270,6 +330,7 @@ const GRAMMAR_CARDS = [
     {
         id: "prepositionsTime", group: "basics", title: "Prepositions of time",
         explanation: "Use at with clock times, on with days and dates, and in with months, years and seasons.",
+        formula: "at + clock time · on + day or date · in + month, year or season",
         examples: [
             { en: "I wake up at seven o'clock.", es: "Me despierto a las siete." },
             { en: "My birthday is on May 5th, in spring.", es: "Mi cumpleaños es el 5 de mayo, en primavera." }
@@ -278,6 +339,7 @@ const GRAMMAR_CARDS = [
     {
         id: "canCant", group: "basics", title: "Can / can't",
         explanation: "Use can / can't + verb for ability and permission. In the past use could / couldn't; in the future, will be able to.",
+        formula: "Subject + can / can't + verb in base form",
         changesWithTense: true,
         examplesByTense: {
             presentSimple: [{ en: "I can ride a bike, but I can't skate.", es: "Sé andar en bicicleta, pero no sé patinar." }],
@@ -299,7 +361,7 @@ const tenseLabel = (id) => TENSE_BY_ID[id].label;
 function grammarCardsFor(tenseIds) {
     const chosen = TENSES.map(t => t.id).filter(id => tenseIds.includes(id));
     return GRAMMAR_CARDS.map(card => {
-        const view = { id: card.id, group: card.group, title: card.title, explanation: card.explanation, note: "" };
+        const view = { id: card.id, group: card.group, title: card.title, explanation: card.explanation, formula: card.formula, note: "" };
         if (card.group === "tenses") {
             Object.assign(view, { structure: card.structure, keywords: card.keywords, examples: card.examples, chosen: chosen.includes(card.id) });
         } else if (card.changesWithTense) {
@@ -331,10 +393,13 @@ function grammarCardHtml(card) {
         '<p class="card-explanation">' + escapeHtml(card.explanation) + '</p>';
     if (card.structure) {
         html += '<table class="card-structure">' +
-            [["+", card.structure.affirmative], ["−", card.structure.negative], ["?", card.structure.question]]
-                // One line per group of subjects, so a group never wraps in the middle (GAMES-7)
-                .map(([sign, text]) => '<tr><th>' + sign + '</th><td>' + text.split(' · ').map(escapeHtml).join('<br>') + '</td></tr>').join('') +
+            [["+", "affirmative"], ["−", "negative"], ["?", "question"]]
+                // The formula first (GAMES-12), then one line per group of subjects, so a group never wraps in the middle (GAMES-7)
+                .map(([sign, part]) => '<tr><th>' + sign + '</th><td><div class="card-formula">' + escapeHtml(card.formula[part]) + '</div>' +
+                    card.structure[part].split(' · ').map(escapeHtml).join('<br>') + '</td></tr>').join('') +
             '</table><p class="card-keywords"><b>Keywords:</b> ' + card.keywords.map(escapeHtml).join(', ') + '</p>';
+    } else if (card.formula) {
+        html += '<p class="card-formula"><b>Structure:</b> ' + card.formula.split(' · ').map(escapeHtml).join('<br>') + '</p>';
     }
     html += '<ul class="card-examples">' + card.examples.map(printExample).join('') + '</ul>';
     if (card.note) html += '<p class="card-note">' + escapeHtml(card.note) + '</p>';

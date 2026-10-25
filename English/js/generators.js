@@ -282,7 +282,20 @@ function paragraphOf(index, total) {
     return index < Math.ceil(total / 2) ? "the first paragraph" : "the second paragraph";
 }
 
-function readingQuestions(article, passage, keywords) {
+// Texts of the reading questions; the Listening guide uses its own (GAMES-11)
+const READING_WORDING = {
+    maxQuestions: 7,
+    main: "What is the text mainly about?",
+    mainTip: "Read the first sentence again.",
+    mainExplanation: "The text is about ",
+    trueText: "Which sentence is TRUE according to the text?",
+    trueTip: (index, total) => "Read " + paragraphOf(index, total) + " again and compare the sentences word by word.",
+    clozeText: "According to the text, which word completes the sentence?",
+    clozeTip: (index, total) => "Find this sentence in " + paragraphOf(index, total) + "."
+};
+
+function readingQuestions(article, passage, keywords, wording) {
+    const words = wording || READING_WORDING;
     const questions = [];
     // Other topics must not share any word with the title ("Ocean" / "The ocean")
     const titleWords = article.title.toLowerCase().split(/\s+/).filter(w => w.length > 2);
@@ -292,18 +305,18 @@ function readingQuestions(article, passage, keywords) {
     const mainOptions = shuffle([article.title].concat(otherTopics));
     questions.push({
         order: -1,
-        text: "What is the text mainly about?",
+        text: words.main,
         options: mainOptions,
         answer: mainOptions.indexOf(article.title),
-        tip: "Read the first sentence again.",
-        explanation: "The text is about " + article.title + "."
+        tip: words.mainTip,
+        explanation: words.mainExplanation + article.title + "."
     });
 
     // Sentences in random order; questions are shown in the order of the text
     const usedSentences = new Set();
     const order = shuffle(passage.map((s, i) => i));
     for (const index of order) {
-        if (questions.length >= 7) break;
+        if (questions.length >= words.maxQuestions) break;
         const sentence = passage[index];
         const inSentence = keywordsIn(sentence, keywords).sort((a, b) => (b.pos === "n") - (a.pos === "n"));
         const trueSentences = questions.filter(q => q.kind === "true").length;
@@ -314,18 +327,18 @@ function readingQuestions(article, passage, keywords) {
                 const options = shuffle([sentence].concat(wrong.map(w => replaceWord(sentence, keyword.word, w))));
                 questions.push({
                     kind: "true", order: index,
-                    text: "Which sentence is TRUE according to the text?",
+                    text: words.trueText,
                     options, answer: options.indexOf(sentence),
-                    tip: "Read " + paragraphOf(index, passage.length) + " again and compare the sentences word by word.",
+                    tip: words.trueTip(index, passage.length),
                     explanation: "\"" + sentence + "\""
                 });
             } else {
                 const options = shuffle([keyword.word].concat(wrong));
                 questions.push({
                     kind: "cloze", order: index,
-                    text: "According to the text, which word completes the sentence?\n\"" + replaceWord(sentence, keyword.word, "______") + "\"",
+                    text: words.clozeText + "\n\"" + replaceWord(sentence, keyword.word, "______") + "\"",
                     options, answer: options.indexOf(keyword.word),
-                    tip: "Find this sentence in " + paragraphOf(index, passage.length) + ".",
+                    tip: words.clozeTip(index, passage.length),
                     explanation: "\"" + sentence + "\""
                 });
             }
@@ -406,6 +419,140 @@ async function generateReadingGuide(options) {
                 items: listening
             }
         ]
+    };
+}
+
+// ---------- 2b. LISTENING (GAMES-11) ----------
+
+// Where a sentence is in the audio, for the hints of the quiz
+function audioPartOf(index, total) {
+    if (index < total / 3) return "near the beginning of the audio";
+    if (index < total * 2 / 3) return "in the middle of the audio";
+    return "near the end of the audio";
+}
+
+const LISTENING_WORDING = {
+    maxQuestions: 6,
+    main: "What is the audio mainly about?",
+    mainTip: "Listen to the first sentence again.",
+    mainExplanation: "The audio is about ",
+    trueText: "Which sentence is TRUE according to the audio?",
+    trueTip: (index, total) => "Listen again: the answer is " + audioPartOf(index, total) + ".",
+    clozeText: "Which word completes the sentence you heard?",
+    clozeTip: (index, total) => "Listen again: this sentence is " + audioPartOf(index, total) + "."
+};
+
+// Each character of a dialogue gets its own pitch; the narrator keeps the normal one
+const SPEAKER_PITCHES = [1.25, 0.8, 1.05];
+
+function speakerPitches(speakers) {
+    const names = speakers.filter((name, i) => name && speakers.indexOf(name) === i);
+    return speakers.map(name => name ? SPEAKER_PITCHES[names.indexOf(name) % SPEAKER_PITCHES.length] : 1);
+}
+
+// Text of the audio for the answer key and the review: "Mia: Hello!" in dialogues
+function audioScript(sentences, speakers) {
+    return sentences.map((sentence, i) => (speakers[i] ? speakers[i] + ": " : "") + sentence).join(" ");
+}
+
+function listeningSections(audio, level, questions) {
+    const shared = { sentences: audio.sentences, speakers: audio.speakers, pitches: speakerPitches(audio.speakers), rate: level.speechRate };
+    return [
+        Object.assign({
+            group: "Listening",
+            type: "listen",
+            stage: 1,
+            subtitles: true,
+            title: "1. Listen and read the subtitles.",
+            source: audio.source,
+            items: []
+        }, shared),
+        Object.assign({
+            group: "Listening",
+            type: "listen",
+            stage: 2,
+            subtitles: false,
+            title: "2. Listen again. This time there are no subtitles.",
+            items: []
+        }, shared),
+        Object.assign({
+            group: "Listening",
+            type: "choice",
+            stage: 3,
+            title: "3. Listen and choose the correct answer. (one point each)",
+            script: audioScript(audio.sentences, audio.speakers),
+            source: audio.source,
+            items: questions
+        }, shared)
+    ];
+}
+
+// Story or dialogue written for the game: the grade decides how many sentences are heard,
+// and only the questions about those sentences are asked
+function storyListening(topicKey, level) {
+    const story = LISTENING_STORIES[topicKey];
+    if (!story) throw new Error("Stories are only for the topics in the list. Choose a topic from the list or use Facts about the topic.");
+    const lines = story.lines.slice(0, level.listeningSentences);
+    const questions = story.questions.filter(q => q.line < lines.length).slice(0, LISTENING_WORDING.maxQuestions)
+        .map((q, i) => ({
+            text: (i + 1) + ". " + q.text,
+            options: q.options.slice(),
+            answer: q.answer,
+            tip: "Listen again: the answer is " + audioPartOf(q.line, lines.length) + ".",
+            explanation: "\"" + (lines[q.line].speaker ? lines[q.line].speaker + ": " : "") + lines[q.line].text + "\""
+        }));
+    return {
+        title: story.title,
+        audio: {
+            sentences: lines.map(l => l.text),
+            speakers: lines.map(l => l.speaker || ""),
+            source: (story.kind === "dialogue" ? "Dialogue" : "Story") + " written for this game: \"" + story.title + "\"."
+        },
+        questions
+    };
+}
+
+async function factsListening(topic, level, onStatus) {
+    onStatus("Looking for an easy text about " + topic.name + "...");
+    let article = null;
+    const attempts = [[topic.wiki, level.minFreq / 2], [topic.plain, level.minFreq / 2], [topic.wiki, level.minFreq / 6], [topic.plain, 0]];
+    for (const [query, minFreq] of attempts) {
+        article = await findArticle(query, level.listeningSentences, minFreq);
+        if (article) break;
+    }
+    if (!article) throw new Error("I couldn't find a text about \"" + topic.name + "\". Try another topic!");
+    const sentences = article.sentences.slice(0, level.listeningSentences);
+    onStatus("Creating the questions...");
+    const keywords = await analyzeKeywords(sentences);
+    const questions = readingQuestions(article, sentences, keywords, LISTENING_WORDING);
+    if (questions.length < 5) {
+        throw new Error("The text about \"" + topic.name + "\" was too short for a full quiz. Try another topic!");
+    }
+    return {
+        title: article.title,
+        audio: {
+            sentences,
+            speakers: sentences.map(() => ""),
+            source: "Audio text from Simple English Wikipedia: \"" + article.title + "\" (CC BY-SA)."
+        },
+        questions
+    };
+}
+
+async function generateListeningGuide(options) {
+    const { grade, topic, audioType, onStatus } = options;
+    const level = GRADE_LEVELS[grade];
+    const built = audioType === "facts"
+        ? await factsListening(topic, level, onStatus)
+        : storyListening(topic.key, level);
+    return {
+        kind: "listening",
+        audioType: audioType === "facts" ? "facts" : "story",
+        school: "",
+        title: "LISTENING GUIDE",
+        subtitle: level.label + " · " + topic.name + " · " + built.title,
+        teacher: "",
+        sections: listeningSections(built.audio, level, built.questions)
     };
 }
 

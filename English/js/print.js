@@ -135,6 +135,16 @@ const PRINT_RENDERERS = {
         }));
     },
 
+    // Listening guide (GAMES-11): the teacher reads the text aloud from the answer key
+    listen(section, isKey) {
+        if (isKey && section.subtitles) {
+            const lines = section.sentences.map((sentence, i) =>
+                '<p>' + (section.speakers[i] ? '<b>' + escapeHtml(section.speakers[i]) + ':</b> ' : '') + escapeHtml(sentence) + '</p>').join('');
+            return [printReadAloud('listening', lines + (section.source ? '<div class="print-source">' + escapeHtml(section.source) + '</div>' : ''))];
+        }
+        return ['<div class="print-listen">' + (section.subtitles ? '🎧 Listen to the audio and follow along.' : '🎧 Listen to the audio again.') + '</div>'];
+    },
+
     dictation(section, isKey) {
         const words = isKey
             ? printReadAloud('dictation', '<ol>' + section.items.map(item => '<li>' + escapeHtml(item.text) + '</li>').join('') + '</ol>')
