@@ -1009,9 +1009,21 @@ body.pets-hidden .pet {
 
 /* Narrow screens: a strip at the bottom of the window; the page keeps its space free */
 @media (max-width: 1159.98px) {
+    /* Solid, like a toolbar: the guide never shows through it (GAMES-10) */
     #pets {
         height: 72px;
-        background: linear-gradient(rgba(252, 228, 236, 0), #fce4ec 40%);
+        background: #fce4ec;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Compact button on phones: only the paw, with its accessible name */
+    .pets-toggle-text {
+        display: none;
+    }
+
+    #pets-toggle {
+        padding: 6px 10px;
+        font-size: 1em;
     }
 
     body {
@@ -1226,6 +1238,13 @@ body.pets-hidden .pet {
         font-weight: bold;
         margin-bottom: 6pt;
         break-after: avoid;
+    }
+
+    /* Group title + section title + first block, never split (GAMES-10):
+       Safari ignores break-after: avoid, but follows break-inside: avoid */
+    .print-keep {
+        break-inside: avoid;
+        page-break-inside: avoid;
     }
 
     .print-item {

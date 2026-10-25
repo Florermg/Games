@@ -111,3 +111,16 @@ test('petImageHtml shows the own image with its path escaped', () => {
     const tricky = game.call('petImageHtml', 'dog', 'img/x.png" onerror="alert(1)');
     assert.ok(!tricky.includes('" onerror="alert'), tricky);
 });
+
+// ---------- The strip on phones is solid (GAMES-10) ----------
+
+test('on narrow screens the pets strip is solid and the hide button is compact, with its accessible name (FR-005)', () => {
+    const narrow = mediaBlock('(max-width: 1159.98px)');
+    const strip = ruleBody(narrow, '#pets') || '';
+    assert.match(strip, /background:\s*#[0-9a-f]{6}\s*;/i, 'solid background color');
+    assert.ok(!/gradient|rgba\([^)]*,\s*0\)|transparent/.test(strip), 'no transparent part: ' + strip);
+    assert.match(ruleBody(narrow, '.pets-toggle-text') || '', /display:\s*none/);
+    const source = fs.readFileSync(path.join(ENGLISH_DIR, 'js', 'pets.js'), 'utf8');
+    assert.match(source, /pets-toggle-text/);
+    assert.match(source, /setAttribute\("aria-label", hidden \? "Show pets" : "Hide pets"\)/);
+});
