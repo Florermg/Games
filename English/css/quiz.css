@@ -658,6 +658,253 @@ select:focus, input[type="text"]:focus, textarea:focus {
     margin-top: 18px;
 }
 
+/* ---------- Verbs (GAMES-6) ---------- */
+
+.verb-search {
+    margin: 16px 0 10px 0;
+}
+
+.verb-search input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.verb-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.verb-suggestion {
+    background: white;
+    border: 2px solid #c9c5ff;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 0.95em;
+    font-weight: bold;
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.verb-suggestion:hover {
+    border-color: var(--secondary);
+}
+
+.verb-es {
+    font-weight: normal;
+    color: var(--muted);
+}
+
+.verb-card {
+    border: 3px solid var(--light);
+    border-radius: 16px;
+    padding: 16px;
+    background: #fffafb;
+    margin-top: 12px;
+}
+
+.verb-card h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+    color: var(--primary);
+}
+
+.not-reviewed {
+    font-size: 0.6em;
+    vertical-align: middle;
+    background: #fff3cd;
+    color: #8a6d00;
+    border-radius: 10px;
+    padding: 2px 8px;
+}
+
+.verb-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.verb-table th, .verb-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 8px 6px;
+    border-top: 1px solid var(--line);
+}
+
+.verb-table th {
+    width: 32%;
+    color: var(--secondary);
+    font-size: 0.9em;
+}
+
+.verb-example {
+    margin-top: 2px;
+}
+
+.verb-translation {
+    color: var(--muted);
+    font-size: 0.92em;
+}
+
+@media (max-width: 480px) {
+    .verb-table th, .verb-table td {
+        display: block;
+        width: auto;
+    }
+
+    .verb-table td {
+        border-top: none;
+        padding-top: 0;
+    }
+}
+
+.verb-add {
+    margin-top: 10px;
+}
+
+.verb-add:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.verb-selection {
+    margin-top: 18px;
+}
+
+.verb-selection h3 {
+    color: var(--secondary);
+    margin: 0;
+}
+
+.chip-remove {
+    border: none;
+    background: none;
+    color: var(--incorrect);
+    font-size: 1em;
+    cursor: pointer;
+    padding: 4px 6px;
+    min-width: 32px;
+    min-height: 32px;
+}
+
+/* ---------- Grammar cards (GAMES-6, screen) ---------- */
+
+.card-select-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 4px 0;
+}
+
+.card-group-title {
+    color: var(--secondary);
+    margin: 22px 0 8px 0;
+    font-size: 1.15em;
+}
+
+.ref-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+@media (min-width: 720px) {
+    .ref-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.ref-card {
+    border: 3px solid var(--light);
+    border-radius: 16px;
+    padding: 14px;
+    background: #fffafb;
+}
+
+.ref-card.selected {
+    border-color: var(--secondary);
+    background: #f6f5ff;
+}
+
+.ref-card.dim {
+    opacity: 0.6;
+}
+
+.ref-card .pick {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 0.88em;
+    color: var(--secondary);
+    cursor: pointer;
+    min-height: 32px;
+}
+
+.ref-card .pick input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--secondary);
+}
+
+.ref-card h3 {
+    margin: 4px 0 6px 0;
+    color: var(--primary);
+}
+
+.card-explanation {
+    margin: 0 0 8px 0;
+}
+
+.card-structure {
+    border-collapse: collapse;
+    margin-bottom: 6px;
+    font-size: 0.92em;
+}
+
+.card-structure th {
+    width: 22px;
+    text-align: center;
+    color: var(--secondary);
+}
+
+.card-structure td {
+    padding: 2px 4px;
+}
+
+.card-keywords {
+    margin: 0 0 6px 0;
+    font-size: 0.92em;
+}
+
+.card-examples {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.card-examples li {
+    margin-bottom: 6px;
+}
+
+.card-tense {
+    font-weight: bold;
+    color: var(--secondary);
+    font-size: 0.9em;
+}
+
+.card-es {
+    color: var(--muted);
+    font-size: 0.92em;
+}
+
+.card-note {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.85em;
+    margin: 6px 0 0 0;
+}
+
 /* ---------- Print menu (screen) ---------- */
 
 .print-menu {
@@ -945,5 +1192,102 @@ select:focus, input[type="text"]:focus, textarea:focus {
     .print-note {
         font-style: italic;
         margin-bottom: 8pt;
+    }
+}
+
+/* ---------- Printed cards (GAMES-6): 2 columns, no card split between pages ---------- */
+
+@media print {
+    .print-card-sheet .print-title {
+        font-size: 15pt;
+        margin: 0 0 8pt 0;
+    }
+
+    .print-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8pt;
+        align-items: start;
+    }
+
+    .print-card {
+        border: 1.5px solid black;
+        border-radius: 6pt;
+        padding: 6pt 8pt;
+        font-size: 10pt;
+        line-height: 1.35;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        color: black;
+    }
+
+    .print-card.wide {
+        grid-column: span 2;
+    }
+
+    .print-card h3 {
+        font-size: 12pt;
+        margin: 0 0 3pt 0;
+        color: black;
+    }
+
+    .print-card .card-explanation {
+        margin: 0 0 4pt 0;
+    }
+
+    .print-card table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 3pt;
+    }
+
+    .print-card th,
+    .print-card td {
+        text-align: left;
+        vertical-align: top;
+        padding: 1pt 3pt;
+        color: black;
+    }
+
+    .print-card .card-verb th {
+        width: 30%;
+        border-top: 0.5px solid #888;
+    }
+
+    .print-card .card-verb td {
+        border-top: 0.5px solid #888;
+    }
+
+    .print-card .card-structure th {
+        width: 10pt;
+    }
+
+    .print-card .card-keywords {
+        margin: 0 0 3pt 0;
+    }
+
+    .print-card .card-examples {
+        margin: 0;
+        padding-left: 12pt;
+    }
+
+    .print-card .card-examples li {
+        margin-bottom: 2pt;
+    }
+
+    .print-card .card-tense {
+        font-weight: bold;
+        color: black;
+    }
+
+    .print-card .card-es,
+    .print-card .card-note {
+        color: #333;
+        font-style: italic;
+    }
+
+    .print-card .card-note {
+        margin: 3pt 0 0 0;
+        font-size: 9pt;
     }
 }

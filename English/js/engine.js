@@ -498,6 +498,7 @@ function backToMenu() {
     closePrintPanel();
     document.getElementById('sheet-screen').classList.add('hidden');
     document.getElementById('results-screen').classList.add('hidden');
+    document.querySelectorAll('.reference-screen').forEach(screen => screen.classList.add('hidden'));
     document.getElementById('menu-screen').classList.remove('hidden');
     window.scrollTo(0, 0);
     tutor("👧🏻", "Welcome back! Choose a guide to practice.");

@@ -21,6 +21,33 @@ Dentro de cualquier guía abierta (demo o generada), el botón **🖨 Print** of
 
 Se usa la impresión del navegador (PC, iPhone, iPad, Android), que también permite **guardar como PDF**. Imprimir no necesita internet. En las guías generadas, imprime la hoja y la clave antes de cerrar la guía: no se guardan.
 
+## Gramática y verbos
+
+Desde el menú, dos secciones de consulta, con selector de grado (3° a 6°) y de tiempos verbales: por defecto, los del grado; también "All tenses" o los que se marquen.
+
+- **📗 Grammar Cards**: 22 tarjetas en 3 grupos.
+  - Las 10 de tiempos verbales tienen uso, estructura (afirmativa, negativa y pregunta), palabras clave y 2 ejemplos.
+  - Hay 4 de temas de las guías (quantifiers, causative, past simple + *ago*, comparatives) y 8 de temas básicos (pronombres, posesivos, artículos, plurales, *there is/are*, preposiciones de lugar y de tiempo, *can / can't*).
+  - Los temas que cambian con el tiempo muestran un ejemplo en cada tiempo elegido.
+  - Se marcan las tarjetas y **🖨 Print selected** las imprime en hoja carta, en 2 columnas, sin partir ninguna.
+- **🔤 Verbs**: se busca un verbo en inglés o español (*eat*, *comer*, *went*) y se ven sus tiempos con la forma, un ejemplo y la traducción.
+  - La lista propia tiene unos 215 verbos de primaria, revisados.
+  - Un verbo que no está en la lista se busca en línea (MyMemory + Datamuse) y aparece marcado **not reviewed**.
+  - Con **➕ Add to print** se juntan verbos y **🖨 Print selected** imprime una tarjeta por verbo.
+
+Los ejemplos y las traducciones están escritos a mano; conviene que una maestra los revise antes de usarlos en clase. Sin internet, las tarjetas y los verbos de la lista funcionan igual.
+
+## Fuentes públicas
+
+Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
+
+- **Datamuse**: palabras y verificación de verbos.
+- **Wiktionary**: definiciones.
+- **Simple English Wikipedia**: textos de lectura, con su atribución CC BY-SA.
+- **MyMemory**: traducción de verbos que no están en la lista.
+
+Lo que llega de ellas pasa por filtros de contenido no apto.
+
 ## Pruebas
 
 Requisito: Node 24. No hay dependencias, así que no hace falta `npm install`.

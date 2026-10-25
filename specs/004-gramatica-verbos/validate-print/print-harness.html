@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- Development tool of GAMES-6 (not part of the game): renders a printed card sheet
+     so that run.sh can save it as a PDF.
+     Usage: print-harness.html?kind=grammar|verbs&items=id,id&tenses=tenseId,tenseId -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Card print harness</title>
+    <link rel="stylesheet" href="../../../English/css/quiz.css">
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="screen-only-marker">SCREEN ONLY: this text must not be printed</div>
+    <div id="print-area"></div>
+</div>
+<script src="../../../English/js/api.js"></script>
+<script src="../../../English/js/banks.js"></script>
+<script src="../../../English/js/print.js"></script>
+<script src="../../../English/js/verbs-data.js"></script>
+<script src="../../../English/js/conjugation.js"></script>
+<script src="../../../English/js/grammar-cards.js"></script>
+<script>
+    const params = new URLSearchParams(location.search);
+    document.getElementById('print-area').innerHTML = buildCardsPrintHtml({
+        kind: params.get('kind'), items: params.get('items').split(','), tenses: params.get('tenses').split(',')
+    });
+</script>
+</body>
+</html>
