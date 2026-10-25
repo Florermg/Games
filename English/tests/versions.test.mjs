@@ -65,10 +65,10 @@ test('checkVersions finds missing versions, outdated versions and missing files'
     assert.deepEqual(checkVersions(stamped, readFake(withoutB)).map(p => p.path + ' ' + p.problem), ['js/b.js missing-file']);
 });
 
-test('QuizA.html asks for its 13 files with a version (SC-002)', () => {
+test('QuizA.html asks for its 14 files with a version (SC-002)', () => {
     const references = listReferences(fs.readFileSync(PAGE, 'utf8'));
     // 1 CSS + 12 JS (pets.js since GAMES-9)
-    assert.equal(references.length, 13, references.map(r => r.path).join(', '));
+    assert.equal(references.length, 14, references.map(r => r.path).join(', '));
     assert.equal(references.filter(r => r.path.startsWith('css/')).length, 1);
     assert.ok(references.every(r => r.version), 'without version: ' + references.filter(r => !r.version).map(r => r.path).join(', '));
 });

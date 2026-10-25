@@ -52,7 +52,9 @@ for (const [name, guide] of Object.entries(ALL_GUIDES)) {
                 for (const item of section.items) assert.ok(!new RegExp('\\b' + item.text + '\\b', 'i').test(sectionText), 'dictation word: ' + item.text);
             }
             if (section.script) {
-                for (const sentence of section.script.split(/(?<=[.!?])\s+/).filter(s => s.length > 25)) {
+                // A quiz option may quote a sentence of the audio (Listening, GAMES-11)
+                const quoted = (section.items || []).flatMap(item => item.options || []);
+                for (const sentence of section.script.split(/(?<=[.!?])\s+/).filter(s => s.length > 25 && !quoted.includes(s))) {
                     assert.ok(!text.includes(sentence), 'script sentence: ' + sentence);
                 }
             }
@@ -73,6 +75,7 @@ for (const [name, guide] of Object.entries(ALL_GUIDES)) {
             const html = printSection(section, false);
             const items = (section.items || []).length;
             assert.equal(countClass(html, 'print-item'), items, section.title);
+            if (section.type === 'listen') continue; // only an instruction to listen (GAMES-11)
             if (section.type !== 'choice' && section.type !== 'writing') {
                 assert.ok(countClass(html, 'blank') >= items, 'blanks in ' + section.title);
             }
@@ -146,7 +149,8 @@ test('the word bank and the dictation lines are printed', () => {
 test('generated texts keep their CC BY-SA source (FR-008)', () => {
     for (const guide of Object.values(generated)) {
         for (const section of guide.sections.filter(s => s.source)) {
-            if (section.type === 'fill' && section.script) continue; // the listening source goes with its script, in the answer key
+            // the listening source goes with its script, in the answer key
+            if ((section.type === 'fill' && section.script) || section.type === 'listen' || (section.type === 'choice' && section.script)) continue;
             assert.ok(textOf(buildPrintHtml(guide, 'student')).includes(escapeForText(section.source)), section.source);
         }
     }
@@ -292,7 +296,7 @@ function keepBlocks(html) {
     return blocks;
 }
 
-const FIRST_BLOCK = /class="(print-item|print-bank|print-match|read-aloud|print-passage|print-remember|print-lines)\b/;
+const FIRST_BLOCK = /class="(print-listen|print-item|print-bank|print-match|read-aloud|print-passage|print-remember|print-lines)\b/;
 
 test('every section title and group title is kept with the first block of its section (FR-001, FR-002, FR-006)', () => {
     for (const [name, guide] of Object.entries(ALL_GUIDES)) {

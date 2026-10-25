@@ -108,17 +108,106 @@ function renderAudioBar(section) {
         bar.innerHTML = "⚠️ This browser cannot read the audio aloud. Please use Chrome, Edge or Safari.";
         return bar;
     }
+    const rate = section.rate || 0.9;
+    // Listening guide (GAMES-11): sentence by sentence, with the voice of each character
+    const read = speed => section.sentences
+        ? Speech.speakSequence(section.sentences, speed, null, null, section.pitches)
+        : Speech.speak(section.script, speed);
     const play = el('button', 'small-btn', "▶ Play audio");
     play.onclick = () => {
-        Speech.speak(section.script, 0.9);
-        tutor("🎧", "Listen carefully and complete the information. You can play it again!");
+        read(rate);
+        tutor("🎧", section.sentences
+            ? "Listen carefully and choose the correct answers. You can play it again!"
+            : "Listen carefully and complete the information. You can play it again!");
     };
     const slow = el('button', 'small-btn', "🐢 Slow");
-    slow.onclick = () => Speech.speak(section.script, 0.7);
+    slow.onclick = () => read(section.rate ? Math.round((rate - 0.2) * 100) / 100 : 0.7);
     const stop = el('button', 'small-btn', "⏹ Stop");
     stop.onclick = () => Speech.stop();
     bar.append(play, slow, stop, el('span', 'note', "The browser reads the audio aloud."));
     return bar;
+}
+
+// ---------- Listening guide (GAMES-11) ----------
+
+function subtitleHtml(section, index) {
+    const speaker = section.speakers && section.speakers[index];
+    return (speaker ? "<b class='subtitle-speaker'>" + escapeHtml(speaker) + ":</b> " : "") + escapeHtml(section.sentences[index]);
+}
+
+// Stage 1 shows each sentence while it is read; stage 2 plays the same audio without text
+function renderListenSection(section, box) {
+    const total = section.sentences.length;
+    const slowRate = Math.round((section.rate - 0.2) * 100) / 100;
+    let screen = null;
+    if (section.subtitles) {
+        screen = el('div', 'subtitles');
+        screen.setAttribute('aria-live', 'polite');
+        box.appendChild(screen);
+    } else {
+        box.appendChild(el('div', 'no-subtitles', "🙈 No subtitles this time. Listen carefully!"));
+    }
+    const counter = el('span', 'subtitle-counter');
+    const waiting = () => {
+        counter.innerText = "";
+        if (screen) screen.innerHTML = "<span class='note'>Press ▶ Play and read while you listen.</span>";
+    };
+
+    if (!Speech.supported()) {
+        box.appendChild(el('div', 'audio-bar', "⚠️ This browser cannot read the audio aloud. Please use Chrome, Edge or Safari."));
+        // Without a voice, the subtitles are the only way to follow the text
+        if (screen) screen.innerHTML = section.sentences.map((s, i) => "<p>" + subtitleHtml(section, i) + "</p>").join("");
+    } else {
+        const read = rate => Speech.speakSequence(section.sentences, rate,
+            i => {
+                counter.innerText = (i + 1) + " / " + total;
+                if (screen) screen.innerHTML = subtitleHtml(section, i);
+            },
+            () => {
+                counter.innerText = "✔ " + total + " / " + total;
+                tutor("🌟", section.subtitles
+                    ? "Great listening! Press \"Next\" to listen without subtitles."
+                    : "Well done! Press \"Next\" to answer the quiz.");
+            },
+            section.pitches);
+        const bar = el('div', 'audio-bar');
+        const play = el('button', 'small-btn', "▶ Play");
+        play.onclick = () => read(section.rate);
+        const slow = el('button', 'small-btn', "🐢 Slow");
+        slow.onclick = () => read(slowRate);
+        const stop = el('button', 'small-btn', "⏹ Stop");
+        stop.onclick = () => Speech.stop();
+        bar.append(play, slow, stop, counter);
+        box.appendChild(bar);
+        waiting();
+    }
+
+    const actions = el('div', 'stage-actions');
+    if (section.stage > 1) {
+        const back = el('button', 'small-btn', "⬅ Back");
+        back.onclick = () => showStage(section.stage - 1);
+        actions.appendChild(back);
+    }
+    const next = el('button', 'main-btn', section.subtitles ? "Next: listen without subtitles ▶" : "Next: answer the quiz ▶");
+    next.onclick = () => showStage(section.stage + 1);
+    actions.appendChild(next);
+    box.appendChild(actions);
+    if (section.source) box.appendChild(el('div', 'source', escapeHtml(section.source)));
+}
+
+// Only one stage of the Listening guide is on screen at a time
+function showStage(stage) {
+    Speech.stop();
+    document.querySelectorAll('#sheet-body [data-stage]').forEach(node => {
+        node.classList.toggle('hidden', Number(node.dataset.stage) !== stage);
+    });
+    const messages = {
+        1: "Press ▶ Play and read the subtitles while you listen!",
+        2: "Now listen again without subtitles. You can do it!",
+        3: "Answer the quiz. You can play the audio again."
+    };
+    tutor("🎧", messages[stage]);
+    document.getElementById('sheet-body').scrollIntoView();
 }
 
 function renderMatchSection(section, box) {
@@ -140,6 +229,7 @@ function renderMatchSection(section, box) {
 }
 
 function renderChoiceSection(section, box) {
+    if (section.script) box.appendChild(renderAudioBar(section));
     if (section.passage) {
         const passage = el('div', 'passage', section.passage.map(p => "<p>" + escapeHtml(p) + "</p>").join(""));
         if (section.source) passage.appendChild(el('div', 'source', escapeHtml(section.source)));
@@ -223,6 +313,7 @@ const SECTION_RENDERERS = {
     fill: renderFillSection,
     match: renderMatchSection,
     choice: renderChoiceSection,
+    listen: renderListenSection,
     dictation: renderDictationSection,
     writing: renderWritingSection
 };
@@ -251,8 +342,17 @@ function renderGuide(guide) {
         }
         const box = el('div', 'section');
         box.id = "section-" + index;
+        if (section.stage) {
+            box.dataset.stage = String(section.stage);
+            if (section.stage !== 1) box.classList.add('hidden');
+        }
         box.appendChild(el('div', 'section-title', section.title));
         SECTION_RENDERERS[section.type](section, box);
+        // The audio stages have nothing to check (GAMES-11)
+        if (section.type === "listen") {
+            body.appendChild(box);
+            return;
+        }
 
         const footer = el('div', 'section-footer');
         const button = el('button', 'main-btn btn-secondary', section.type === "writing" ? "Check my writing ✔" : "Check answers ✔");
@@ -264,7 +364,10 @@ function renderGuide(guide) {
                 box.querySelector('.script-text').classList.toggle('hidden');
             };
             footer.appendChild(scriptButton);
-            box.appendChild(el('div', 'passage script-text hidden', "<p>" + escapeHtml(section.script) + "</p>" + (section.source ? "<div class='source'>" + escapeHtml(section.source) + "</div>" : "")));
+            const scriptHtml = section.sentences
+                ? section.sentences.map((s, i) => "<p>" + subtitleHtml(section, i) + "</p>").join("")
+                : "<p>" + escapeHtml(section.script) + "</p>";
+            box.appendChild(el('div', 'passage script-text hidden', scriptHtml + (section.source ? "<div class='source'>" + escapeHtml(section.source) + "</div>" : "")));
         }
         box.appendChild(footer);
         body.appendChild(box);
@@ -444,6 +547,7 @@ function finishGuide() {
     const table = document.getElementById('result-table');
     table.innerHTML = "";
     currentGuide.sections.forEach((section, index) => {
+        if (section.type === "listen") return;
         const result = sectionScore(index);
         const row = table.insertRow();
         row.insertCell().innerText = (section.group ? section.group + " · " : "") + stripTags(section.title).replace(/\(one point each\)|\(0\/1\)/g, "").trim();
@@ -479,7 +583,7 @@ function startGuide(guide) {
     finishWarned = false;
     sectionStates = guide.sections.map(section => ({
         attemptsLeft: ATTEMPTS_PER_SECTION,
-        done: false,
+        done: section.type === "listen",
         correct: (section.items || []).map(() => 0),
         writingScore: 0
     }));
@@ -490,7 +594,8 @@ function startGuide(guide) {
     document.getElementById('sheet-screen').classList.remove('hidden');
     updateScores();
     window.scrollTo(0, 0);
-    tutor("👧🏻", "Let's start the " + guide.title.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) + "! You have 2 attempts per section.");
+    if (guide.kind === "listening") tutor("🎧", "Press ▶ Play and read the subtitles while you listen!");
+    else tutor("👧🏻", "Let's start the " + guide.title.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) + "! You have 2 attempts per section.");
 }
 
 function backToMenu() {
@@ -538,8 +643,8 @@ function selectedTopic() {
         const first = custom.split(" ")[0];
         return { name: capitalize(custom), plain: custom, ml: custom, trigger: first, describe: first, wiki: custom };
     }
-    const topic = TOPICS[document.getElementById('gen-topic').value];
-    return Object.assign({ name: topic.label }, topic);
+    const key = document.getElementById('gen-topic').value;
+    return Object.assign({ name: TOPICS[key].label, key }, TOPICS[key]);
 }
 
 function setStatus(message, isError) {
@@ -567,14 +672,16 @@ async function generateGuide(kind) {
     const options = {
         grade, topic, grammarPoints,
         taskKey: document.getElementById('writing-task').value,
+        audioType: document.getElementById('listening-type').value,
         onStatus: message => setStatus(message)
     };
     try {
-        const builders = { gvs: generateGrammarGuide, rl: generateReadingGuide, writing: generateWritingGuide };
+        const builders = { gvs: generateGrammarGuide, rl: generateReadingGuide, writing: generateWritingGuide, listening: generateListeningGuide };
         const guide = await builders[kind](options);
         setStatus("");
         startGuide(guide);
-        tutor("✨", "I made a brand-new guide about " + topic.name + " just for you! You have 2 attempts per section.");
+        if (kind === "listening") tutor("🎧", "Your listening about " + topic.name + " is ready! Press ▶ Play and read the subtitles.");
+        else tutor("✨", "I made a brand-new guide about " + topic.name + " just for you! You have 2 attempts per section.");
     } catch (error) {
         setStatus(error.message, true);
         tutor("💧", "Oh no! " + error.message);

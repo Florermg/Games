@@ -6,6 +6,7 @@ Estos archivos permiten que `npm test` pruebe los generadores de guías **sin in
 |---|---|---|---|---|
 | `gvs-recycling-g5.json` | Guía de gramática, tema Recycling, 5° grado, con *quantifiers*, causativos, *ago* y comparativos | 7 | Datamuse, Wiktionary | 2026-10-24 |
 | `rl-space-g5.json` | Guía de Reading & Listening, tema Space & Planets, 5° grado | 11 | Simple English Wikipedia, Datamuse | 2026-10-24 |
+| `listening-space-g5.json` | Guía de Listening (Facts about the topic), tema Space & Planets, 5° grado | 17 | Simple English Wikipedia, Datamuse | 2026-10-25 |
 | `writing-animals-g5.json` | Guía de Writing (carta), tema Animals, 5° grado | 13 | Datamuse, Simple English Wikipedia | 2026-10-24 |
 
 ## Licencias y atribución
