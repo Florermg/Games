@@ -12,6 +12,15 @@ Para probarlo en un celular o iPad de la misma red Wi-Fi:
 cd English && python3 -m http.server 8765 --bind 0.0.0.0   # y abrir http://<IP-de-la-Mac>:8765/QuizA.html
 ```
 
+## Imprimir guías
+
+Dentro de cualquier guía abierta (demo o generada), el botón **🖨 Print** ofrece dos versiones:
+
+- **Student sheet**: la hoja en blanco para contestar a mano, con el formato de las guías en papel (`English/documentacion/`). No incluye nada de lo contestado en pantalla.
+- **Answer key**: la misma hoja con las respuestas, otras formas válidas, las palabras del dictado y el guion del *listening* para leer en voz alta, y la rúbrica del writing.
+
+Se usa la impresión del navegador (PC, iPhone, iPad, Android), que también permite **guardar como PDF**. Imprimir no necesita internet. En las guías generadas, imprime la hoja y la clave antes de cerrar la guía: no se guardan.
+
 ## Pruebas
 
 Requisito: Node 24. No hay dependencias, así que no hace falta `npm install`.

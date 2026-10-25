@@ -484,6 +484,7 @@ function startGuide(guide) {
         writingScore: 0
     }));
     renderGuide(guide);
+    closePrintPanel();
     document.getElementById('menu-screen').classList.add('hidden');
     document.getElementById('results-screen').classList.add('hidden');
     document.getElementById('sheet-screen').classList.remove('hidden');
@@ -494,11 +495,38 @@ function startGuide(guide) {
 
 function backToMenu() {
     Speech.stop();
+    closePrintPanel();
     document.getElementById('sheet-screen').classList.add('hidden');
     document.getElementById('results-screen').classList.add('hidden');
     document.getElementById('menu-screen').classList.remove('hidden');
     window.scrollTo(0, 0);
     tutor("👧🏻", "Welcome back! Choose a guide to practice.");
+}
+
+// ---------- Print (GAMES-3) ----------
+
+function closePrintPanel() {
+    document.getElementById('print-panel').classList.add('hidden');
+    document.getElementById('print-btn').setAttribute('aria-expanded', 'false');
+}
+
+function togglePrintPanel() {
+    const panel = document.getElementById('print-panel');
+    const opening = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !opening);
+    document.getElementById('print-btn').setAttribute('aria-expanded', String(opening));
+}
+
+// The printed version is built from the guide data, never from the screen,
+// so the student sheet never shows what was answered (FR-007, FR-016)
+function printGuide(version) {
+    if (!currentGuide) return;
+    document.getElementById('print-area').innerHTML = buildPrintHtml(currentGuide, version);
+    closePrintPanel();
+    tutor("🖨", version === "key"
+        ? "Printing the answer key... You can also save it as a PDF."
+        : "Printing the student sheet... You can also save it as a PDF.");
+    window.print();
 }
 
 // ---------- Menu: demos and generated guides ----------

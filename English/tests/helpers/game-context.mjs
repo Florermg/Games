@@ -10,7 +10,7 @@ export const ENGLISH_DIR = path.resolve(here, '..', '..');
 export const FIXTURES_DIR = path.join(ENGLISH_DIR, 'tests', 'fixtures');
 
 // Same order as the <script> tags of QuizA.html; engine.js is left out because it needs the DOM
-export const GAME_SCRIPTS = ['api.js', 'banks.js', 'demos.js', 'generators.js', 'grading.js'];
+export const GAME_SCRIPTS = ['api.js', 'banks.js', 'demos.js', 'generators.js', 'grading.js', 'print.js'];
 
 // mulberry32: small seeded generator, so the random choices of the generators repeat
 function seededRandomSource(seed) {
