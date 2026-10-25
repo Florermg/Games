@@ -208,3 +208,32 @@ test('each group of subjects goes on its own line of the card (GAMES-7)', () => 
     assert.ok(html.includes('I / you / we / they have played<br>he / she / it has played'), html);
     assert.ok(!html.includes(' · he / she / it has played'));
 });
+
+// ---------- 1 or 2 columns per printed sheet (GAMES-8) ----------
+
+test('columns: 2 by default, with the same sheet as before (SC-002)', () => {
+    for (const selection of [
+        { kind: 'grammar', items: ['articles', 'presentSimple'], tenses: ['presentSimple', 'pastSimple'] },
+        { kind: 'verbs', items: ['eat', 'go'], tenses: TENSE_IDS }
+    ]) {
+        const before = build(selection);
+        assert.equal(build({ ...selection, columns: 2 }), before, selection.kind);
+        assert.equal(countClass(before, 'one-column'), 0);
+    }
+});
+
+test('columns: 1 marks the sheet as one column, with the same cards (FR-003)', () => {
+    const grammar = { kind: 'grammar', items: ['articles', 'presentSimple', 'canCant'], tenses: ['presentSimple', 'pastSimple'] };
+    const verbs = { kind: 'verbs', items: ['eat', 'go', 'swim'], tenses: TENSE_IDS };
+    for (const selection of [grammar, verbs]) {
+        const one = build({ ...selection, columns: 1 });
+        assert.match(one, /class="print-cards one-column"/, selection.kind);
+        assert.equal(countClass(one, 'print-card'), selection.items.length, selection.kind);
+        assert.equal(countClass(one, 'print-card'), countClass(build(selection), 'print-card'));
+    }
+});
+
+test('columns other than 1 or 2 is an error', () => {
+    const selection = { kind: 'grammar', items: ['articles'], tenses: ['presentSimple'] };
+    for (const columns of [3, 0, '1', null]) assert.throws(() => build({ ...selection, columns }), String(columns));
+});

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- Development tool of GAMES-6 (not part of the game): renders a printed card sheet
      so that run.sh can save it as a PDF.
-     Usage: print-harness.html?kind=grammar|verbs&items=id,id&tenses=tenseId,tenseId -->
+     Usage: print-harness.html?kind=grammar|verbs&items=id,id&tenses=tenseId,tenseId[&columns=1|2] -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,8 @@
 <script>
     const params = new URLSearchParams(location.search);
     document.getElementById('print-area').innerHTML = buildCardsPrintHtml({
-        kind: params.get('kind'), items: params.get('items').split(','), tenses: params.get('tenses').split(',')
+        kind: params.get('kind'), items: params.get('items').split(','), tenses: params.get('tenses').split(','),
+        columns: params.has('columns') ? Number(params.get('columns')) : undefined
     });
 </script>
 </body>
