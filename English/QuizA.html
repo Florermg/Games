@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5th Grade Study Guides - Anime Edition</title>
-    <link rel="stylesheet" href="css/quiz.css?v=832c01dd">
+    <link rel="stylesheet" href="css/quiz.css?v=72b9a12b">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
         <div id="menu-screen">
             <div class="menu-header">
                 <h1>🌟 5th Grade Study Guides 🌟</h1>
-                <p class="subtitle">Grammar, Vocabulary & Spelling · Reading & Listening · Writing</p>
+                <p class="subtitle">Grammar, Vocabulary & Spelling · Reading & Listening · Writing · Listening</p>
             </div>
 
             <div class="field-grid" style="margin-bottom: 20px;">
@@ -62,6 +62,22 @@
                     <div class="field-grid" style="margin-top: 12px;">
                         <label>Text type for new guides
                             <select id="writing-task"></select>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>🎧 Listening</h2>
+                    <p class="note">Listen with subtitles, listen again without them, then answer a quiz. The audio fits your grade.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('listening')">🎲 Generate a listening</button>
+                    </div>
+                    <div class="field-grid" style="margin-top: 12px;">
+                        <label>Audio type
+                            <select id="listening-type">
+                                <option value="story" selected>📖 Story or dialogue</option>
+                                <option value="facts">🌐 Facts about the topic</option>
+                            </select>
                         </label>
                     </div>
                 </div>
@@ -179,16 +195,17 @@
 <!-- Pets (GAMES-9): always visible at the bottom of the window; filled by js/pets.js -->
 <div id="pets" data-cat-image="" data-dog-image=""></div>
 
-<script src="js/api.js?v=443db2a8"></script>
+<script src="js/api.js?v=cac3f62a"></script>
 <script src="js/banks.js?v=71f06430"></script>
 <script src="js/demos.js?v=b7fc7a27"></script>
-<script src="js/generators.js?v=4c25479e"></script>
+<script src="js/listening-stories.js?v=fcde2feb"></script>
+<script src="js/generators.js?v=b0d92cdf"></script>
 <script src="js/grading.js?v=2824bbb7"></script>
-<script src="js/print.js?v=348602f6"></script>
+<script src="js/print.js?v=32df8c84"></script>
 <script src="js/verbs-data.js?v=593c63e1"></script>
 <script src="js/conjugation.js?v=dc9458b5"></script>
 <script src="js/grammar-cards.js?v=9a6c9615"></script>
-<script src="js/engine.js?v=efa6704a"></script>
+<script src="js/engine.js?v=e607918e"></script>
 <script src="js/reference.js?v=ba256368"></script>
 <script src="js/pets.js?v=2f1fc3a3"></script>
 </body>
