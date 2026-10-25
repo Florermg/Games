@@ -1,7 +1,9 @@
 // Printed versions of a guide: student sheet and answer key (GAMES-3, FR-004 to FR-013, FR-019)
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGameContext, loadFixture } from './helpers/game-context.mjs';
+import fs from 'node:fs';
+import path from 'node:path';
+import { createGameContext, loadFixture, ENGLISH_DIR } from './helpers/game-context.mjs';
 import { SCENARIOS } from './fixtures/record.mjs';
 
 const game = createGameContext();
@@ -266,4 +268,51 @@ test('the writing key is a rubric without lines to write (FR-012)', () => {
         assert.ok(text.includes('Grading rubric'));
         for (const criterion of guide.sections[0].criteria) assert.ok(text.includes(criterion.text + ' (' + criterion.points + ')'));
     }
+});
+
+// ---------- Titles stay with their first block on paper, also in Safari (GAMES-10) ----------
+
+// Contents of every <div class="print-keep">…</div> (they can hold nested divs)
+function keepBlocks(html) {
+    const blocks = [];
+    const open = '<div class="print-keep">';
+    let from = html.indexOf(open);
+    while (from >= 0) {
+        let depth = 0, i = from;
+        const tag = /<\/?div\b[^>]*>/g;
+        tag.lastIndex = from;
+        let m;
+        while ((m = tag.exec(html))) {
+            depth += m[0].startsWith('</') ? -1 : 1;
+            if (depth === 0) { i = tag.lastIndex; break; }
+        }
+        blocks.push(html.slice(from + open.length, i - '</div>'.length));
+        from = html.indexOf(open, i);
+    }
+    return blocks;
+}
+
+const FIRST_BLOCK = /class="(print-item|print-bank|print-match|read-aloud|print-passage|print-remember|print-lines)\b/;
+
+test('every section title and group title is kept with the first block of its section (FR-001, FR-002, FR-006)', () => {
+    for (const [name, guide] of Object.entries(ALL_GUIDES)) {
+        for (const version of ['student', 'key']) {
+            const html = buildPrintHtml(guide, version);
+            const where = name + ' / ' + version;
+            const keeps = keepBlocks(html);
+            assert.equal(keeps.length, guide.sections.length, where + ': one .print-keep per section');
+            assert.equal(countClass(html, 'print-section-title'), keeps.filter(k => k.includes('class="print-section-title"')).length, where + ': a title outside .print-keep');
+            assert.equal(countClass(html, 'print-group'), keeps.filter(k => k.startsWith('<div class="print-group">')).length, where + ': a group title outside .print-keep');
+            keeps.forEach((keep, i) => {
+                const afterTitle = keep.slice(keep.indexOf('class="print-section-title"'));
+                assert.match(afterTitle, FIRST_BLOCK, where + ': section ' + (i + 1) + ' keeps its title alone');
+            });
+        }
+    }
+});
+
+test('.print-keep is not split between pages, with a rule that Safari follows (FR-003)', () => {
+    const css = fs.readFileSync(path.join(ENGLISH_DIR, 'css', 'quiz.css'), 'utf8');
+    const print = css.split('@media print').slice(1).join(' ');
+    assert.match(print, /\.print-keep\s*\{[^}]*break-inside:\s*avoid[^}]*page-break-inside:\s*avoid/);
 });

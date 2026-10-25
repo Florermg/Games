@@ -162,7 +162,9 @@ function petTouched(kind, button) {
 function togglePets() {
     const hidden = document.body.classList.toggle("pets-hidden");
     const button = document.getElementById("pets-toggle");
-    button.textContent = hidden ? "🐾 Show pets" : "🐾 Hide pets";
+    // The text is hidden on phones (only 🐾), so the name also goes in aria-label (GAMES-10)
+    button.querySelector(".pets-toggle-text").textContent = hidden ? "Show pets" : "Hide pets";
+    button.setAttribute("aria-label", hidden ? "Show pets" : "Hide pets");
     button.setAttribute("aria-pressed", String(hidden));
 }
 
@@ -191,7 +193,8 @@ function mountPets() {
     const toggle = document.createElement("button");
     toggle.type = "button";
     toggle.id = "pets-toggle";
-    toggle.textContent = "🐾 Hide pets";
+    toggle.innerHTML = '<span aria-hidden="true">🐾</span> <span class="pets-toggle-text">Hide pets</span>';
+    toggle.setAttribute("aria-label", "Hide pets");
     toggle.setAttribute("aria-pressed", "false");
     toggle.onclick = togglePets;
     document.body.appendChild(toggle);
