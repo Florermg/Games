@@ -1,5 +1,20 @@
 <!--
 Sync Impact Report
+- Version change: 1.0.0 → 1.0.1 (PATCH)
+- Rationale: se resuelve TODO(QUALITY_GATE_SETUP). La historia GAMES-1
+  (specs/001-linea-base-quality-gate) creó la suite de pruebas
+  (`npm test`) y el workflow `Tests` de GitHub Actions; el Principio IV deja
+  de describir una intención y pasa a describir el gate real. Sin cambio
+  semántico en ningún principio.
+- Principios modificados: IV. Calidad de Código vía Quality Gate de CI
+  (se reemplaza el párrafo "Estado actual" por la descripción del gate
+  existente y su bloqueo de proceso).
+- Secciones agregadas/eliminadas: ninguna.
+- Deferred TODOs: ninguno.
+-->
+
+<!--
+Sync Impact Report
 - Version change: (plantilla del kit _sdd-template-kit 1.0.0) → 1.0.0
 - Rationale: primera constitución del proyecto Games (juegos educativos web;
   el primero es el juego de inglés de English/), adaptada del kit de
@@ -140,9 +155,16 @@ causado por el propio cambio (no por infraestructura) se corrige antes de
 cerrar la HU en Jira — no se documenta como "excepción" salvo que sea
 genuinamente inevitable, y en ese caso se documenta explícitamente por qué.
 
-Estado actual: el workflow y la suite aún no existen
-(`TODO(QUALITY_GATE_SETUP)`); se crean en la primera HU del proyecto. Hasta
-entonces, este principio documenta la intención y no se borra.
+Implementación vigente (GAMES-1): `npm test` ejecuta la suite de cada
+juego (`English/tests/`) sin red ni dependencias, y el workflow `Tests`
+(`.github/workflows/tests.yml`) la corre en cada push y pull request a
+`main`. El repositorio es privado en una cuenta gratuita de GitHub, que no
+permite hacer obligatorio el check; por eso el bloqueo es **de proceso**: una
+historia no se transiciona a su estado terminal en Jira si el último commit de
+su rama, o de `main` después de integrarla, tiene el check en ❌, e integrar
+un PR con el check en ❌ requiere una excepción documentada en el issue. Las
+pruebas marcadas como pendientes (`todo`) documentan brechas conocidas sin
+bloquear el gate; la historia que corrige la brecha quita la marca.
 
 **Rationale**: un quality gate que se puede saltar "por esta vez" deja de
 ser un gate — es una sugerencia. La disciplina de corregirlo siempre
@@ -218,4 +240,4 @@ sincronizada por fase (Principio III). Todo cambio pasa el quality gate de
 CI (Principio IV). Ningún commit se crea sin autorización explícita
 (Principio V). Todo contenido externo cumple el Principio VI.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-24 | **Last Amended**: 2026-10-24
+**Version**: 1.0.1 | **Ratified**: 2026-10-24 | **Last Amended**: 2026-10-24

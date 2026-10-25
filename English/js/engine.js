@@ -31,33 +31,12 @@ function tutor(avatar, message) {
     document.getElementById('tutor-dialogue').innerText = message;
 }
 
-// Answers are compared ignoring case, commas, extra spaces and final punctuation
-function normalizeAnswer(text) {
-    return String(text)
-        .toLowerCase()
-        .replace(/[‘’`´]/g, "'")
-        .replace(/,/g, " ")
-        .replace(/\s+([.!?])/g, "$1")
-        .replace(/[.!?]+$/, "")
-        .replace(/\s+/g, " ")
-        .trim();
-}
-
 function stripTags(html) {
     return String(html).replace(/<[^>]+>/g, "");
 }
 
 function studentName() {
     return document.getElementById('student-name').value.trim();
-}
-
-function correctAnswerText(section, item) {
-    if (section.type === "choice") return item.options[item.answer];
-    if (section.type === "match") {
-        const definition = section.definitions.find(d => d.letter === item.answers[0]);
-        return item.answers[0] + ". " + definition.text;
-    }
-    return item.answers[0];
 }
 
 // ---------- Rendering ----------
@@ -312,12 +291,6 @@ function readResponse(section, row) {
     return control ? control.value : "";
 }
 
-function isCorrect(section, item, response) {
-    if (section.type === "choice") return Number(response) === item.answer;
-    const normalized = normalizeAnswer(response);
-    return item.answers.some(answer => normalizeAnswer(answer) === normalized);
-}
-
 function lockRow(row) {
     row.querySelectorAll('select, input, button.option').forEach(control => { control.disabled = true; });
 }
@@ -419,12 +392,7 @@ function checkWriting(index) {
 // ---------- Scores and results ----------
 
 function sectionScore(index) {
-    const section = currentGuide.sections[index];
-    const state = sectionStates[index];
-    if (section.type === "writing") {
-        return { score: state.writingScore, max: section.criteria.reduce((sum, c) => sum + c.points, 0) };
-    }
-    return { score: state.correct.filter(Boolean).length, max: section.items.length };
+    return scoreSection(currentGuide.sections[index], sectionStates[index]);
 }
 
 function updateScores() {
@@ -450,7 +418,7 @@ function finishGuide() {
     }
     Speech.stop();
     const { score, max } = updateScores();
-    const average = max ? Math.round(score / max * 100) / 10 : 0;
+    const average = computeAverage(score, max);
     document.getElementById('sheet-average').innerText = average;
 
     document.getElementById('sheet-screen').classList.add('hidden');
