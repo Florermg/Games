@@ -788,6 +788,29 @@ select:focus, input[type="text"]:focus, textarea:focus {
     min-height: 32px;
 }
 
+/* ---------- Columns of the printed sheet (GAMES-8, screen) ---------- */
+
+.columns-choice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.columns-choice .chip {
+    min-height: 32px;
+    font-weight: normal;
+    color: var(--dark);
+}
+
+.columns-choice .chip:has(input:checked) {
+    border-color: var(--secondary);
+    background: #f6f5ff;
+}
+
 /* ---------- Grammar cards (GAMES-6, screen) ---------- */
 
 .card-select-actions {
@@ -1223,6 +1246,15 @@ select:focus, input[type="text"]:focus, textarea:focus {
 
     .print-card.wide {
         grid-column: span 2;
+    }
+
+    /* 1 column per sheet (GAMES-8): every card takes the whole width */
+    .print-cards.one-column {
+        grid-template-columns: 1fr;
+    }
+
+    .print-cards.one-column .print-card.wide {
+        grid-column: auto;
     }
 
     .print-card h3 {

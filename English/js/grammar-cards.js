@@ -355,14 +355,17 @@ function verbPrintCardHtml(verb, tenseIds) {
 
 /**
  * HTML of the printed card sheet for #print-area. It does not change the selection.
- * @param {{ kind: "grammar"|"verbs", items: (string|object)[], tenses: string[] }} selection
+ * @param {{ kind: "grammar"|"verbs", items: (string|object)[], tenses: string[], columns?: 1|2 }} selection
  *        items: card ids, or verbs (objects, or bases of verbs in the list)
+ *        columns: cards per row on the sheet (GAMES-8); 2 when missing
  */
 function buildCardsPrintHtml(selection) {
     const items = selection.items || [];
     const tenseIds = TENSES.map(t => t.id).filter(id => (selection.tenses || []).includes(id));
     if (!items.length) throw new Error("Choose at least one card to print.");
     if (!tenseIds.length) throw new Error("Choose at least one tense.");
+    const columns = selection.columns === undefined ? 2 : selection.columns;
+    if (columns !== 1 && columns !== 2) throw new Error("Columns must be 1 or 2.");
     let cards, title;
     if (selection.kind === "grammar") {
         const views = Object.fromEntries(grammarCardsFor(tenseIds).map(c => [c.id, c]));
@@ -380,5 +383,5 @@ function buildCardsPrintHtml(selection) {
         title = "Verb Cards";
     }
     return '<div class="print-sheet print-card-sheet"><h1 class="print-title">' + title + '</h1>' +
-        '<div class="print-cards">' + cards.join('') + '</div></div>';
+        '<div class="print-cards' + (columns === 1 ? ' one-column' : '') + '">' + cards.join('') + '</div></div>';
 }

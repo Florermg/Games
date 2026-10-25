@@ -6,6 +6,18 @@
 // Tenses picked on each screen: { grammar: Set(ids), verbs: Set(ids) }
 const referenceTenses = { grammar: new Set(), verbs: new Set() };
 const referenceGrade = { grammar: 5, verbs: 5 };
+// Cards per row on the printed sheet (GAMES-8): kept while the page is open
+const referenceColumns = { grammar: 2, verbs: 2 };
+
+function renderColumnsChoice(kind) {
+    const box = document.querySelector('.columns-choice[data-kind="' + kind + '"]');
+    box.innerHTML = 'Print in:' + [2, 1].map(n =>
+        '<label class="chip"><input type="radio" name="columns-' + kind + '" value="' + n + '" autocomplete="off"' +
+        (referenceColumns[kind] === n ? ' checked' : '') + '> ' + n + (n === 1 ? ' column' : ' columns') + '</label>').join('');
+    box.querySelectorAll('input').forEach(radio => {
+        radio.onchange = () => { referenceColumns[kind] = Number(radio.value); };
+    });
+}
 
 function selectedTenseIds(kind) {
     // Always in the fixed order of FR-003
@@ -65,6 +77,7 @@ function openReference(kind) {
     document.querySelectorAll('.reference-screen').forEach(screen => screen.classList.add('hidden'));
     document.getElementById(kind + '-screen').classList.remove('hidden');
     renderTensePicker(kind);
+    renderColumnsChoice(kind);
     refreshReference(kind);
     window.scrollTo(0, 0);
     tutor(kind === "grammar" ? "📗" : "🔤", kind === "grammar"
@@ -119,7 +132,7 @@ function printGrammarCards() {
         tutor("✏️", "Choose at least one tense.");
         return;
     }
-    document.getElementById('print-area').innerHTML = buildCardsPrintHtml({ kind: "grammar", items, tenses });
+    document.getElementById('print-area').innerHTML = buildCardsPrintHtml({ kind: "grammar", items, tenses, columns: referenceColumns.grammar });
     tutor("🖨", "Printing " + items.length + (items.length === 1 ? " card" : " cards") + "... You can also save them as a PDF.");
     window.print();
 }
@@ -274,7 +287,7 @@ function printVerbCards() {
         tutor("✏️", "Choose at least one tense.");
         return;
     }
-    document.getElementById('print-area').innerHTML = buildCardsPrintHtml({ kind: "verbs", items: verbSelection.slice(), tenses });
+    document.getElementById('print-area').innerHTML = buildCardsPrintHtml({ kind: "verbs", items: verbSelection.slice(), tenses, columns: referenceColumns.verbs });
     tutor("🖨", "Printing " + verbSelection.length + (verbSelection.length === 1 ? " verb card" : " verb cards") + "... You can also save them as a PDF.");
     window.print();
 }

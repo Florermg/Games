@@ -34,6 +34,9 @@ run_case grammar-4-grade3 "kind=grammar&items=articles,presentSimple,canCant,qua
 run_case grammar-22-all "kind=grammar&items=$CARDS&tenses=$ALL" 22
 run_case verbs-6-grade5 "kind=verbs&items=eat,go,study,get%20up,swim,play&tenses=$G5" 6
 run_case verbs-6-grade3 "kind=verbs&items=eat,go,study,get%20up,swim,play&tenses=$G3" 6
+# 1 column per sheet (GAMES-8)
+run_case grammar-4-grade3-1col "kind=grammar&items=articles,presentSimple,canCant,quantifiers&tenses=$G3&columns=1" 4
+run_case verbs-6-grade5-1col "kind=verbs&items=eat,go,study,get%20up,swim,play&tenses=$G5&columns=1" 6
 rm -rf "$PROFILE"
 echo
 [ $FAIL -eq 0 ] && echo "All checks passed. PDFs in $OUT" || echo "Some checks FAILED. PDFs in $OUT"
