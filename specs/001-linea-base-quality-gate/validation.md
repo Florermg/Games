@@ -102,3 +102,10 @@ Evidencia: **N** = recorrido en navegador del 2026-10-24 sobre la rama · **P** 
 | `6e5c4fa` | `git revert` de `60dbb8f` | `40146785574` | **✅ success** | 10 s |
 
 Los dos commits quedan en el historial del PR como evidencia del gate (autorizados por el usuario, Principio V).
+
+## Recorrido en dispositivos reales (T027): aplazado
+
+- **Decisión del usuario (2026-10-24)**: "subamos la versión así como está y deja las pruebas como pendientes". Se integra GAMES-1 sin el recorrido en iPhone, iPad, Android y PC.
+- **Qué sí está validado sobre FR-030a y SC-007**: la revisión con emulación de ancho en Chrome (375 px y 805 px: sin desplazamiento horizontal en el menú ni en las 3 demos; 4 brechas táctiles registradas en GAMES-2) y la apertura con doble clic (`file://`) en Chrome de escritorio.
+- **Qué queda pendiente**: comprobar en dispositivos reales la lectura en voz alta (dictado y *listening*) en Safari de iOS/iPadOS y en Chrome de Android, el teclado del dispositivo en el writing y los selectores nativos. Se sigue en **GAMES-4** (Jira), junto con el T021 de GAMES-3.
+- **Cambio de alcance documentado** (Principio III, paso 5): T027 no se elimina; queda abierta y marcada como aplazada.
