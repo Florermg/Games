@@ -65,6 +65,22 @@
                         </label>
                     </div>
                 </div>
+
+                <div class="guide-card reference-card">
+                    <h2>📗 Grammar Cards</h2>
+                    <p class="note">Grammar rules with examples in the tenses of your grade. Choose cards and print them (several per page).</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openReference('grammar')">📗 Open grammar cards</button>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>🔤 Verbs</h2>
+                    <p class="note">Search a verb in English or Spanish and see it in different tenses, with examples. Print verb cards.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openReference('verbs')">🔤 Open verbs</button>
+                    </div>
+                </div>
             </div>
 
             <div class="settings-box" style="margin-top: 20px; margin-bottom: 0;">
@@ -88,6 +104,37 @@
                 </div>
                 <p class="status" id="gen-status"></p>
             </div>
+        </div>
+
+        <!-- Grammar cards (GAMES-6) -->
+        <div id="grammar-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <button class="small-btn" onclick="printGrammarCards()">🖨 Print selected</button>
+            </div>
+            <h1>📗 Grammar Cards</h1>
+            <div class="tense-picker" data-kind="grammar"></div>
+            <div class="card-select-actions">
+                <button class="small-btn" onclick="selectGrammarCards(true)">Select all</button>
+                <button class="small-btn" onclick="selectGrammarCards(false)">Select none</button>
+            </div>
+            <div id="grammar-cards"></div>
+        </div>
+
+        <!-- Verbs (GAMES-6) -->
+        <div id="verbs-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <button class="small-btn" onclick="printVerbCards()">🖨 Print selected</button>
+            </div>
+            <h1>🔤 Verbs</h1>
+            <div class="tense-picker" data-kind="verbs"></div>
+            <div class="verb-search">
+                <input type="text" id="verb-query" placeholder="Type a verb in English or Spanish (eat / comer)" autocomplete="off">
+                <div id="verb-suggestions" class="verb-suggestions"></div>
+            </div>
+            <div id="verb-result"></div>
+            <div id="verb-selection" class="verb-selection"></div>
         </div>
 
         <!-- Worksheet -->
@@ -133,6 +180,10 @@
 <script src="js/generators.js"></script>
 <script src="js/grading.js"></script>
 <script src="js/print.js"></script>
+<script src="js/verbs-data.js"></script>
+<script src="js/conjugation.js"></script>
+<script src="js/grammar-cards.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/reference.js"></script>
 </body>
 </html>

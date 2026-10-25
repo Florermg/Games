@@ -1,5 +1,19 @@
 <!--
 Sync Impact Report
+- Version change: 1.0.1 → 1.0.2 (PATCH)
+- Rationale: la historia GAMES-6 (specs/004-gramatica-verbos) usa MyMemory
+  (api.mymemory.translated.net), pública, gratuita y sin clave, para
+  traducir verbos que no están en la lista propia. Se agrega a la lista de
+  fuentes del Principio VI. Sin cambio semántico: MyMemory cumple las reglas
+  existentes (sin clave, consulta en vivo, filtros de contenido y contenido
+  marcado como no revisado).
+- Principios modificados: VI (lista de fuentes externas).
+- Secciones agregadas/eliminadas: ninguna.
+- Deferred TODOs: ninguno.
+-->
+
+<!--
+Sync Impact Report
 - Version change: 1.0.0 → 1.0.1 (PATCH)
 - Rationale: se resuelve TODO(QUALITY_GATE_SETUP). La historia GAMES-1
   (specs/001-linea-base-quality-gate) creó la suite de pruebas
@@ -199,7 +213,7 @@ sus maestros. Por eso:
   antes de mostrarse, y la interfaz no presenta el contenido generado como
   revisado: el maestro es quien lo valida para uso en clase.
 - Las fuentes externas son APIs públicas, gratuitas y sin clave (hoy:
-  Datamuse, Wiktionary y Simple English Wikipedia), consultadas en vivo
+  Datamuse, Wiktionary, Simple English Wikipedia y MyMemory), consultadas en vivo
   desde el navegador. No se descargan ni almacenan archivos de contenido, y
   no se introduce una API que requiera clave o credenciales sin enmendar
   este principio.
@@ -240,4 +254,4 @@ sincronizada por fase (Principio III). Todo cambio pasa el quality gate de
 CI (Principio IV). Ningún commit se crea sin autorización explícita
 (Principio V). Todo contenido externo cumple el Principio VI.
 
-**Version**: 1.0.1 | **Ratified**: 2026-10-24 | **Last Amended**: 2026-10-24
+**Version**: 1.0.2 | **Ratified**: 2026-10-24 | **Last Amended**: 2026-10-24
