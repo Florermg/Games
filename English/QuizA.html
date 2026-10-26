@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5th Grade Study Guides - Anime Edition</title>
-    <link rel="stylesheet" href="css/quiz.css?v=d8d833d5">
+    <link rel="stylesheet" href="css/quiz.css?v=790b6ee9">
 </head>
 <body>
+
+<!-- Environment (GAMES-15): sky colors and what falls behind the sheet; filled by js/environment.js -->
+<div id="env-scene" aria-hidden="true"></div>
 
 <div class="main-wrapper">
     <div class="anime-container">
@@ -29,6 +32,17 @@
                 <label>Your name
                     <input type="text" id="student-name" placeholder="Write your name">
                 </label>
+            </div>
+
+            <div class="env-panel">
+                <div class="env-window" id="env-window"></div>
+                <div class="env-info">
+                    <p class="env-summary" id="env-summary"></p>
+                    <label class="env-city">Weather of
+                        <select id="env-city"></select>
+                    </label>
+                    <p class="note env-note" id="env-note"></p>
+                </div>
             </div>
 
             <div class="guide-cards">
@@ -270,6 +284,7 @@
 <script src="js/grammar-cards.js?v=9a6c9615"></script>
 <script src="js/notebook-check.js?v=72cb7aee"></script>
 <script src="js/pet-rewards.js?v=1dc21acd"></script>
+<script src="js/environment.js?v=a66b462a"></script>
 <script src="js/engine.js?v=468137cb"></script>
 <script src="js/reference.js?v=ba256368"></script>
 <script src="js/notebook.js?v=edb510df"></script>
