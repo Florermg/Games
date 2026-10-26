@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5th Grade Study Guides - Anime Edition</title>
-    <link rel="stylesheet" href="css/quiz.css?v=0f612c0c">
+    <link rel="stylesheet" href="css/quiz.css?v=d8d833d5">
 </head>
 <body>
 
@@ -87,6 +87,14 @@
                     <p class="note">Write freely in English, like in your notebook. Anya-chan checks your grammar and gives you suggestions. Your pages are saved on this device.</p>
                     <div class="card-actions">
                         <button class="main-btn btn-secondary" onclick="openNotebook()">📓 Open my notebook</button>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>🐾 My Pets</h2>
+                    <p class="note">Get 100% in a new guide and win accessories for the kitten and the puppy: hats, glasses, collars, clothes and seasonal surprises. Dress them up here!</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openMyPets()">🐾 Open my pets</button>
                     </div>
                 </div>
 
@@ -195,6 +203,20 @@
             <div id="nb-results" aria-live="polite"></div>
         </div>
 
+        <!-- My Pets (GAMES-14) -->
+        <div id="pets-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <button class="small-btn" onclick="takeOffAllClick()">Take everything off</button>
+            </div>
+            <h1>🐾 My Pets</h1>
+            <p class="note" id="mp-owner"></p>
+            <p class="status error" id="mp-save-note"></p>
+            <p class="note" id="mp-image-note"></p>
+            <div class="mp-stage" id="mp-stage"></div>
+            <div id="mp-wardrobe"></div>
+        </div>
+
         <!-- Worksheet -->
         <div id="sheet-screen" class="hidden">
             <div class="sheet-top">
@@ -220,6 +242,7 @@
             <div class="score-display" id="final-score">0 / 0</div>
             <div class="section-score" id="final-average" style="font-size: 1.3em;"></div>
             <p id="final-message" style="font-size: 1.1em; font-weight: bold;"></p>
+            <div id="reward-box" aria-live="polite"></div>
             <table class="result-table" id="result-table"></table>
             <h3>📝 Review of What You Missed:</h3>
             <div class="review-box" id="review-box"></div>
@@ -246,9 +269,11 @@
 <script src="js/conjugation.js?v=dc9458b5"></script>
 <script src="js/grammar-cards.js?v=9a6c9615"></script>
 <script src="js/notebook-check.js?v=72cb7aee"></script>
-<script src="js/engine.js?v=e607918e"></script>
+<script src="js/pet-rewards.js?v=1dc21acd"></script>
+<script src="js/engine.js?v=468137cb"></script>
 <script src="js/reference.js?v=ba256368"></script>
 <script src="js/notebook.js?v=edb510df"></script>
-<script src="js/pets.js?v=2f1fc3a3"></script>
+<script src="js/pets.js?v=e0c10b45"></script>
+<script src="js/my-pets.js?v=15072ff9"></script>
 </body>
 </html>

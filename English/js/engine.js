@@ -543,6 +543,8 @@ function finishGuide() {
         tutor("🐾", "Don't worry! Review these explanations and you'll be ready next time.");
     }
     document.getElementById('final-message').innerText = message;
+    // Accessory for the pets after a perfect generated guide (GAMES-14)
+    if (typeof showPetReward === "function") showPetReward(currentGuide, score, max);
 
     const table = document.getElementById('result-table');
     table.innerHTML = "";
