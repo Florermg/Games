@@ -72,6 +72,16 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
 - En **🐾 My Pets** se elige la mascota y se toca un accesorio para ponérselo o quitárselo (uno por cabeza, ojos, cuello, cuerpo y patas). Lo puesto se ve también en las mascotas de abajo de la ventana.
 - Los premios son **de cada alumno**, según el nombre del menú, y se guardan en el navegador del equipo.
 
+## Ambiente: hora, clima y estación
+
+- El cielo del juego cambia con el reloj del equipo: **mañana** (6:00–11:59), **tarde** (12:00–18:59) y **noche** (19:00–5:59).
+- También con el **clima actual** (sol, nubes, niebla, lluvia, nieve o tormenta, con la temperatura) y con la **estación** (primavera, verano, otoño e invierno, con las mismas fechas que los accesorios).
+- El menú muestra una ventana dibujada con el ambiente y, abajo de "Weather of", se elige la ciudad.
+  - Con "📍 Where I am", el navegador pide permiso de ubicación. Solo la da en `https://` o `localhost`; si no la da, se usa Ciudad de México.
+  - La ciudad elegida se recuerda en el navegador.
+- Sin internet se ven la hora del día y la estación, sin clima. El ambiente no se imprime.
+- **Modo de prueba**: agregar a la dirección `?ambiente=dia|tarde|noche`, `&clima=sol|nubes|niebla|lluvia|nieve|tormenta` y `&estacion=primavera|verano|otono|invierno`. Por ejemplo, `QuizA.html?ambiente=noche&clima=lluvia&estacion=invierno`. El menú dice "test mode".
+
 ## Fuentes públicas
 
 Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
@@ -80,6 +90,7 @@ Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
 - **Wiktionary**: definiciones.
 - **Simple English Wikipedia**: textos de lectura y de *listening*, con su atribución CC BY-SA.
 - **MyMemory**: traducción de verbos que no están en la lista.
+- **Open-Meteo**: clima actual del ambiente; solo recibe la latitud y la longitud redondeadas (≈1 km).
 - **LanguageTool**: revisión de gramática y ortografía del cuaderno, solo si el alumno deja encendida la revisión en línea.
 
 Lo que llega de ellas pasa por filtros de contenido no apto.

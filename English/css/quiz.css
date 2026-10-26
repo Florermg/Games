@@ -40,7 +40,8 @@ body {
     align-items: flex-end;
     width: 100%;
     padding: 12px 0 8px 10px;
-    background: linear-gradient(#fce4ec 75%, rgba(252, 228, 236, 0));
+    /* The color of the sky behind it (GAMES-15), pink without the environment */
+    background: linear-gradient(var(--env-top, #fce4ec) 75%, rgba(252, 228, 236, 0));
 }
 
 .avatar {
@@ -1339,6 +1340,229 @@ p.card-formula {
     color: var(--muted);
     font-size: 0.9em;
     text-align: center;
+}
+
+/* ---------- Environment (GAMES-15): time of day, weather and season ---------- */
+
+/* The sky fills the window behind the sheet; the guides stay on white */
+#env-scene {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background: linear-gradient(var(--env-top, #fce4ec), var(--env-bottom, #fce4ec));
+    transition: background 1s;
+}
+
+body.env-w-fog #env-scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.55));
+}
+
+.env-p {
+    position: absolute;
+    top: -40px;
+    animation-name: env-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.env-p-rain {
+    width: 2px;
+    height: 22px;
+    border-radius: 1px;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(220, 235, 255, 0.85));
+}
+
+.env-p-snow {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    animation-name: env-drift;
+}
+
+.env-p-leaf,
+.env-p-petal {
+    width: 14px;
+    height: 9px;
+    border-radius: 9px 0;
+    animation-name: env-drift;
+}
+
+.env-p-leaf {
+    background: #e8742c;
+}
+
+.env-p-leaf:nth-child(3n) {
+    background: #d9532a;
+}
+
+.env-p-leaf:nth-child(3n + 1) {
+    background: #f0a030;
+}
+
+.env-p-petal {
+    width: 10px;
+    height: 8px;
+    background: #ffb3cf;
+}
+
+@keyframes env-fall {
+    to { transform: translateY(calc(100vh + 80px)); }
+}
+
+@keyframes env-drift {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(30px, calc(50vh + 40px)) rotate(180deg); }
+    100% { transform: translate(-10px, calc(100vh + 80px)) rotate(360deg); }
+}
+
+/* A soft flash now and then in a storm */
+.env-flash {
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    animation: env-flash 9s infinite;
+}
+
+@keyframes env-flash {
+    0%, 92%, 96%, 100% { opacity: 0; }
+    93%, 95% { opacity: 0.22; }
+}
+
+/* Menu: a small window with the sky of right now */
+.env-panel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    background: var(--light);
+}
+
+.env-window {
+    flex: 0 0 240px;
+    line-height: 0;
+}
+
+.env-window svg {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.env-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.env-summary {
+    margin: 0 0 8px 0;
+    font-weight: bold;
+}
+
+.env-city {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.env-city select {
+    padding: 6px 8px;
+}
+
+.env-note {
+    margin: 6px 0 0 0;
+}
+
+.env-note:empty {
+    display: none;
+}
+
+.env-window .env-drops {
+    animation: env-window-rain 0.8s linear infinite;
+}
+
+.env-window .env-flakes {
+    animation: env-window-snow 4s ease-in-out infinite alternate;
+}
+
+.env-window .env-bolt {
+    animation: env-window-bolt 4s infinite;
+}
+
+@keyframes env-window-rain {
+    from { transform: translateY(-6px); }
+    to { transform: translateY(6px); }
+}
+
+@keyframes env-window-snow {
+    from { transform: translate(-3px, -4px); }
+    to { transform: translate(3px, 4px); }
+}
+
+@keyframes env-window-bolt {
+    0%, 70%, 100% { opacity: 0; }
+    72%, 80% { opacity: 1; }
+}
+
+@media (max-width: 639.98px) {
+    .env-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .env-window {
+        flex: none;
+        max-width: 320px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+/* Still, for people who prefer less movement */
+@media (prefers-reduced-motion: reduce) {
+    .env-p,
+    .env-flash,
+    .env-window .env-drops,
+    .env-window .env-flakes {
+        animation: none;
+    }
+
+    .env-p {
+        top: auto;
+    }
+
+    .env-p:nth-child(odd) {
+        top: 30%;
+    }
+
+    .env-p:nth-child(even) {
+        top: 70%;
+    }
+
+    .env-window .env-bolt {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* The environment is never printed */
+@media print {
+    #env-scene {
+        display: none !important;
+    }
 }
 
 /* ---------- Pets (GAMES-9): always visible at the bottom of the window ---------- */
