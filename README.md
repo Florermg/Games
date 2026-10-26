@@ -82,6 +82,37 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
 - Sin internet se ven la hora del día y la estación, sin clima. El ambiente no se imprime.
 - **Modo de prueba**: agregar a la dirección `?ambiente=dia|tarde|noche`, `&clima=sol|nubes|niebla|lluvia|nieve|tormenta` y `&estacion=primavera|verano|otono|invierno`. Por ejemplo, `QuizA.html?ambiente=noche&clima=lluvia&estacion=invierno`. El menú dice "test mode".
 
+## Festividades
+
+- Unos días antes de cada festividad y el día mismo, el juego se decora:
+  - guirnalda arriba de la hoja (papel picado, banderines, luces o corazones);
+  - adornos en la ventana del menú (calabaza, altar, piñata, árbol, rosca, bandera…);
+  - cosas que flotan en el fondo.
+- La tutora saluda al abrir el juego, y en el menú hay una tarjeta de **palabras en inglés** de la festividad, con dibujo, significado en español y una oración de ejemplo. Al tocar una palabra se escucha.
+- Son 16 festividades:
+
+  | Festividad | Se ve |
+  |---|---|
+  | Año Nuevo | 28 dic – 1 ene |
+  | Día de Reyes | 2 – 6 ene |
+  | Amor y Amistad | 7 – 14 feb |
+  | Día de la Bandera | 17 – 24 feb |
+  | St. Patrick's Day | 10 – 17 mar |
+  | Easter | la semana antes del domingo de Pascua |
+  | Día del Niño | 23 – 30 abr |
+  | Día de las Madres | 3 – 10 may |
+  | Día del Maestro | 11 – 15 may |
+  | Independencia | 1 – 16 sep |
+  | Halloween | 15 – 31 oct |
+  | Día de Muertos | 25 oct – 2 nov |
+  | Revolución | 14 – 20 nov |
+  | Thanksgiving | la semana antes del 4.º jueves de noviembre |
+  | Posadas | 16 – 24 dic |
+  | Navidad | 1 – 25 dic |
+
+- Si coinciden dos, se mezclan.
+- **Modo de prueba**: `QuizA.html?festividad=posadas`, `?festividad=halloween,muertos` o `?festividad=ninguna`. Se puede combinar con el del ambiente, por ejemplo `?festividad=navidad&ambiente=noche&clima=nieve`.
+
 ## Fuentes públicas
 
 Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:

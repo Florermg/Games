@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5th Grade Study Guides - Anime Edition</title>
-    <link rel="stylesheet" href="css/quiz.css?v=790b6ee9">
+    <link rel="stylesheet" href="css/quiz.css?v=3237fb98">
 </head>
 <body>
 
 <!-- Environment (GAMES-15): sky colors and what falls behind the sheet; filled by js/environment.js -->
 <div id="env-scene" aria-hidden="true"></div>
+<!-- Holidays (GAMES-16): what floats in the background; filled by js/holidays.js -->
+<div id="holiday-scene" aria-hidden="true"></div>
 
 <div class="main-wrapper">
     <div class="anime-container">
@@ -20,6 +22,7 @@
     </div>
 
     <div class="game-container">
+        <div id="holiday-garland" class="holiday-garland hidden" aria-hidden="true"></div>
 
         <!-- Menu -->
         <div id="menu-screen">
@@ -35,7 +38,7 @@
             </div>
 
             <div class="env-panel">
-                <div class="env-window" id="env-window"></div>
+                <div class="env-window"><div id="env-window"></div><div class="holiday-window" id="holiday-window"></div></div>
                 <div class="env-info">
                     <p class="env-summary" id="env-summary"></p>
                     <label class="env-city">Weather of
@@ -44,6 +47,8 @@
                     <p class="note env-note" id="env-note"></p>
                 </div>
             </div>
+
+            <div class="hol-card hidden" id="holiday-card"></div>
 
             <div class="guide-cards">
                 <div class="guide-card">
@@ -285,6 +290,7 @@
 <script src="js/notebook-check.js?v=72cb7aee"></script>
 <script src="js/pet-rewards.js?v=1dc21acd"></script>
 <script src="js/environment.js?v=a66b462a"></script>
+<script src="js/holidays.js?v=204696b7"></script>
 <script src="js/engine.js?v=468137cb"></script>
 <script src="js/reference.js?v=ba256368"></script>
 <script src="js/notebook.js?v=edb510df"></script>
