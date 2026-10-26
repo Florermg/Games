@@ -1449,6 +1449,7 @@ body.env-w-fog #env-scene::after {
 }
 
 .env-window {
+    position: relative;
     flex: 0 0 240px;
     line-height: 0;
 }
@@ -1561,6 +1562,165 @@ body.env-w-fog #env-scene::after {
 /* The environment is never printed */
 @media print {
     #env-scene {
+        display: none !important;
+    }
+}
+
+/* ---------- Holidays (GAMES-16): garland, decorations and English words ---------- */
+
+#holiday-scene {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.hol-p-float {
+    position: absolute;
+    top: -40px;
+    font-size: 22px;
+    line-height: 1;
+    opacity: 0.85;
+    animation-name: env-drift;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Across the top of the sheet, in every screen */
+.holiday-garland {
+    height: 28px;
+    margin: -30px -24px 12px -24px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    line-height: 0;
+}
+
+.holiday-garland svg {
+    display: block;
+    width: 100%;
+    height: 28px;
+}
+
+/* On top of the sky of the menu window (same size) */
+.holiday-window {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.holiday-window svg {
+    border-radius: 0;
+}
+
+.hol-card {
+    margin: 0 0 20px 0;
+    padding: 14px;
+    border: 2px solid #ffd59e;
+    border-radius: 16px;
+    background: #fffaf0;
+}
+
+.hol-head h2 {
+    margin: 0;
+    color: #d35400;
+    font-size: 1.15em;
+}
+
+.hol-head .note {
+    margin: 2px 0 10px 0;
+}
+
+.hol-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.hol-tab {
+    min-height: 36px;
+    padding: 6px 12px;
+    border: 2px solid #ffd59e;
+    border-radius: 18px;
+    background: white;
+    color: var(--dark);
+    font-family: inherit;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hol-tab.selected {
+    border-color: #e67e22;
+    background: #ffe8cc;
+}
+
+.hol-words {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+}
+
+.hol-word {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 2px solid #ffe2bf;
+    border-radius: 12px;
+    background: white;
+    color: var(--dark);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.hol-word:hover,
+.hol-word:focus-visible {
+    border-color: #e67e22;
+}
+
+.hol-emoji {
+    font-size: 1.6em;
+    line-height: 1.1;
+}
+
+.hol-en {
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.hol-es {
+    color: var(--muted);
+    font-size: 0.85em;
+    font-style: italic;
+}
+
+.hol-example {
+    font-size: 0.85em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hol-p {
+        animation: none;
+    }
+
+    .hol-p:nth-child(odd) {
+        top: 25%;
+    }
+
+    .hol-p:nth-child(even) {
+        top: 65%;
+    }
+}
+
+/* Holidays are never printed */
+@media print {
+    #holiday-scene,
+    .holiday-garland {
         display: none !important;
     }
 }
