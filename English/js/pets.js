@@ -125,10 +125,19 @@ function dogSvg() {
 
 const PET_DRAWINGS = { cat: catSvg, dog: dogSvg };
 
-/** Inline SVG of a pet ("cat" or "dog"). */
-function petSvg(kind) {
+/**
+ * Inline SVG of a pet ("cat" or "dog"), with its accessories (GAMES-14).
+ * @param {object} [outfit] { slot: accessory id }; drawn inside .pet-body so they move with the pet
+ * @param {string} [uid] suffix for the ids, when the same pet is drawn more than once on the page
+ */
+function petSvg(kind, outfit, uid) {
     if (!PET_DRAWINGS[kind]) throw new Error("Unknown pet: " + kind);
-    return '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' + PET_DRAWINGS[kind]() + '</svg>';
+    let drawing = PET_DRAWINGS[kind]();
+    const layers = typeof accessoryLayers === "function" ? accessoryLayers(kind, outfit) : "";
+    // The drawing ends by closing .pet-body: the accessories go just before it
+    if (layers) drawing = drawing.slice(0, -"</g>".length) + layers + "</g>";
+    if (uid) drawing = drawing.replace(/(id="|url\(#)pet-/g, "$1pet-" + uid + "-");
+    return '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' + drawing + '</svg>';
 }
 
 /** An own 3D image of a pet (English/img/, versioned by npm run versions). */

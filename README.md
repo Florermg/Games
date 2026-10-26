@@ -63,6 +63,15 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
 - Las páginas se **guardan solas en el navegador del equipo**, con su fecha (no en internet). Se pueden crear páginas nuevas y borrarlas con dos toques. En modo privado, el cuaderno avisa que no puede guardar.
 - **🖨 Print** imprime la página con el nombre, la fecha, los errores marcados y las sugerencias, para entregarla a la maestra.
 
+## My Pets y premios
+
+- Al terminar una **guía generada** con **100%**, el alumno gana un accesorio sorpresa para el gatito y el perrito. Las demos no dan premio, y repetir la misma guía tampoco.
+- Hay **43 accesorios** dibujados a mano: sombreros y coronas, lentes, collares y correa, corbata y moños, ropa y zapatitos.
+  - **24 son de temporada**: Día de Muertos, Halloween, Navidad, fiestas patrias, primavera, verano, otoño e invierno.
+  - Solo se ganan en su temporada, y en ella salen el triple de seguido. Una vez ganados, se usan todo el año.
+- En **🐾 My Pets** se elige la mascota y se toca un accesorio para ponérselo o quitárselo (uno por cabeza, ojos, cuello, cuerpo y patas). Lo puesto se ve también en las mascotas de abajo de la ventana.
+- Los premios son **de cada alumno**, según el nombre del menú, y se guardan en el navegador del equipo.
+
 ## Fuentes públicas
 
 Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:

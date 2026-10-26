@@ -1181,6 +1181,166 @@ p.card-formula {
     font-size: 1.1em;
 }
 
+/* ---------- My Pets and prizes (GAMES-14) ---------- */
+
+.reward-card {
+    text-align: center;
+    background: linear-gradient(180deg, #fff8e1, #ffe8f0);
+    border: 3px solid #ffd166;
+    border-radius: 18px;
+    padding: 14px;
+    margin: 12px 0 18px 0;
+    animation: reward-pop 0.5s ease-out;
+}
+
+.reward-card h3 {
+    margin: 6px 0;
+    color: var(--primary);
+}
+
+.reward-pets {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.reward-pets svg {
+    width: 96px;
+    height: 96px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.18));
+}
+
+.reward-name {
+    font-size: 1.15em;
+    margin: 4px 0 10px 0;
+}
+
+.reward-season {
+    display: inline-block;
+    font-size: 0.8em;
+    background: #ffd166;
+    border-radius: 10px;
+    padding: 1px 8px;
+}
+
+.reward-note {
+    background: #f6f5ff;
+    border: 2px dashed #c9c5ff;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+@keyframes reward-pop {
+    0% { transform: scale(0.85); opacity: 0; }
+    70% { transform: scale(1.03); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.mp-stage {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 10px 0 6px 0;
+}
+
+.mp-pet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, #e8f4ff, #fdf0f2);
+    border: 3px solid transparent;
+    border-radius: 18px;
+    padding: 8px 10px 6px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--dark);
+    font-family: inherit;
+    font-size: 1em;
+}
+
+.mp-pet svg {
+    width: 150px;
+    height: 150px;
+    max-width: 38vw;
+    max-height: 38vw;
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.18));
+}
+
+.mp-pet.selected {
+    border-color: var(--secondary);
+    background: linear-gradient(180deg, #e6e4ff, #fdf0f2);
+}
+
+.mp-slot {
+    color: var(--secondary);
+    margin: 14px 0 6px 0;
+}
+
+.mp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 8px;
+}
+
+.mp-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    background: white;
+    border: 2px solid #c9c5ff;
+    border-radius: 12px;
+    padding: 6px 4px;
+    font-family: inherit;
+    font-size: 0.82em;
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.mp-item svg {
+    width: 72px;
+    height: 72px;
+}
+
+.mp-item.on {
+    border-color: var(--correct);
+    background: #eafaf1;
+}
+
+.mp-on {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    color: var(--correct);
+    font-weight: bold;
+}
+
+.mp-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.mp-item.locked {
+    cursor: default;
+    background: #f5f5f7;
+    border-style: dashed;
+}
+
+/* A locked accessory is a silhouette: the pet and the accessory in grey */
+.mp-item.locked svg {
+    filter: grayscale(1) brightness(0.35);
+    opacity: 0.25;
+}
+
+.mp-when {
+    color: var(--muted);
+    font-size: 0.9em;
+    text-align: center;
+}
+
 /* ---------- Pets (GAMES-9): always visible at the bottom of the window ---------- */
 
 #pets {
