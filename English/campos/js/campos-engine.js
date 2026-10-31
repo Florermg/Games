@@ -314,6 +314,8 @@ function finishCamposGuide() {
     document.getElementById('final-message').innerText = message;
     // Accesorio para las mascotas con una guía nueva al 100% (GAMES-14)
     if (typeof showPetReward === "function") showPetReward(currentGuide, score, max);
+    // La actividad del alumno para la página principal (GAMES-18)
+    if (typeof saveFinishedExam === "function") saveFinishedExam(camposExamFromGuide(currentGuide, sectionStates, new Date()));
 
     const table = document.getElementById('result-table');
     table.innerHTML = "";

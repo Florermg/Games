@@ -8,7 +8,7 @@ import { ENGLISH_DIR } from './game-context.mjs';
 export const CAMPOS_DIR = path.join(ENGLISH_DIR, 'campos');
 
 // Shared files of the game (../js) and the files of the page (js/)
-export const CAMPOS_SCRIPTS = ['../js/lang.js', '../js/api.js', '../js/grading.js', '../js/pet-rewards.js',
+export const CAMPOS_SCRIPTS = ['../js/lang.js', '../js/api.js', '../js/grading.js', '../js/pet-rewards.js', '../js/progress.js',
     'js/campos-data.js', 'js/campos-grading.js', 'js/campos-guides.js', 'js/campos-print.js'];
 
 function seededRandomSource(seed) {

@@ -545,6 +545,8 @@ function finishGuide() {
     document.getElementById('final-message').innerText = message;
     // Accessory for the pets after a perfect generated guide (GAMES-14)
     if (typeof showPetReward === "function") showPetReward(currentGuide, score, max);
+    // The activity of the student for the main page (GAMES-18)
+    if (typeof saveFinishedExam === "function") saveFinishedExam(englishExamFromGuide(currentGuide, currentGuide.sections.map((s, i) => sectionScore(i)), new Date()));
 
     const table = document.getElementById('result-table');
     table.innerHTML = "";

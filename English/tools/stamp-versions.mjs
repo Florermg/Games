@@ -1,4 +1,4 @@
-// npm run versions: writes in every page of the game (QuizA.html, campos/Guia5.html) the ?v= of
+// npm run versions: writes in every page of the game (QuizA.html, Ingles.html, campos/Guia5.html) the ?v= of
 // every js/ and css/ file from its current content (GAMES-5, GAMES-17). Run it after changing
 // any of those files, before the commit.
 import fs from 'node:fs';

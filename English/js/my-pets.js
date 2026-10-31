@@ -230,7 +230,9 @@ function setupMyPets() {
     // Another student: the pets wear what that student chose (US3)
     if (name) name.addEventListener("input", () => {
         dressPets();
-        if (!document.getElementById("pets-screen").classList.contains("hidden")) renderMyPets();
+        // The main page (GAMES-18) has no My Pets screen
+        const screen = document.getElementById("pets-screen");
+        if (screen && !screen.classList.contains("hidden")) renderMyPets();
     });
 }
 

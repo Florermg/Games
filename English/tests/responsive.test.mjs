@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { ENGLISH_DIR } from './helpers/game-context.mjs';
 
-const html = fs.readFileSync(path.join(ENGLISH_DIR, 'QuizA.html'), 'utf8');
+const html = fs.readFileSync(path.join(ENGLISH_DIR, 'Ingles.html'), 'utf8');
 const css = fs.readFileSync(path.join(ENGLISH_DIR, 'css', 'quiz.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 
 // Innermost CSS rules (also the ones inside @media), as { selectors: string[], declarations: {} }
@@ -24,7 +24,7 @@ function toPx(value) {
     return match[2] === 'px' ? Number(match[1]) : Number(match[1]) * BASE_FONT_PX;
 }
 
-test('QuizA.html adapts to the device width (FR-030a)', () => {
+test('Ingles.html adapts to the device width (FR-030a)', () => {
     assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1\.0">/);
 });
 

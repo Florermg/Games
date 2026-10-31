@@ -10,9 +10,9 @@ const game = createGameContext({ seed: 3 });
 const plain = (value) => game.toPlain(value);
 const state = (s) => Object.assign({ temperature: null, place: null, test: false }, s);
 
-test('pageLang is English outside a Spanish page (Node, QuizA.html)', () => {
+test('pageLang is English outside a Spanish page (Node, Ingles.html)', () => {
     assert.equal(game.call('pageLang'), 'en');
-    const quiz = fs.readFileSync(path.join(ENGLISH_DIR, 'QuizA.html'), 'utf8');
+    const quiz = fs.readFileSync(path.join(ENGLISH_DIR, 'Ingles.html'), 'utf8');
     const campos = fs.readFileSync(path.join(ENGLISH_DIR, 'campos', 'Guia5.html'), 'utf8');
     assert.match(quiz, /<html lang="en">/);
     assert.match(campos, /<html lang="es">/);

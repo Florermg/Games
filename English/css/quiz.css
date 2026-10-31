@@ -1350,6 +1350,124 @@ a.small-btn {
     text-align: center;
 }
 
+/* Link back to the main page (GAMES-18) */
+.page-back {
+    margin: 0 0 10px 0;
+}
+
+/* ---------- Main page (GAMES-18): subjects, language and summary ---------- */
+
+.hub-lang {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 0 0 10px 0;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.hub-lang button[aria-pressed="false"] {
+    background: white;
+    color: var(--secondary);
+    box-shadow: inset 0 0 0 2px #c9c5ff;
+}
+
+.hub-title {
+    margin: 0 0 12px 0;
+    color: var(--secondary);
+    font-size: 1.25em;
+}
+
+.subject-card.soon {
+    opacity: 0.7;
+}
+
+.soon-btn {
+    display: inline-block;
+    background: #b8b8c8;
+    cursor: default;
+}
+
+.hub-summary {
+    margin-top: 20px;
+    padding: 16px;
+    border: 2px solid #c9c5ff;
+    border-radius: 16px;
+    background: #f7f6ff;
+}
+
+.hub-summary h2 {
+    margin: 0 0 8px 0;
+    color: var(--secondary);
+    font-size: 1.2em;
+}
+
+.hub-summary h3 {
+    margin: 12px 0 6px 0;
+    font-size: 1em;
+}
+
+.hub-headline {
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.hub-prizes {
+    margin: 0 0 8px 0;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: #fff4d6;
+    font-weight: bold;
+}
+
+.hub-subject {
+    margin: 4px 0;
+}
+
+.hub-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+@media (min-width: 640px) {
+    .hub-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.hub-box {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: white;
+}
+
+.hub-box h3 {
+    margin-top: 0;
+}
+
+.hub-box ul,
+.hub-recent {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.hub-strong {
+    border: 2px solid #b8ecc9;
+}
+
+.hub-improve {
+    border: 2px solid #ffd59e;
+}
+
+.hub-recent li {
+    margin: 3px 0;
+}
+
 /* ---------- Environment (GAMES-15): time of day, weather and season ---------- */
 
 /* The sky fills the window behind the sheet; the guides stay on white */
