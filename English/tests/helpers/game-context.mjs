@@ -10,7 +10,7 @@ export const ENGLISH_DIR = path.resolve(here, '..', '..');
 export const FIXTURES_DIR = path.join(ENGLISH_DIR, 'tests', 'fixtures');
 
 // Same order as the <script> tags of QuizA.html; engine.js is left out because it needs the DOM
-export const GAME_SCRIPTS = ['lang.js', 'api.js', 'banks.js', 'demos.js', 'listening-stories.js', 'generators.js', 'grading.js', 'print.js', 'verbs-data.js', 'conjugation.js', 'grammar-cards.js', 'notebook-check.js', 'pet-rewards.js', 'progress.js', 'environment.js', 'holidays.js', 'pets.js'];
+export const GAME_SCRIPTS = ['lang.js', 'api.js', 'banks.js', 'demos.js', 'listening-stories.js', 'generators.js', 'grading.js', 'print.js', 'verbs-data.js', 'conjugation.js', 'grammar-cards.js', 'notebook-check.js', 'pet-rewards.js', 'progress.js', 'backup.js', 'environment.js', 'holidays.js', 'pets.js'];
 
 // mulberry32: small seeded generator, so the random choices of the generators repeat
 function seededRandomSource(seed) {
@@ -63,7 +63,10 @@ export function createGameContext(options = {}) {
     const context = vm.createContext({
         console,
         URLSearchParams,
-        fetch: options.fetch || fakeFetch
+        fetch: options.fetch || fakeFetch,
+        // Web Crypto, compression and base64 for the backup of the progress (GAMES-19)
+        crypto: globalThis.crypto,
+        TextEncoder, TextDecoder, CompressionStream, DecompressionStream, Blob, Response, btoa, atob
     });
     vm.runInContext(seededRandomSource(seed), context);
     for (const file of GAME_SCRIPTS) {

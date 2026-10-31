@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5th Grade Study Hub</title>
-    <link rel="stylesheet" href="css/quiz.css?v=3c4b7598">
+    <link rel="stylesheet" href="css/quiz.css?v=845828df">
 </head>
 <body>
 
@@ -80,6 +80,27 @@
             </div>
 
             <div class="hub-summary" id="hub-summary" aria-live="polite"></div>
+
+            <!-- Backup of the progress, to take it to another device (GAMES-19) -->
+            <div class="hub-backup" id="hub-backup">
+                <h2 data-t="backupTitle">💾 My backup</h2>
+                <p class="note" data-t="backupNote"></p>
+                <label class="chip"><input type="checkbox" id="backup-notebook" checked> <span data-t="backupNotebook">Include my notebook</span></label>
+                <div class="card-actions">
+                    <button type="button" class="main-btn" id="backup-download" data-t="backupDownload">💾 Download my backup</button>
+                    <button type="button" class="main-btn btn-secondary" id="backup-copy" data-t="backupCopy">📋 Copy my code</button>
+                </div>
+                <textarea id="backup-code" class="backup-text hidden" rows="3" readonly aria-label="Backup code"></textarea>
+                <h3 data-t="backupRestoreTitle">📥 Bring my progress to this device</h3>
+                <label class="small-btn file-btn"><span data-t="backupFile">📂 Choose my backup file</span>
+                    <input type="file" id="backup-file" accept=".json,application/json,text/plain">
+                </label>
+                <textarea id="backup-paste" class="backup-text" rows="3" data-tp="backupPaste" aria-label="Backup code"></textarea>
+                <div class="card-actions">
+                    <button type="button" class="main-btn" id="backup-restore" data-t="backupRestore">📥 Restore my progress</button>
+                </div>
+                <p class="status" id="backup-status" aria-live="polite"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -91,9 +112,11 @@
 <script src="js/api.js?v=4d6f82d0"></script>
 <script src="js/pet-rewards.js?v=81696d14"></script>
 <script src="js/progress.js?v=53bb764b"></script>
+<script src="js/notebook-check.js?v=72cb7aee"></script>
+<script src="js/backup.js?v=5538cda3"></script>
 <script src="js/environment.js?v=2bee1461"></script>
 <script src="js/holidays.js?v=3c630250"></script>
-<script src="js/hub.js?v=6b5d0681"></script>
+<script src="js/hub.js?v=e5eaff66"></script>
 <script src="js/pets.js?v=fcbe1085"></script>
 <script src="js/my-pets.js?v=cc2eae4f"></script>
 <script src="js/student.js?v=1c7502b3"></script>
