@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía 5.º Primer trimestre - Campos formativos</title>
+    <link rel="stylesheet" href="../css/quiz.css?v=31ac99d9">
+    <link rel="stylesheet" href="css/campos.css?v=cba8db7a">
+</head>
+<body>
+
+<!-- Ambiente (GAMES-15) y festividades (GAMES-16), compartidos con el juego de inglés -->
+<div id="env-scene" aria-hidden="true"></div>
+<div id="holiday-scene" aria-hidden="true"></div>
+
+<div class="main-wrapper">
+    <div class="anime-container">
+        <div class="avatar" id="anime-avatar">👧🏻</div>
+        <div class="speech-bubble" id="tutor-dialogue">
+            ¡Hola! Soy <b>Anya-chan</b>. Elige una guía y practiquemos juntos.
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div id="holiday-garland" class="holiday-garland hidden" aria-hidden="true"></div>
+
+        <!-- Menú -->
+        <div id="menu-screen">
+            <div class="campos-back">
+                <a class="small-btn" href="../QuizA.html">⬅ Inglés (English)</a>
+            </div>
+            <div class="menu-header">
+                <h1>📚 Guía 5.º · Primer trimestre 📚</h1>
+                <p class="subtitle">Lenguajes · Saberes y pensamiento científico · Ética, naturaleza y sociedades · De lo humano y lo comunitario</p>
+            </div>
+
+            <div class="field-grid" style="margin-bottom: 20px;">
+                <label>Tu nombre
+                    <input type="text" id="student-name" placeholder="Escribe tu nombre">
+                </label>
+            </div>
+
+            <div class="env-panel">
+                <div class="env-window"><div id="env-window"></div><div class="holiday-window" id="holiday-window"></div></div>
+                <div class="env-info">
+                    <p class="env-summary" id="env-summary"></p>
+                    <label class="env-city">Clima de
+                        <select id="env-city"></select>
+                    </label>
+                    <p class="note env-note" id="env-note"></p>
+                </div>
+            </div>
+
+            <div class="guide-cards">
+                <div class="guide-card">
+                    <h2>📝 Guía de estudio de los campos formativos</h2>
+                    <p class="note">Opción múltiple, verdadero o falso, relacionar columnas, banco de palabras, clasificar y respuestas con tus palabras. Tienes 2 intentos por sección.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playCamposDemo()">▶ Demo: guía del primer trimestre</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateCamposClick()">🎲 Generar una guía nueva</button>
+                    </div>
+                    <div class="note" style="margin: 12px 0 0 0;"><b>Campos para la guía nueva:</b></div>
+                    <div class="chips" id="campos-chips"></div>
+                    <p class="status" id="gen-status"></p>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>📚 Tarjetas de repaso</h2>
+                    <p class="note">Los 21 temas de la guía con sus definiciones, ejemplos y «Recuerda». Escúchalas o imprímelas.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openStudyCards()">📚 Abrir las tarjetas</button>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>🐾 Mis mascotas</h2>
+                    <p class="note">Saca 100% en una guía nueva y gana accesorios para el gatito y el perrito. Son los mismos del juego de inglés si usas el mismo nombre.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openMyPets()">🐾 Abrir mis mascotas</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjetas de repaso -->
+        <div id="study-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menú</button>
+                <div class="columns-choice" id="study-columns"></div>
+                <button class="small-btn" onclick="printStudyCards()">🖨 Imprimir las elegidas</button>
+            </div>
+            <h1>📚 Tarjetas de repaso</h1>
+            <div class="chips" id="study-filter"></div>
+            <div class="card-select-actions">
+                <button class="small-btn" onclick="selectStudyCards(true)">Elegir todas</button>
+                <button class="small-btn" onclick="selectStudyCards(false)">Quitar todas</button>
+            </div>
+            <div id="study-cards"></div>
+        </div>
+
+        <!-- Mis mascotas (GAMES-14) -->
+        <div id="pets-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menú</button>
+                <button class="small-btn" onclick="takeOffAllClick()">Quitarle todo</button>
+            </div>
+            <h1>🐾 Mis mascotas</h1>
+            <p class="note" id="mp-owner"></p>
+            <p class="status error" id="mp-save-note"></p>
+            <p class="note" id="mp-image-note"></p>
+            <div class="mp-stage" id="mp-stage"></div>
+            <div id="mp-wardrobe"></div>
+        </div>
+
+        <!-- Guía -->
+        <div id="sheet-screen" class="hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menú</button>
+                <div class="print-menu">
+                    <button class="small-btn" id="print-btn" onclick="togglePrintPanel()" aria-expanded="false">🖨 Imprimir</button>
+                    <div class="print-panel hidden" id="print-panel">
+                        <button class="small-btn" onclick="printCamposGuide('student')">📄 Hoja del alumno</button>
+                        <button class="small-btn" id="print-key-btn" onclick="printCamposGuide('key')">🔑 Clave de respuestas</button>
+                    </div>
+                </div>
+                <span class="score-pill" id="score-pill">⭐ 0 pts</span>
+            </div>
+            <div id="sheet-body"></div>
+            <div class="sheet-footer">
+                <button class="main-btn" onclick="finishCamposGuide()">Terminar y ver mis resultados 🎉</button>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="results-screen" class="results hidden">
+            <h2>¡Guía terminada! 🎉</h2>
+            <div class="score-display" id="final-score">0 / 0</div>
+            <div class="section-score" id="final-average" style="font-size: 1.3em;"></div>
+            <p id="final-message" style="font-size: 1.1em; font-weight: bold;"></p>
+            <div id="reward-box" aria-live="polite"></div>
+            <table class="result-table" id="result-table"></table>
+            <h3>📝 Repaso de lo que te faltó:</h3>
+            <div class="review-box" id="review-box"></div>
+            <div class="actions">
+                <button class="main-btn btn-secondary" onclick="startCamposGuide(currentGuide)">Repetir esta guía 🔁</button>
+                <button class="main-btn" onclick="backToMenu()">Volver al menú 🔄</button>
+            </div>
+        </div>
+    </div>
+    <div id="print-area" aria-hidden="true"></div>
+</div>
+
+<!-- Mascotas (GAMES-9): las dibujadas del juego; las imágenes propias son solo de la página de inglés -->
+<div id="pets"></div>
+
+<script src="../js/lang.js?v=91793117"></script>
+<script src="../js/api.js?v=4d6f82d0"></script>
+<script src="../js/grading.js?v=2824bbb7"></script>
+<script src="../js/pet-rewards.js?v=81696d14"></script>
+<script src="../js/environment.js?v=2bee1461"></script>
+<script src="../js/holidays.js?v=ebb8c92b"></script>
+<script src="js/campos-data.js?v=85afdf3e"></script>
+<script src="js/campos-grading.js?v=8363e2b4"></script>
+<script src="js/campos-guides.js?v=7859dabb"></script>
+<script src="js/campos-print.js?v=fbfa85ef"></script>
+<script src="js/campos-engine.js?v=4fae6b25"></script>
+<script src="../js/pets.js?v=fcbe1085"></script>
+<script src="../js/my-pets.js?v=903652db"></script>
+</body>
+</html>

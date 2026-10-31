@@ -122,5 +122,9 @@ test('on narrow screens the pets strip is solid and the hide button is compact, 
     assert.match(ruleBody(narrow, '.pets-toggle-text') || '', /display:\s*none/);
     const source = fs.readFileSync(path.join(ENGLISH_DIR, 'js', 'pets.js'), 'utf8');
     assert.match(source, /pets-toggle-text/);
-    assert.match(source, /setAttribute\("aria-label", hidden \? "Show pets" : "Hide pets"\)/);
+    // The name goes in aria-label too, in the language of the page (GAMES-17)
+    assert.match(source, /return hidden \? "Show pets" : "Hide pets";/);
+    assert.match(source, /setAttribute\("aria-label", label\)/);
+    assert.equal(game.call('petsToggleLabel', true), 'Show pets');
+    assert.equal(game.call('petsToggleLabel', false), 'Hide pets');
 });

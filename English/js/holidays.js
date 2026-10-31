@@ -116,7 +116,7 @@ const word = (emoji, english, es, example) => ({ emoji, word: english, es, examp
 
 const HOLIDAYS = [
     {
-        id: "newyear", name: "New Year", nameEs: "Año Nuevo", emoji: "🎆", wish: "Happy New Year",
+        id: "newyear", name: "New Year", nameEs: "Año Nuevo", emoji: "🎆", wish: "Happy New Year", wishEs: "Feliz Año Nuevo",
         from: [12, 28], to: [1, 1], garland: "lights", colors: ["#f5c542", "#d9dde5", "#ffffff", "#f5a623"], item: "fireworks", floaters: ["🎉", "✨", "🎊"],
         words: [
             word("🎆", "fireworks", "fuegos artificiales", "We watch the fireworks at midnight."),
@@ -131,7 +131,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "reyes", name: "Three Kings' Day", nameEs: "Día de Reyes", emoji: "👑", wish: "Happy Three Kings' Day",
+        id: "reyes", name: "Three Kings' Day", nameEs: "Día de Reyes", emoji: "👑", wish: "Happy Three Kings' Day", wishEs: "Feliz Día de Reyes",
         from: [1, 2], to: [1, 6], garland: "pennants", colors: ["#f5c542", "#c0392b", "#2e86de", "#27ae60"], item: "rosca", floaters: ["👑", "⭐", "🐪"],
         words: [
             word("👑", "king", "rey", "The three kings bring gifts to the children."),
@@ -146,7 +146,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "valentine", name: "Valentine's Day", nameEs: "Día del Amor y la Amistad", emoji: "💝", wish: "Happy Valentine's Day",
+        id: "valentine", name: "Valentine's Day", nameEs: "Día del Amor y la Amistad", emoji: "💝", wish: "Happy Valentine's Day", wishEs: "Feliz Día del Amor y la Amistad",
         from: [2, 7], to: [2, 14], garland: "hearts", colors: ["#e84393", "#ff6b81", "#ff9ff3", "#d63031"], item: "hearts", floaters: ["💖", "💌", "❤️"],
         words: [
             word("❤️", "heart", "corazón", "I drew a big red heart."),
@@ -161,7 +161,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "flag", name: "Flag Day", nameEs: "Día de la Bandera", emoji: "🚩", wish: "Happy Flag Day",
+        id: "flag", name: "Flag Day", nameEs: "Día de la Bandera", emoji: "🚩", wish: "Happy Flag Day", wishEs: "Feliz Día de la Bandera",
         from: [2, 17], to: [2, 24], garland: "papel", colors: ["#006847", "#ffffff", "#ce1126"], item: "flag", floaters: ["🦅", "🌵", "✨"],
         words: [
             word("🚩", "flag", "bandera", "We salute the flag at school."),
@@ -176,7 +176,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "stpatrick", name: "St. Patrick's Day", nameEs: "Día de San Patricio", emoji: "☘️", wish: "Happy St. Patrick's Day",
+        id: "stpatrick", name: "St. Patrick's Day", nameEs: "Día de San Patricio", emoji: "☘️", wish: "Happy St. Patrick's Day", wishEs: "Feliz Día de San Patricio",
         from: [3, 10], to: [3, 17], garland: "pennants", colors: ["#2ecc71", "#27ae60", "#f1c40f", "#ffffff"], item: "shamrock", floaters: ["☘️", "🍀", "🌈"],
         words: [
             word("☘️", "shamrock", "trébol", "A shamrock has three leaves."),
@@ -191,7 +191,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "easter", name: "Easter", nameEs: "Pascua", emoji: "🐣", wish: "Happy Easter",
+        id: "easter", name: "Easter", nameEs: "Pascua", emoji: "🐣", wish: "Happy Easter", wishEs: "Felices Pascuas",
         range: (year) => ({ from: shiftDay(year, easterSunday(year), -7), to: easterSunday(year) }),
         garland: "pennants", colors: ["#ffd6e7", "#c8f7c5", "#fff3b0", "#cde7ff", "#e5d4ff"], item: "eggs", floaters: ["🥚", "🐣", "🌷"],
         words: [
@@ -207,7 +207,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "children", name: "Children's Day", nameEs: "Día del Niño", emoji: "🎈", wish: "Happy Children's Day",
+        id: "children", name: "Children's Day", nameEs: "Día del Niño", emoji: "🎈", wish: "Happy Children's Day", wishEs: "Feliz Día del Niño",
         from: [4, 23], to: [4, 30], garland: "papel", colors: ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1", "#ff9ff3"], item: "balloons", floaters: ["🎈", "🎉", "🪁"],
         words: [
             word("🎈", "balloon", "globo", "I have a red balloon."),
@@ -222,7 +222,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "mothers", name: "Mother's Day", nameEs: "Día de las Madres", emoji: "💐", wish: "Happy Mother's Day",
+        id: "mothers", name: "Mother's Day", nameEs: "Día de las Madres", emoji: "💐", wish: "Happy Mother's Day", wishEs: "Feliz Día de las Madres",
         from: [5, 3], to: [5, 10], garland: "pennants", colors: ["#ff9ff3", "#f368e0", "#ffffff", "#ff6b81"], item: "bouquet", floaters: ["💐", "🌷", "💖"],
         words: [
             word("💐", "bouquet", "ramo de flores", "I give my mom a bouquet."),
@@ -237,7 +237,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "teachers", name: "Teacher's Day", nameEs: "Día del Maestro", emoji: "🍎", wish: "Happy Teacher's Day",
+        id: "teachers", name: "Teacher's Day", nameEs: "Día del Maestro", emoji: "🍎", wish: "Happy Teacher's Day", wishEs: "Feliz Día del Maestro",
         from: [5, 11], to: [5, 15], garland: "pennants", colors: ["#e74c3c", "#f1c40f", "#3498db", "#2ecc71"], item: "books", floaters: ["🍎", "✏️", "📚"],
         words: [
             word("🧑‍🏫", "teacher", "maestra / maestro", "My teacher helps me every day."),
@@ -252,7 +252,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "independence", name: "Independence Day", nameEs: "Día de la Independencia", emoji: "🔔", wish: "Happy Independence Day",
+        id: "independence", name: "Independence Day", nameEs: "Día de la Independencia", emoji: "🔔", wish: "Happy Independence Day", wishEs: "Feliz Día de la Independencia",
         from: [9, 1], to: [9, 16], garland: "papel", colors: ["#006847", "#ffffff", "#ce1126"], item: "bell", floaters: ["🎆", "🔔", "✨"],
         words: [
             word("🔔", "bell", "campana", "The bell rings on the night of September fifteenth."),
@@ -267,7 +267,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "halloween", name: "Halloween", nameEs: "Halloween", emoji: "🎃", wish: "Happy Halloween",
+        id: "halloween", name: "Halloween", nameEs: "Halloween", emoji: "🎃", wish: "Happy Halloween", wishEs: "Feliz Halloween",
         from: [10, 15], to: [10, 31], garland: "pennants", colors: ["#f39c12", "#2d2d2d", "#8e44ad"], item: "pumpkin", floaters: ["🦇", "🎃", "👻"],
         words: [
             word("🎃", "pumpkin", "calabaza", "We carve a pumpkin with a funny face."),
@@ -283,7 +283,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "muertos", name: "Day of the Dead", nameEs: "Día de Muertos", emoji: "💀", wish: "Happy Day of the Dead",
+        id: "muertos", name: "Day of the Dead", nameEs: "Día de Muertos", emoji: "💀", wish: "Happy Day of the Dead", wishEs: "Feliz Día de Muertos",
         from: [10, 25], to: [11, 2], garland: "papel", colors: ["#e84393", "#f39c12", "#8e44ad", "#00b894", "#fdcb6e"], item: "altar", floaters: ["🌼", "💀", "🕯️"],
         words: [
             word("🌼", "marigold", "cempasúchil", "Marigold flowers are orange."),
@@ -299,7 +299,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "revolution", name: "Revolution Day", nameEs: "Día de la Revolución", emoji: "🥁", wish: "Happy Revolution Day",
+        id: "revolution", name: "Revolution Day", nameEs: "Día de la Revolución", emoji: "🥁", wish: "Happy Revolution Day", wishEs: "Feliz Día de la Revolución",
         from: [11, 14], to: [11, 20], garland: "papel", colors: ["#006847", "#ffffff", "#ce1126"], item: "sombrero", floaters: ["🥁", "🎺", "✨"],
         words: [
             word("🐎", "horse", "caballo", "The soldiers rode horses."),
@@ -315,7 +315,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "thanksgiving", name: "Thanksgiving", nameEs: "Día de Acción de Gracias", emoji: "🦃", wish: "Happy Thanksgiving",
+        id: "thanksgiving", name: "Thanksgiving", nameEs: "Día de Acción de Gracias", emoji: "🦃", wish: "Happy Thanksgiving", wishEs: "Feliz Día de Acción de Gracias",
         range: (year) => ({ from: shiftDay(year, thanksgivingDay(year), -6), to: thanksgivingDay(year) }),
         garland: "pennants", colors: ["#a0522d", "#e67e22", "#f1c40f", "#c0392b"], item: "turkey", floaters: ["🍂", "🦃", "🌽"],
         words: [
@@ -331,7 +331,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "posadas", name: "Las Posadas", nameEs: "Las Posadas", emoji: "🪅", wish: "Happy Posadas",
+        id: "posadas", name: "Las Posadas", nameEs: "Las Posadas", emoji: "🪅", wish: "Happy Posadas", wishEs: "Felices posadas",
         from: [12, 16], to: [12, 24], garland: "papel", colors: ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1", "#ff9ff3", "#ffffff"], item: "pinata", floaters: ["⭐", "🕯️", "✨"],
         words: [
             word("🪅", "piñata", "piñata", "We break the piñata with a stick."),
@@ -347,7 +347,7 @@ const HOLIDAYS = [
         ]
     },
     {
-        id: "christmas", name: "Christmas", nameEs: "Navidad", emoji: "🎄", wish: "Merry Christmas",
+        id: "christmas", name: "Christmas", nameEs: "Navidad", emoji: "🎄", wish: "Merry Christmas", wishEs: "Feliz Navidad",
         from: [12, 1], to: [12, 25], garland: "lights", colors: ["#e74c3c", "#2ecc71", "#f1c40f", "#3498db"], item: "tree", floaters: ["🎄", "⭐", "❄️"],
         words: [
             word("🎄", "tree", "árbol", "We decorate the Christmas tree."),
@@ -501,13 +501,23 @@ function holidayParticles(ids) {
 
 // ---------- Greeting and words (FR-003, FR-004) ----------
 
-/** "🎃💀 Happy Halloween and happy Day of the Dead! …" */
-function holidayGreeting(ids) {
+/**
+ * "🎃💀 Happy Halloween and happy Day of the Dead! …"; in Spanish (GAMES-17) without the
+ * English words, which are not on that page: "🎃💀 ¡Feliz Halloween y feliz Día de Muertos! …"
+ */
+function holidayGreeting(ids, lang = pageLang()) {
     const shown = ids.map(id => HOLIDAY_BY_ID[id]);
     if (!shown.length) return "";
-    const wishes = shown.map((holiday, i) => i === 0 ? holiday.wish : holiday.wish.charAt(0).toLowerCase() + holiday.wish.slice(1));
-    const joined = wishes.length > 1 ? wishes.slice(0, -1).join(", ") + " and " + wishes[wishes.length - 1] : wishes[0];
-    return shown.map(h => h.emoji).join("") + " " + joined + "! Look at the holiday words in the menu: tap a word to hear it.";
+    const es = lang === "es";
+    const wishes = shown.map((holiday, i) => {
+        const wish = es ? holiday.wishEs : holiday.wish;
+        return i === 0 ? wish : wish.charAt(0).toLowerCase() + wish.slice(1);
+    });
+    const and = es ? " y " : " and ";
+    const joined = wishes.length > 1 ? wishes.slice(0, -1).join(", ") + and + wishes[wishes.length - 1] : wishes[0];
+    const emojis = shown.map(h => h.emoji).join("");
+    return es ? emojis + " ¡" + joined + "! ¡Vamos a estudiar con alegría!"
+        : emojis + " " + joined + "! Look at the holiday words in the menu: tap a word to hear it.";
 }
 
 const cardText = (text) => String(text).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
