@@ -113,6 +113,26 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
 - Si coinciden dos, se mezclan.
 - **Modo de prueba**: `QuizA.html?festividad=posadas`, `?festividad=halloween,muertos` o `?festividad=ninguna`. Se puede combinar con el del ambiente, por ejemplo `?festividad=navidad&ambiente=noche&clima=nieve`.
 
+## Guía 5.º Campos formativos (en español)
+
+- Página propia: `English/campos/Guia5.html`. Se abre con doble clic o desde la tarjeta "📚 Guía 5.º — Campos formativos" del menú de inglés, y tiene "⬅ Inglés" para regresar.
+- Contenido de la *Guía de estudio del primer trimestre 2026-2027*: 21 temas de Lenguajes, Saberes y pensamiento científico, Ética, naturaleza y sociedades, y De lo humano y lo comunitario. Está en `campos/js/campos-data.js`; el PDF no se guarda en el repositorio.
+- **Demo** (siempre igual) y **🎲 guías nuevas** de los campos que elijas. Cada guía trae seis tipos de ejercicio:
+
+  | Ejercicio | Preguntas |
+  |---|---|
+  | Opción múltiple | 8 |
+  | Verdadero o falso | 8 |
+  | Relacionar | 5 |
+  | Banco de palabras | 5 |
+  | Clasificar | 6 |
+  | Respuesta con tus palabras | 2 |
+
+- La revisión funciona como en inglés: 2 intentos por sección, pistas, promedio sobre 10, tabla de resultados y repaso de lo que faltó. Las respuestas abiertas se califican por ideas clave, sin importar acentos ni mayúsculas, y al final muestran la respuesta modelo.
+- 🖨 Hoja del alumno y clave de respuestas. **📚 Tarjetas de repaso**: una por tema; se escuchan con 🔊 y se imprimen en 1 o 2 columnas.
+- Comparte con el juego de inglés las mascotas, los premios y Mis mascotas, el clima y las festividades, todo en español. Con el mismo nombre, los accesorios son los mismos en las dos páginas.
+- **Publicar**: sube también la carpeta `English/campos/` a `nutritrack.mx/quiz/campos/`. Usa los mismos `js/` y `css/` del juego (`../js`, `../css`), y `npm run versions` sella las dos páginas.
+
 ## Fuentes públicas
 
 Todas son gratuitas, sin clave y se consultan en vivo desde el navegador:
@@ -132,7 +152,7 @@ El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por
 
 1. Después de cambiar cualquier archivo de `English/js/` o `English/css/`, y antes del commit:
    ```sh
-   npm run versions   # actualiza los ?v= de QuizA.html y dice qué archivos cambiaron
+   npm run versions   # actualiza los ?v= de QuizA.html y campos/Guia5.html y dice qué archivos cambiaron
    npm test           # falla si alguna versión quedó desactualizada
    ```
 2. Sube al servidor (`nutritrack.mx/quiz/`) los mismos archivos de siempre:
@@ -140,6 +160,7 @@ El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por
    - `English/css/`
    - `English/js/`
    - `English/img/`, solo si pusiste imágenes propias de las mascotas
+   - `English/campos/` (la Guía 5.º de campos formativos, GAMES-17)
 
    No subas `tests/`, `tools/` ni `documentacion/`: no se usan en el navegador.
 3. Comprueba que llegó la versión nueva. Abre la página normal, sin forzar la recarga, y luego:

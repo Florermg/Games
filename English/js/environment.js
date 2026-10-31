@@ -7,26 +7,46 @@
    ===================================================================== */
 
 const ENV_PERIODS = {
-    day: { label: "Morning", emoji: "☀️" },
-    afternoon: { label: "Afternoon", emoji: "🌇" },
-    night: { label: "Night", emoji: "🌙" }
+    day: { label: "Morning", labelEs: "Mañana", emoji: "☀️" },
+    afternoon: { label: "Afternoon", labelEs: "Tarde", emoji: "🌇" },
+    night: { label: "Night", labelEs: "Noche", emoji: "🌙" }
 };
 
 const ENV_WEATHERS = {
-    clear: { label: "Sunny", emoji: "☀️", nightLabel: "Clear sky", nightEmoji: "🌙" },
-    cloudy: { label: "Cloudy", emoji: "☁️" },
-    fog: { label: "Foggy", emoji: "🌫" },
-    rain: { label: "Rain", emoji: "🌧" },
-    snow: { label: "Snow", emoji: "❄️" },
-    storm: { label: "Storm", emoji: "⛈" }
+    clear: { label: "Sunny", labelEs: "Soleado", emoji: "☀️", nightLabel: "Clear sky", nightLabelEs: "Cielo despejado", nightEmoji: "🌙" },
+    cloudy: { label: "Cloudy", labelEs: "Nublado", emoji: "☁️" },
+    fog: { label: "Foggy", labelEs: "Niebla", emoji: "🌫" },
+    rain: { label: "Rain", labelEs: "Lluvia", emoji: "🌧" },
+    snow: { label: "Snow", labelEs: "Nieve", emoji: "❄️" },
+    storm: { label: "Storm", labelEs: "Tormenta", emoji: "⛈" }
 };
 
 const ENV_SEASONS = {
-    spring: { label: "Spring", emoji: "🌸" },
-    summer: { label: "Summer", emoji: "🌻" },
-    autumn: { label: "Autumn", emoji: "🍂" },
-    winter: { label: "Winter", emoji: "⛄" }
+    spring: { label: "Spring", labelEs: "Primavera", emoji: "🌸" },
+    summer: { label: "Summer", labelEs: "Verano", emoji: "🌻" },
+    autumn: { label: "Autumn", labelEs: "Otoño", emoji: "🍂" },
+    winter: { label: "Winter", labelEs: "Invierno", emoji: "⛄" }
 };
+
+// The other texts, in the language of the page (GAMES-17)
+const ENV_TEXT = {
+    en: {
+        hereName: "where you are", in: "in", testMode: "test mode", whereIAm: "📍 Where I am",
+        fallback: "I could not get your location, so I show the weather of Ciudad de México. You can choose your city.",
+        looking: "Looking at the sky…",
+        noWeather: "No weather right now (maybe there is no internet). The time of day and the season still change.",
+        testWeather: "Test mode: the weather comes from the address, not from the internet."
+    },
+    es: {
+        hereName: "donde estás", in: "en", testMode: "modo de prueba", whereIAm: "📍 Donde estoy",
+        fallback: "No pude saber dónde estás, así que muestro el clima de Ciudad de México. Puedes elegir tu ciudad.",
+        looking: "Mirando el cielo…",
+        noWeather: "Ahora no hay clima (quizá no hay internet). La hora del día y la estación sí cambian.",
+        testWeather: "Modo de prueba: el clima viene de la dirección, no de internet."
+    }
+};
+
+const envLabel = (info, lang) => lang === "es" ? info.labelEs : info.label;
 
 /** Morning 6:00-11:59, afternoon 12:00-18:59, night 19:00-5:59 (FR-001). */
 function periodOf(date) {
@@ -103,21 +123,22 @@ function environmentClasses(state) {
     return ["env-" + state.period, "env-w-" + (state.weather || "none"), "env-s-" + state.season];
 }
 
-function weatherLabel(state) {
+function weatherLabel(state, lang) {
     const info = ENV_WEATHERS[state.weather];
+    const words = ENV_TEXT[lang];
     const night = state.period === "night" && info.nightLabel;
-    let text = (night ? info.nightEmoji + " " + info.nightLabel : info.emoji + " " + info.label);
+    let text = (night ? info.nightEmoji + " " + (lang === "es" ? info.nightLabelEs : info.nightLabel) : info.emoji + " " + envLabel(info, lang));
     if (state.temperature !== null) text += ", " + state.temperature + " °C";
-    if (state.place) text += state.place === ENV_HERE_NAME ? " " + ENV_HERE_NAME : " in " + state.place;
+    if (state.place) text += state.place === ENV_HERE_NAME ? " " + words.hereName : " " + words.in + " " + state.place;
     return text;
 }
 
 /** "🌙 Night · 🌧 Rain, 17 °C in Ciudad de México · 🍂 Autumn" (FR-005). */
-function environmentSummary(state) {
-    const parts = [ENV_PERIODS[state.period].emoji + " " + ENV_PERIODS[state.period].label];
-    if (state.weather) parts.push(weatherLabel(state));
-    parts.push(ENV_SEASONS[state.season].emoji + " " + ENV_SEASONS[state.season].label);
-    if (state.test) parts.push("🧪 test mode");
+function environmentSummary(state, lang = pageLang()) {
+    const parts = [ENV_PERIODS[state.period].emoji + " " + envLabel(ENV_PERIODS[state.period], lang)];
+    if (state.weather) parts.push(weatherLabel(state, lang));
+    parts.push(ENV_SEASONS[state.season].emoji + " " + envLabel(ENV_SEASONS[state.season], lang));
+    if (state.test) parts.push("🧪 " + ENV_TEXT[lang].testMode);
     return parts.join(" · ");
 }
 
@@ -467,7 +488,7 @@ function locatePlace() {
     const city = cityById(envData.city);
     const fromCity = (note) => ({ lat: city.lat, lon: city.lon, name: city.name, note });
     if (envData.city !== ENV_HERE) return Promise.resolve(fromCity(""));
-    const fallbackNote = "I could not get your location, so I show the weather of Ciudad de México. You can choose your city.";
+    const fallbackNote = ENV_TEXT[pageLang()].fallback;
     if (!navigator.geolocation) return Promise.resolve(fromCity(fallbackNote));
     const asked = new Promise(resolve => {
         navigator.geolocation.getCurrentPosition(
@@ -485,7 +506,7 @@ async function refreshWeather() {
     const place = await locatePlace();
     let weather = cachedWeather(envData, place.lat, place.lon, Date.now());
     if (!weather) {
-        if (!envWeatherNow) envNote("Looking at the sky…");
+        if (!envWeatherNow) envNote(ENV_TEXT[pageLang()].looking);
         weather = await withTimeout(fetchWeather(place.lat, place.lon, typeof fetch === "function" ? fetch : null), 8000, null);
         if (weather) {
             envData.weather = Object.assign({}, weather, { lat: round2(place.lat), lon: round2(place.lon), time: Date.now() });
@@ -494,7 +515,7 @@ async function refreshWeather() {
     }
     envWeatherNow = weather;
     envPlaceName = place.name;
-    envNote(weather ? place.note : "No weather right now (maybe there is no internet). The time of day and the season still change.");
+    envNote(weather ? place.note : ENV_TEXT[pageLang()].noWeather);
     applyEnvironment();
 }
 
@@ -511,7 +532,7 @@ function setupEnvironment() {
     envData = loadEnvironment(envStorage()).data;
     const select = document.getElementById("env-city");
     if (select) {
-        select.innerHTML = '<option value="' + ENV_HERE + '">📍 Where I am</option>' +
+        select.innerHTML = '<option value="' + ENV_HERE + '">' + ENV_TEXT[pageLang()].whereIAm + '</option>' +
             ENV_CITIES.map(city => '<option value="' + city.id + '">' + escapeHtml(city.name) + '</option>').join("");
         select.value = envData.city;
         select.addEventListener("change", chooseEnvCity);
@@ -521,7 +542,7 @@ function setupEnvironment() {
     applyEnvironment();
     setInterval(applyEnvironment, 60000);
     if (envOverridesNow.weather) {
-        envNote("Test mode: the weather comes from the address, not from the internet.");
+        envNote(ENV_TEXT[pageLang()].testWeather);
     } else {
         refreshWeather();
         setInterval(refreshWeather, ENV_WEATHER_MINUTES * 60000);

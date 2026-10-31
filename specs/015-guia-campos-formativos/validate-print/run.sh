@@ -1,0 +1,32 @@
+#!/bin/sh
+# Development check of GAMES-17 (not run in CI): prints the campos guide pages with headless
+# Chrome (or WebKit: PRINTER=path/to/webkit-print) and checks, with the GAMES-10 checker,
+# that every title is on the same page as the start of its first block.
+# Usage: sh specs/015-guia-campos-formativos/validate-print/run.sh [output-folder]
+set -u
+HERE=$(cd "$(dirname "$0")" && pwd)
+CHECK="$HERE/../../008-impresion-iphone/validate-print/check-keeps.mjs"
+OUT=${1:-$(mktemp -d)}
+mkdir -p "$OUT"
+CHROME=${CHROME:-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"}
+PROFILE=$(mktemp -d)
+FAIL=0
+node "$HERE/make-pages.mjs" "$OUT" >/dev/null || exit 1
+for page in "$OUT"/*.html; do
+    name=$(basename "$page" .html)
+    if [ -n "${PRINTER:-}" ]; then
+        "$PRINTER" "$page" "$OUT/$name.pdf" >/dev/null 2>&1
+    else
+        "$CHROME" --headless=new --disable-gpu --user-data-dir="$PROFILE" --no-pdf-header-footer \
+            --virtual-time-budget=3000 --print-to-pdf="$OUT/$name.pdf" "file://$page" >/dev/null 2>&1
+    fi
+    pages=$(pdfinfo "$OUT/$name.pdf" 2>/dev/null | awk '/^Pages:/ {print $2}')
+    if node "$CHECK" "$OUT/$name.pdf" "$OUT/$name.json"; then
+        echo "  ✔ $name: $pages page(s)"
+    else
+        echo "  ✖ $name"; FAIL=1
+    fi
+done
+rm -rf "$PROFILE"
+[ $FAIL -eq 0 ] && echo "All checks passed. PDFs in $OUT" || echo "Some checks FAILED. PDFs in $OUT"
+exit $FAIL

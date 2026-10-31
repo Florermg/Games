@@ -4,10 +4,12 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ENGLISH_DIR } from './helpers/game-context.mjs';
-import { fileVersion, listReferences, stampVersions, checkVersions, PET_IMAGES, readGameFile as readForVersion } from '../tools/versions.mjs';
+import { fileVersion, listReferences, stampVersions, checkVersions, PET_IMAGES, GAME_PAGES, readGameFile as readForVersion } from '../tools/versions.mjs';
 
 const PAGE = path.join(ENGLISH_DIR, 'QuizA.html');
 const readGameFile = (file) => readForVersion(ENGLISH_DIR, file);
+const CAMPOS_PAGE = path.join(ENGLISH_DIR, 'campos', 'Guia5.html');
+const readCamposFile = (file) => readForVersion(path.dirname(CAMPOS_PAGE), file);
 
 // A tiny set of files for the examples
 const FILES = { 'js/a.js': 'const a = 1;\n', 'js/b.js': 'const b = 2;\n', 'css/s.css': 'body { color: red; }\n' };
@@ -65,10 +67,10 @@ test('checkVersions finds missing versions, outdated versions and missing files'
     assert.deepEqual(checkVersions(stamped, readFake(withoutB)).map(p => p.path + ' ' + p.problem), ['js/b.js missing-file']);
 });
 
-test('QuizA.html asks for its 20 files with a version (SC-002)', () => {
+test('QuizA.html asks for its 21 files with a version (SC-002)', () => {
     const references = listReferences(fs.readFileSync(PAGE, 'utf8'));
-    // 1 CSS + 17 JS (pet-rewards.js and my-pets.js since GAMES-14)
-    assert.equal(references.length, 20, references.map(r => r.path).join(', '));
+    // 1 CSS + 20 JS (lang.js since GAMES-17)
+    assert.equal(references.length, 21, references.map(r => r.path).join(', '));
     assert.equal(references.filter(r => r.path.startsWith('css/')).length, 1);
     assert.ok(references.every(r => r.version), 'without version: ' + references.filter(r => !r.version).map(r => r.path).join(', '));
 });
@@ -77,6 +79,28 @@ test('every version in QuizA.html matches its file: if not, run npm run versions
     const problems = checkVersions(fs.readFileSync(PAGE, 'utf8'), readGameFile);
     const message = problems.map(p => '  ' + p.path + ': ' + p.problem).join('\n');
     assert.deepEqual(problems, [], 'QuizA.html asks for files with a wrong version:\n' + message + '\nRun `npm run versions` and commit QuizA.html.');
+});
+
+// ---------- campos/Guia5.html (GAMES-17) ----------
+
+test('references with ../ are found, stamped and checked from the folder of the page', () => {
+    const html = '<link rel="stylesheet" href="../css/quiz.css">\n<script src="../js/lang.js?v=00000000"></script>\n<script src="js/campos-data.js"></script>';
+    assert.deepEqual(listReferences(html).map(r => r.path), ['../css/quiz.css', '../js/lang.js', 'js/campos-data.js']);
+    const files = { '../css/quiz.css': 'body {}', '../js/lang.js': 'x', 'js/campos-data.js': 'y' };
+    const stamped = stampVersions(html, readFake(files));
+    assert.deepEqual(stamped.changed, ['../css/quiz.css', '../js/lang.js', 'js/campos-data.js']);
+    assert.ok(stamped.html.includes('src="../js/lang.js?v=' + fileVersion('x') + '"'));
+    assert.deepEqual(checkVersions(stamped.html, readFake(files)), []);
+});
+
+test('npm run versions stamps both pages of the game', () => {
+    assert.deepEqual(GAME_PAGES, ['QuizA.html', 'campos/Guia5.html']);
+    const references = listReferences(fs.readFileSync(CAMPOS_PAGE, 'utf8'));
+    assert.ok(references.length >= 14, references.map(r => r.path).join(', '));
+    assert.ok(references.some(r => r.path === '../css/quiz.css') && references.some(r => r.path === 'css/campos.css'));
+    assert.ok(references.every(r => r.version), 'without version: ' + references.filter(r => !r.version).map(r => r.path).join(', '));
+    const problems = checkVersions(fs.readFileSync(CAMPOS_PAGE, 'utf8'), readCamposFile);
+    assert.deepEqual(problems, [], 'campos/Guia5.html asks for files with a wrong version: run `npm run versions`.');
 });
 
 // ---------- Own pet images, optional (GAMES-9, FR-008, FR-009) ----------

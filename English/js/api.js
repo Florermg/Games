@@ -360,6 +360,8 @@ async function findArticle(query, minSentences, minFreq) {
 
 const Speech = {
     voice: null,
+    // Language of the voice: campos/Guia5.html changes it to Spanish (GAMES-17)
+    lang: "en-US",
     // Changes on every cancel, so the events of a stopped reading are ignored
     token: 0,
     // Chrome loses the events of utterances it garbage-collects: keep them here
@@ -371,16 +373,19 @@ const Speech = {
 
     pickVoice() {
         const voices = window.speechSynthesis.getVoices();
-        this.voice = voices.find(v => v.lang === "en-US" && /samantha|google us|jenny|aria/i.test(v.name))
-            || voices.find(v => v.lang === "en-US")
-            || voices.find(v => v.lang.startsWith("en"))
+        const base = this.lang.slice(0, 2);
+        // Android names the languages with "_" (es_MX)
+        const sameLang = v => v.lang.replace("_", "-") === this.lang;
+        this.voice = (this.lang === "en-US" && voices.find(v => sameLang(v) && /samantha|google us|jenny|aria/i.test(v.name)))
+            || voices.find(sameLang)
+            || voices.find(v => v.lang.startsWith(base))
             || null;
     },
 
     utterance(text, rate, pitch) {
         if (!this.voice) this.pickVoice();
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";
+        utterance.lang = this.lang;
         if (this.voice) utterance.voice = this.voice;
         utterance.rate = rate || 0.9;
         if (pitch) utterance.pitch = pitch;

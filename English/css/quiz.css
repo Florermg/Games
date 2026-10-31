@@ -1342,6 +1342,14 @@ p.card-formula {
     text-align: center;
 }
 
+/* Links that look like buttons: QuizA.html ↔ campos/Guia5.html (GAMES-17) */
+a.main-btn,
+a.small-btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
 /* ---------- Environment (GAMES-15): time of day, weather and season ---------- */
 
 /* The sky fills the window behind the sheet; the guides stay on white */

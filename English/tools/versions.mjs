@@ -28,8 +28,12 @@ function petImageValue(kind, readFile) {
     return PET_IMAGES[kind] + '?v=' + fileVersion(content);
 }
 
-// Local js/ and css/ files in src="..." or href="...", with an optional ?v=
-const LOCAL_REFERENCE = /\b(src|href)="((?:js|css)\/[^"?#]+)(?:\?v=([^"]*))?"/g;
+// Local js/ and css/ files in src="..." or href="...", with an optional ?v=. They can start
+// with ../: campos/Guia5.html uses the shared files of the game (GAMES-17)
+const LOCAL_REFERENCE = /\b(src|href)="((?:\.\.\/)?(?:js|css)\/[^"?#]+)(?:\?v=([^"]*))?"/g;
+
+// The pages of the game, relative to English/ (GAMES-17)
+export const GAME_PAGES = ['QuizA.html', 'campos/Guia5.html'];
 
 /** 8 hex characters of the SHA-256 of the content: text with CRLF → LF (research R1), images as their bytes. */
 export function fileVersion(content) {

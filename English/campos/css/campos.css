@@ -1,0 +1,29 @@
+/* =====================================================================
+   GUÍA 5.º CAMPOS FORMATIVOS (GAMES-17): lo poco que esta página agrega
+   a ../css/quiz.css, que comparte con el juego de inglés.
+   ===================================================================== */
+
+.campos-back {
+    margin: 0 0 10px 0;
+}
+
+/* Respuesta abierta: 16 px para que Safari del iPhone no haga zoom */
+.open-answer {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    font-size: 16px;
+    line-height: 1.4;
+    resize: vertical;
+}
+
+.study-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.study-card-actions .speak-btn {
+    flex-shrink: 0;
+}

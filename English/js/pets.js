@@ -15,6 +15,15 @@ const PETS = {
             "Meow! Read it one more time.",
             "Paws up for English!",
             "Meow! Take a deep breath and try again."
+        ],
+        // Spanish page (GAMES-17)
+        nameEs: "Gatito negro",
+        phrasesEs: [
+            "¡Miau! ¡Sigue así!",
+            "Purr... ¡lo estás haciendo muy bien!",
+            "¡Miau! Léelo una vez más.",
+            "¡Arriba las patitas por aprender!",
+            "¡Miau! Respira hondo e inténtalo otra vez."
         ]
     },
     dog: {
@@ -25,6 +34,14 @@ const PETS = {
             "Let's fetch the right answer!",
             "Woof! Practice makes perfect!",
             "Happy tail wags for you!"
+        ],
+        nameEs: "Cachorro pastor alemán",
+        phrasesEs: [
+            "¡Guau! ¡Muy bien!",
+            "¡Guau guau! ¡Tú puedes!",
+            "¡Vamos por la respuesta correcta!",
+            "¡Guau! La práctica hace al maestro.",
+            "¡Te muevo la colita de alegría!"
         ]
     }
 };
@@ -149,8 +166,8 @@ function petImageHtml(kind, src) {
 
 const petPhraseIndex = { cat: 0, dog: 0 };
 
-function nextPetPhrase(kind) {
-    const phrases = PETS[kind].phrases;
+function nextPetPhrase(kind, lang = pageLang()) {
+    const phrases = lang === "es" ? PETS[kind].phrasesEs : PETS[kind].phrases;
     const phrase = phrases[petPhraseIndex[kind] % phrases.length];
     petPhraseIndex[kind] = (petPhraseIndex[kind] + 1) % phrases.length;
     return phrase;
@@ -168,12 +185,18 @@ function petTouched(kind, button) {
 }
 
 // Hides or shows both pets until the page is reloaded (nothing is saved, FR-006a)
+function petsToggleLabel(hidden) {
+    if (pageLang() === "es") return hidden ? "Mostrar mascotas" : "Ocultar mascotas";
+    return hidden ? "Show pets" : "Hide pets";
+}
+
 function togglePets() {
     const hidden = document.body.classList.toggle("pets-hidden");
     const button = document.getElementById("pets-toggle");
     // The text is hidden on phones (only 🐾), so the name also goes in aria-label (GAMES-10)
-    button.querySelector(".pets-toggle-text").textContent = hidden ? "Show pets" : "Hide pets";
-    button.setAttribute("aria-label", hidden ? "Show pets" : "Hide pets");
+    const label = petsToggleLabel(hidden);
+    button.querySelector(".pets-toggle-text").textContent = label;
+    button.setAttribute("aria-label", label);
     button.setAttribute("aria-pressed", String(hidden));
 }
 
@@ -184,7 +207,7 @@ function mountPets() {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "pet pet-" + kind;
-        button.setAttribute("aria-label", PETS[kind].name);
+        button.setAttribute("aria-label", pageLang() === "es" ? PETS[kind].nameEs : PETS[kind].name);
         // The own image if there is one (FR-008); the drawing if not, or if it does not load
         const image = box.getAttribute("data-" + kind + "-image");
         if (image) {
@@ -202,8 +225,8 @@ function mountPets() {
     const toggle = document.createElement("button");
     toggle.type = "button";
     toggle.id = "pets-toggle";
-    toggle.innerHTML = '<span aria-hidden="true">🐾</span> <span class="pets-toggle-text">Hide pets</span>';
-    toggle.setAttribute("aria-label", "Hide pets");
+    toggle.innerHTML = '<span aria-hidden="true">🐾</span> <span class="pets-toggle-text">' + petsToggleLabel(false) + '</span>';
+    toggle.setAttribute("aria-label", petsToggleLabel(false));
     toggle.setAttribute("aria-pressed", "false");
     toggle.onclick = togglePets;
     document.body.appendChild(toggle);
