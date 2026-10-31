@@ -74,3 +74,11 @@ test('without the card of words, the English holiday greeting does not talk abou
     assert.equal(game.call('holidayGreeting', ['halloween'], 'en', false), "🎃 Happy Halloween! Let's have fun studying!");
     assert.match(game.call('holidayGreeting', ['halloween'], 'en'), /Look at the holiday words/);
 });
+
+test('the main page has the backup card and its scripts (GAMES-19)', () => {
+    const page = read('QuizA.html');
+    for (const id of ['backup-download', 'backup-copy', 'backup-file', 'backup-paste', 'backup-restore', 'backup-notebook', 'backup-status']) {
+        assert.ok(page.includes('id="' + id + '"'), id);
+    }
+    assert.match(page, /<script src="js\/notebook-check\.js\?v=\w+"><\/script>\s*<script src="js\/backup\.js\?v=\w+"><\/script>/);
+});

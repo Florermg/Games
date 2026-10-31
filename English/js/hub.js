@@ -32,7 +32,28 @@ const HUB_TEXT = {
         recentTitle: "🗓 Your latest guides",
         demo: "demo",
         cannotSave: "This browser does not let me save your activity.",
-        welcome: "Hello! I'm Anya-chan. Write your name and choose a subject!"
+        welcome: "Hello! I'm Anya-chan. Write your name and choose a subject!",
+        // Backup of the progress (GAMES-19)
+        backupTitle: "💾 My backup",
+        backupNote: "Take your prizes, your pets' clothes, your guides and your notebook to another tablet, phone or computer. Save a file or copy a code, and open it on the other device.",
+        backupNotebook: "Include my notebook",
+        backupDownload: "💾 Download my backup",
+        backupCopy: "📋 Copy my code",
+        backupRestoreTitle: "📥 Bring my progress to this device",
+        backupFile: "📂 Choose my backup file",
+        backupPaste: "…or paste your code here (it starts with GAMES)",
+        backupRestore: "📥 Restore my progress",
+        backupDone: "✅ Your backup is ready: keep the file {file} in a safe place (or send it to yourself).",
+        backupCopied: "📋 Code copied! Paste it in a message to yourself or on the other device.",
+        backupCopyManual: "Your browser did not let me copy it: select the code below and copy it.",
+        backupRestored: "✅ Welcome back, {name}! New on this device: prizes {prizes} · guides {exams} · notebook pages {pages}. Nothing was deleted.",
+        backupTampered: "⚠️ This backup is incomplete or was changed, so I did not use it. Nothing was modified.",
+        backupNotBackup: "⚠️ That is not a backup of the game. Nothing was modified.",
+        backupVersion: "⚠️ This backup comes from a newer version of the game. Update the game and try again.",
+        backupNeedName: "✏️ Write your name first, so I know whose progress to save.",
+        backupEmpty: "🌱 There is no progress to save yet: finish a guide or win a prize first.",
+        backupNothing: "✏️ Choose your backup file or paste your code first.",
+        backupCannotSave: "⚠️ This browser does not let me save on this device."
     },
     es: {
         pageTitle: "Centro de estudio 5.º grado",
@@ -60,7 +81,27 @@ const HUB_TEXT = {
         recentTitle: "🗓 Tus últimas guías",
         demo: "demo",
         cannotSave: "Este navegador no me deja guardar tu actividad.",
-        welcome: "¡Hola! Soy Anya-chan. ¡Escribe tu nombre y elige una materia!"
+        welcome: "¡Hola! Soy Anya-chan. ¡Escribe tu nombre y elige una materia!",
+        backupTitle: "💾 Mi respaldo",
+        backupNote: "Lleva tus premios, la ropa de tus mascotas, tus guías y tu cuaderno a otra tablet, celular o computadora. Guarda un archivo o copia un código, y ábrelo en el otro equipo.",
+        backupNotebook: "Incluir mi cuaderno",
+        backupDownload: "💾 Descargar mi respaldo",
+        backupCopy: "📋 Copiar mi código",
+        backupRestoreTitle: "📥 Traer mi avance a este equipo",
+        backupFile: "📂 Elegir mi archivo de respaldo",
+        backupPaste: "…o pega aquí tu código (empieza con GAMES)",
+        backupRestore: "📥 Recuperar mi avance",
+        backupDone: "✅ Tu respaldo está listo: guarda el archivo {file} en un lugar seguro (o envíatelo).",
+        backupCopied: "📋 ¡Código copiado! Pégalo en un mensaje para ti o en el otro equipo.",
+        backupCopyManual: "Tu navegador no me dejó copiarlo: selecciona el código de abajo y cópialo.",
+        backupRestored: "✅ ¡Qué gusto verte de nuevo, {name}! Nuevo en este equipo: premios {prizes} · guías {exams} · páginas del cuaderno {pages}. No se borró nada.",
+        backupTampered: "⚠️ Este respaldo está incompleto o fue modificado, así que no lo usé. No se cambió nada.",
+        backupNotBackup: "⚠️ Eso no es un respaldo del juego. No se cambió nada.",
+        backupVersion: "⚠️ Este respaldo es de una versión más nueva del juego. Actualiza el juego e inténtalo otra vez.",
+        backupNeedName: "✏️ Primero escribe tu nombre, para saber de quién es el avance.",
+        backupEmpty: "🌱 Todavía no hay avance que guardar: termina una guía o gana un premio primero.",
+        backupNothing: "✏️ Primero elige tu archivo de respaldo o pega tu código.",
+        backupCannotSave: "⚠️ Este navegador no me deja guardar en este equipo."
     }
 };
 
@@ -84,6 +125,7 @@ function renderHubTexts() {
     document.title = text.pageTitle;
     document.querySelectorAll("[data-t]").forEach(node => { node.textContent = text[node.dataset.t]; });
     document.getElementById("student-name").placeholder = text.namePlaceholder;
+    document.querySelectorAll("[data-tp]").forEach(node => { node.placeholder = text[node.dataset.tp]; });
     document.querySelectorAll(".hub-lang button").forEach(button => {
         button.setAttribute("aria-pressed", String(button.dataset.lang === pageLang()));
     });
@@ -114,6 +156,103 @@ function renderHubSummary() {
     }
     if (!available) html += '<p class="status error">' + escapeHtml(text.cannotSave) + '</p>';
     document.getElementById("hub-summary").innerHTML = html;
+}
+
+// ---------- Backup of the progress (GAMES-19) ----------
+
+const fillText = (template, values) => template.replace(/\{(\w+)\}/g, (match, key) => String(values[key]));
+
+function backupStatus(message, isError) {
+    const status = document.getElementById("backup-status");
+    status.innerText = message;
+    status.className = "status" + (isError ? " error" : "");
+}
+
+// The backup of the student of the page, or null (with the reason on screen)
+async function studentBackup() {
+    const text = hubText();
+    const name = studentName();
+    if (!name) {
+        backupStatus(text.backupNeedName, true);
+        return null;
+    }
+    const storage = progressStorage();
+    const key = studentKey(name);
+    const pets = loadPetRewards(storage).store.students[key] || null;
+    const progress = loadProgress(storage).store.students[key] || null;
+    const pages = document.getElementById("backup-notebook").checked ? loadNotebook(storage).store.pages : [];
+    if (!(pets && pets.owned.length) && !(progress && progress.exams.length) && !pages.length) {
+        backupStatus(text.backupEmpty, true);
+        return null;
+    }
+    return sealBackup(buildBackup({ name, pets, progress, notebook: pages.length ? pages : null, now: new Date() }));
+}
+
+async function downloadBackup() {
+    const backup = await studentBackup();
+    if (!backup) return;
+    const file = backupFileName(backup.student.name, new Date());
+    const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 1)], { type: "application/json" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = file;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    backupStatus(fillText(hubText().backupDone, { file }));
+}
+
+async function copyBackupCode() {
+    const backup = await studentBackup();
+    if (!backup) return;
+    const code = await encodeBackupCode(backup);
+    // The code is always on screen too, in case the clipboard does not answer
+    const box = document.getElementById("backup-code");
+    box.value = code;
+    box.classList.remove("hidden");
+    box.focus();
+    box.select();
+    const timeout = new Promise((resolve, reject) => setTimeout(() => reject(new Error("timeout")), 2000));
+    try {
+        if (!navigator.clipboard) throw new Error("no clipboard");
+        await Promise.race([navigator.clipboard.writeText(code), timeout]);
+        backupStatus(hubText().backupCopied);
+    } catch (error) {
+        backupStatus(hubText().backupCopyManual);
+    }
+}
+
+async function restoreBackup() {
+    const text = hubText();
+    const fileInput = document.getElementById("backup-file");
+    const pasted = document.getElementById("backup-paste").value;
+    const input = fileInput.files && fileInput.files[0] ? await fileInput.files[0].text() : pasted;
+    if (!String(input).trim()) {
+        backupStatus(text.backupNothing, true);
+        return;
+    }
+    const result = await readBackupInput(input);
+    if (!result.ok) {
+        backupStatus(text[{ tampered: "backupTampered", version: "backupVersion" }[result.error] || "backupNotBackup"], true);
+        return;
+    }
+    const storage = progressStorage();
+    const stores = { pets: loadPetRewards(storage).store, progress: loadProgress(storage).store, notebook: loadNotebook(storage).store };
+    const added = mergeBackup(stores, result.backup, document.getElementById("backup-notebook").checked);
+    const saved = savePetRewards(storage, stores.pets) & saveProgress(storage, stores.progress) & saveNotebook(storage, stores.notebook);
+    if (!saved) {
+        backupStatus(text.backupCannotSave, true);
+        return;
+    }
+    // The pets (my-pets.js) read their prizes again
+    if (typeof petRewards !== "undefined") petRewards = null;
+    const nameInput = document.getElementById("student-name");
+    nameInput.value = added.name;
+    nameInput.dispatchEvent(new Event("input"));
+    fileInput.value = "";
+    document.getElementById("backup-paste").value = "";
+    backupStatus(fillText(text.backupRestored, added));
 }
 
 // ---------- Language (clarification 2: English by default, remembered) ----------
@@ -160,6 +299,9 @@ function setupHub() {
         button.addEventListener("click", () => setHubLang(button.dataset.lang));
     });
     document.getElementById("student-name").addEventListener("input", renderHubSummary);
+    document.getElementById("backup-download").addEventListener("click", downloadBackup);
+    document.getElementById("backup-copy").addEventListener("click", copyBackupCode);
+    document.getElementById("backup-restore").addEventListener("click", restoreBackup);
     // After the holidays (GAMES-16), which greet in the language of the page
     setTimeout(greetHub, 0);
 }

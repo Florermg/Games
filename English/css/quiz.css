@@ -1468,6 +1468,49 @@ a.small-btn {
     margin: 3px 0;
 }
 
+/* Backup of the progress (GAMES-19) */
+.hub-backup {
+    margin-top: 20px;
+    padding: 16px;
+    border: 2px solid #b8ecc9;
+    border-radius: 16px;
+    background: #f3fcf6;
+}
+
+.hub-backup h2 {
+    margin: 0 0 6px 0;
+    color: #1e8449;
+    font-size: 1.2em;
+}
+
+.hub-backup h3 {
+    margin: 14px 0 8px 0;
+    font-size: 1em;
+}
+
+.backup-text {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    font-family: monospace;
+    font-size: 16px;
+    word-break: break-all;
+}
+
+.file-btn {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.file-btn input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
 /* ---------- Environment (GAMES-15): time of day, weather and season ---------- */
 
 /* The sky fills the window behind the sheet; the guides stay on white */

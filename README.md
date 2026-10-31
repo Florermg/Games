@@ -125,6 +125,15 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
   - sus últimas guías, con fecha y un emoji de logro.
 - Cada materia tiene un botón para volver a la página principal.
 
+## Respaldo del avance (Fase 1)
+
+- En la página principal, la tarjeta **💾 Mi respaldo** junta en un respaldo lo del alumno: sus premios, la ropa de sus mascotas, su historial de guías y, si deja marcada la casilla, su cuaderno. Se puede llevar de dos formas:
+  - **💾 Descargar mi respaldo**: un archivo `respaldo-ana-2026-10-31.json`.
+  - **📋 Copiar mi código**: un texto que empieza con `GAMES1-` y se puede mandar por mensaje.
+- En el otro equipo, **📥 Recuperar mi avance**, con el archivo o pegando el código. Lo recuperado **se junta** con lo que ya hay: no se borra nada ni se repite.
+- El respaldo lleva una verificación (SHA-256). Si llega incompleto o alguien lo modificó, no se usa y no cambia nada.
+- **No está cifrado**: quien tenga el archivo puede leer el avance. Guárdenlo como una libreta. El cifrado y el guardado en el servidor son la Fase 2 (GAMES-20, en borrador).
+
 ## Guía 5.º Campos formativos (en español)
 
 - Página propia: `English/campos/Guia5.html`. Se abre con doble clic o desde la tarjeta "📚 Guía 5.º — Campos formativos" del menú de inglés, y tiene "⬅ Inglés" para regresar.
