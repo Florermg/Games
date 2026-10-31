@@ -4,7 +4,7 @@ Juegos educativos web. El primero es el de **inglés** (`English/`), con las gu�
 
 ## Abrir el juego
 
-Doble clic en `English/QuizA.html`. No hace falta instalar nada. Las demos funcionan sin internet; generar guías nuevas necesita conexión.
+Doble clic en `English/QuizA.html` (la página principal) y elige la materia. No hace falta instalar nada. Las demos funcionan sin internet; generar guías nuevas necesita conexión.
 
 Para probarlo en un celular o iPad de la misma red Wi-Fi:
 
@@ -113,6 +113,18 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
 - Si coinciden dos, se mezclan.
 - **Modo de prueba**: `QuizA.html?festividad=posadas`, `?festividad=halloween,muertos` o `?festividad=ninguna`. Se puede combinar con el del ambiente, por ejemplo `?festividad=navidad&ambiente=noche&clima=nieve`.
 
+## Página principal (QuizA.html)
+
+- `QuizA.html` es la entrada: el alumno elige la materia. Las opciones son 🔤 Inglés (`Ingles.html`), 📚 Español · Campos formativos (`campos/Guia5.html`) y 🔢 Matemáticas, que por ahora dice "próximamente".
+- Arriba se elige el idioma de la página. Inglés es el idioma por omisión, y la elección se recuerda en el equipo.
+- El alumno escribe su **nombre** una sola vez y todas las materias lo usan. También elige la **ciudad** del clima.
+- **Mi actividad reciente**: un resumen de las últimas 50 guías que terminó, demos o nuevas, de cualquier materia. No muestra calificaciones, sino:
+  - una frase alentadora según su nivel, en general y por materia;
+  - lo que hace genial;
+  - sus próximos retos, cada uno con algo concreto que hacer (por ejemplo, "Repasa la tarjeta «Sistema circulatorio» y genera una guía de Saberes…");
+  - sus últimas guías, con fecha y un emoji de logro.
+- Cada materia tiene un botón para volver a la página principal.
+
 ## Guía 5.º Campos formativos (en español)
 
 - Página propia: `English/campos/Guia5.html`. Se abre con doble clic o desde la tarjeta "📚 Guía 5.º — Campos formativos" del menú de inglés, y tiene "⬅ Inglés" para regresar.
@@ -148,15 +160,15 @@ Lo que llega de ellas pasa por filtros de contenido no apto.
 
 ## Publicar una versión
 
-El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por eso `QuizA.html` pide cada archivo con una versión en su dirección (`js/engine.js?v=efa6704a`), calculada de su contenido. Cuando un archivo cambia, cambia su versión y todos los navegadores lo descargan otra vez; los que no cambiaron siguen saliendo de la caché.
+El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por eso las páginas (`QuizA.html`, `Ingles.html` y `campos/Guia5.html`) piden cada archivo con una versión en su dirección (`js/engine.js?v=efa6704a`), calculada de su contenido. Cuando un archivo cambia, cambia su versión y todos los navegadores lo descargan otra vez; los que no cambiaron siguen saliendo de la caché.
 
 1. Después de cambiar cualquier archivo de `English/js/` o `English/css/`, y antes del commit:
    ```sh
-   npm run versions   # actualiza los ?v= de QuizA.html y campos/Guia5.html y dice qué archivos cambiaron
+   npm run versions   # actualiza los ?v= de QuizA.html, Ingles.html y campos/Guia5.html y dice qué archivos cambiaron
    npm test           # falla si alguna versión quedó desactualizada
    ```
 2. Sube al servidor (`nutritrack.mx/quiz/`) los mismos archivos de siempre:
-   - `English/QuizA.html`
+   - `English/QuizA.html` (la página principal) y `English/Ingles.html` (el juego de inglés, GAMES-18)
    - `English/css/`
    - `English/js/`
    - `English/img/`, solo si pusiste imágenes propias de las mascotas
@@ -164,7 +176,7 @@ El servidor guarda `js/` y `css/` en la caché del navegador hasta 31 días. Por
 
    No subas `tests/`, `tools/` ni `documentacion/`: no se usan en el navegador.
 3. Comprueba que llegó la versión nueva. Abre la página normal, sin forzar la recarga, y luego:
-   - En la consola del navegador, `[...document.scripts].map(s => s.src)` debe mostrar los mismos `?v=` que tu `QuizA.html`.
+   - En la consola del navegador, `[...document.scripts].map(s => s.src)` debe mostrar los mismos `?v=` que tu página (`QuizA.html`, `Ingles.html` o `campos/Guia5.html`).
    - En la pestaña Network, los archivos que cambiaron se descargan y los demás salen *from disk cache*.
    - Prueba 🖨 Print y la consola: no debe haber errores.
 
@@ -175,7 +187,7 @@ Si olvidas el paso 1, el check `Tests` del PR sale en ❌ y nombra los archivos.
 El gatito negro y el pastor alemán están dibujados en el juego. Para usar imágenes 3D propias en su lugar, con permiso de uso:
 
 1. Guarda la imagen como `English/img/pet-cat.png` (gato) o `English/img/pet-dog.png` (perro). Debe ser PNG cuadrado con fondo transparente; se recomienda de 240 × 240 px o más.
-2. Ejecuta `npm run versions`. Escribe en `QuizA.html` la versión de la imagen, para que llegue a todos los navegadores.
+2. Ejecuta `npm run versions`. Escribe en `Ingles.html` la versión de la imagen, para que llegue a todos los navegadores.
 3. Sube también la carpeta `English/img/` al servidor.
 
 Para volver al dibujo, borra la imagen y vuelve a correr `npm run versions`. Si una imagen no carga, el juego muestra el dibujo.
@@ -188,7 +200,7 @@ Requisito: Node 24. No hay dependencias, así que no hace falta `npm install`.
 |---|---|
 | `npm test` | Ejecuta todas las pruebas, **sin internet**, en menos de un minuto. |
 | `npm run test:coverage` | Igual, con un reporte informativo de cobertura por archivo. |
-| `npm run versions` | Actualiza la versión de los archivos en `QuizA.html` (ver "Publicar una versión"). |
+| `npm run versions` | Actualiza la versión de los archivos en `QuizA.html`, `Ingles.html` y `campos/Guia5.html` (ver "Publicar una versión"). |
 | `npm run fixtures:record` | Regraba las respuestas de las fuentes externas que usan las pruebas (necesita internet; ver `English/tests/fixtures/README.md`). |
 
 Algunas pruebas aparecen como `todo` (⚠ `# GAMES-2`): describen brechas conocidas en celulares e iPad y **no** hacen fallar la suite. Node las lista bajo "failing tests", pero el comando termina con código 0. GAMES-2 las convierte en pruebas normales cuando las corrige.

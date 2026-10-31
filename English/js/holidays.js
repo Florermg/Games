@@ -505,7 +505,7 @@ function holidayParticles(ids) {
  * "🎃💀 Happy Halloween and happy Day of the Dead! …"; in Spanish (GAMES-17) without the
  * English words, which are not on that page: "🎃💀 ¡Feliz Halloween y feliz Día de Muertos! …"
  */
-function holidayGreeting(ids, lang = pageLang()) {
+function holidayGreeting(ids, lang = pageLang(), withWords = true) {
     const shown = ids.map(id => HOLIDAY_BY_ID[id]);
     if (!shown.length) return "";
     const es = lang === "es";
@@ -516,8 +516,9 @@ function holidayGreeting(ids, lang = pageLang()) {
     const and = es ? " y " : " and ";
     const joined = wishes.length > 1 ? wishes.slice(0, -1).join(", ") + and + wishes[wishes.length - 1] : wishes[0];
     const emojis = shown.map(h => h.emoji).join("");
-    return es ? emojis + " ¡" + joined + "! ¡Vamos a estudiar con alegría!"
-        : emojis + " " + joined + "! Look at the holiday words in the menu: tap a word to hear it.";
+    if (es) return emojis + " ¡" + joined + "! ¡Vamos a estudiar con alegría!";
+    // The main page (GAMES-18) has no card of words
+    return emojis + " " + joined + (withWords ? "! Look at the holiday words in the menu: tap a word to hear it." : "! Let's have fun studying!");
 }
 
 const cardText = (text) => String(text).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -598,7 +599,7 @@ function setupHolidays() {
         }, 200);
     });
     // Only when the game opens, in the menu (FR-004)
-    if (holidayIds.length && typeof tutor === "function") tutor(HOLIDAY_BY_ID[holidayIds[0]].emoji, holidayGreeting(holidayIds));
+    if (holidayIds.length && typeof tutor === "function") tutor(HOLIDAY_BY_ID[holidayIds[0]].emoji, holidayGreeting(holidayIds, pageLang(), Boolean(card)));
     // A new day can start or end a holiday while the game is open
     if (!holidayTest) setInterval(() => {
         const now = activeHolidays(new Date());

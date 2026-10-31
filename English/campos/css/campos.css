@@ -3,10 +3,6 @@
    a ../css/quiz.css, que comparte con el juego de inglés.
    ===================================================================== */
 
-.campos-back {
-    margin: 0 0 10px 0;
-}
-
 /* Respuesta abierta: 16 px para que Safari del iPhone no haga zoom */
 .open-answer {
     display: block;

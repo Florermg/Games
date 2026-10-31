@@ -7,7 +7,7 @@ import { createGameContext, ENGLISH_DIR } from './helpers/game-context.mjs';
 
 const game = createGameContext();
 const css = fs.readFileSync(path.join(ENGLISH_DIR, 'css', 'quiz.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
-const html = fs.readFileSync(path.join(ENGLISH_DIR, 'QuizA.html'), 'utf8');
+const html = fs.readFileSync(path.join(ENGLISH_DIR, 'Ingles.html'), 'utf8');
 
 // The body of the first rule for a selector inside a block of CSS
 function ruleBody(block, selector) {

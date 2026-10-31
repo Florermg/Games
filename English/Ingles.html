@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5th Grade Study Guides - Anime Edition</title>
+    <link rel="stylesheet" href="css/quiz.css?v=3c4b7598">
+</head>
+<body>
+
+<!-- Environment (GAMES-15): sky colors and what falls behind the sheet; filled by js/environment.js -->
+<div id="env-scene" aria-hidden="true"></div>
+<!-- Holidays (GAMES-16): what floats in the background; filled by js/holidays.js -->
+<div id="holiday-scene" aria-hidden="true"></div>
+
+<div class="main-wrapper">
+    <div class="anime-container">
+        <div class="avatar" id="anime-avatar">👧🏻</div>
+        <div class="speech-bubble" id="tutor-dialogue">
+            Hello! I'm <b>Anya-chan</b>. Choose a study guide and let's practice together!
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div id="holiday-garland" class="holiday-garland hidden" aria-hidden="true"></div>
+
+        <!-- Menu -->
+        <div id="menu-screen">
+            <div class="page-back">
+                <a class="small-btn" href="QuizA.html">⬅ All subjects</a>
+            </div>
+            <div class="menu-header">
+                <h1>🌟 5th Grade Study Guides 🌟</h1>
+                <p class="subtitle">Grammar, Vocabulary & Spelling · Reading & Listening · Writing · Listening · My Notebook</p>
+            </div>
+
+            <div class="field-grid" style="margin-bottom: 20px;">
+                <label>Your name
+                    <input type="text" id="student-name" placeholder="Write your name">
+                </label>
+            </div>
+
+            <div class="env-panel">
+                <div class="env-window"><div id="env-window"></div><div class="holiday-window" id="holiday-window"></div></div>
+                <div class="env-info">
+                    <p class="env-summary" id="env-summary"></p>
+                    <label class="env-city">Weather of
+                        <select id="env-city"></select>
+                    </label>
+                    <p class="note env-note" id="env-note"></p>
+                </div>
+            </div>
+
+            <div class="hol-card hidden" id="holiday-card"></div>
+
+            <div class="guide-cards">
+                <div class="guide-card">
+                    <h2>📘 Grammar, Vocabulary & Spelling Guide</h2>
+                    <p class="note">Quantifiers, causative verbs, past simple + ago, matching, word bank, dictation and spelling.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playDemo('gvs')">▶ Demo: 1st Trimester guide</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('gvs')">🎲 Generate a new guide</button>
+                    </div>
+                    <div class="note" style="margin: 12px 0 0 0;"><b>Grammar for new guides:</b></div>
+                    <div class="chips" id="grammar-points"></div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>📖 Reading & Listening Guide</h2>
+                    <p class="note">Read a text and answer the questions, then listen and complete the information.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playDemo('rl')">▶ Demo: 1st Trimester guide</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('rl')">🎲 Generate a new guide</button>
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>✍️ Writing Guide</h2>
+                    <p class="note">Write a text following the checklist; Anya-chan checks the criteria with you.</p>
+                    <div class="card-actions">
+                        <button class="main-btn" onclick="playDemo('writing')">▶ Demo: 1st Trimester guide</button>
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('writing')">🎲 Generate a new guide</button>
+                    </div>
+                    <div class="field-grid" style="margin-top: 12px;">
+                        <label>Text type for new guides
+                            <select id="writing-task"></select>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>🎧 Listening</h2>
+                    <p class="note">Listen with subtitles, listen again without them, then answer a quiz. The audio fits your grade.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary generate-btn" onclick="generateGuide('listening')">🎲 Generate a listening</button>
+                    </div>
+                    <div class="field-grid" style="margin-top: 12px;">
+                        <label>Audio type
+                            <select id="listening-type">
+                                <option value="story" selected>📖 Story or dialogue</option>
+                                <option value="facts">🌐 Facts about the topic</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <h2>📚 Guía 5.º — Campos formativos</h2>
+                    <p class="note">The 1st Trimester study guide in Spanish: Lenguajes · Saberes y pensamiento científico · Ética, naturaleza y sociedades · De lo humano y lo comunitario. Your pets and prizes come with you.</p>
+                    <div class="card-actions">
+                        <a class="main-btn btn-secondary" href="campos/Guia5.html">📚 Abrir la guía (en español)</a>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>📓 My Notebook</h2>
+                    <p class="note">Write freely in English, like in your notebook. Anya-chan checks your grammar and gives you suggestions. Your pages are saved on this device.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openNotebook()">📓 Open my notebook</button>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>🐾 My Pets</h2>
+                    <p class="note">Get 100% in a new guide and win accessories for the kitten and the puppy: hats, glasses, collars, clothes and seasonal surprises. Dress them up here!</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openMyPets()">🐾 Open my pets</button>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>📗 Grammar Cards</h2>
+                    <p class="note">Grammar rules with examples in the tenses of your grade. Choose cards and print them (several per page).</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openReference('grammar')">📗 Open grammar cards</button>
+                    </div>
+                </div>
+
+                <div class="guide-card reference-card">
+                    <h2>🔤 Verbs</h2>
+                    <p class="note">Search a verb in English or Spanish and see it in different tenses, with examples. Print verb cards.</p>
+                    <div class="card-actions">
+                        <button class="main-btn btn-secondary" onclick="openReference('verbs')">🔤 Open verbs</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-box" style="margin-top: 20px; margin-bottom: 0;">
+                <h3>🎲 Settings for new guides</h3>
+                <p class="note">New guides are created live from free online sources (Datamuse, Wiktionary and Simple English Wikipedia). Nothing is downloaded.</p>
+                <div class="field-grid">
+                    <label>Grade level
+                        <select id="gen-grade">
+                            <option value="3">3rd Grade</option>
+                            <option value="4">4th Grade</option>
+                            <option value="5" selected>5th Grade</option>
+                            <option value="6">6th Grade</option>
+                        </select>
+                    </label>
+                    <label>Topic
+                        <select id="gen-topic"></select>
+                    </label>
+                    <label>Or type your own topic (in English)
+                        <input type="text" id="gen-custom" placeholder="e.g. volcanoes, dinosaurs, pirates">
+                    </label>
+                </div>
+                <p class="status" id="gen-status"></p>
+            </div>
+        </div>
+
+        <!-- Grammar cards (GAMES-6) -->
+        <div id="grammar-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <div class="columns-choice" data-kind="grammar"></div>
+                <button class="small-btn" onclick="printGrammarCards()">🖨 Print selected</button>
+            </div>
+            <h1>📗 Grammar Cards</h1>
+            <div class="tense-picker" data-kind="grammar"></div>
+            <div class="card-select-actions">
+                <button class="small-btn" onclick="selectGrammarCards(true)">Select all</button>
+                <button class="small-btn" onclick="selectGrammarCards(false)">Select none</button>
+            </div>
+            <div id="grammar-cards"></div>
+        </div>
+
+        <!-- Verbs (GAMES-6) -->
+        <div id="verbs-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <div class="columns-choice" data-kind="verbs"></div>
+                <button class="small-btn" onclick="printVerbCards()">🖨 Print selected</button>
+            </div>
+            <h1>🔤 Verbs</h1>
+            <div class="tense-picker" data-kind="verbs"></div>
+            <div class="verb-search">
+                <input type="text" id="verb-query" placeholder="Type a verb in English or Spanish (eat / comer)" autocomplete="off">
+                <div id="verb-suggestions" class="verb-suggestions"></div>
+            </div>
+            <div id="verb-result"></div>
+            <div id="verb-selection" class="verb-selection"></div>
+        </div>
+
+        <!-- Notebook (GAMES-13) -->
+        <div id="notebook-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <button class="small-btn" onclick="printNotebook()">🖨 Print</button>
+            </div>
+            <h1>📓 My Notebook</h1>
+            <div class="nb-pages">
+                <label>Page
+                    <select id="nb-pages"></select>
+                </label>
+                <button class="small-btn" onclick="newNotebookPageClick()">➕ New page</button>
+                <button class="small-btn" id="nb-delete" onclick="deleteNotebookPage()">🗑 Delete page</button>
+            </div>
+            <p class="status error" id="nb-save-note"></p>
+            <div class="nb-paper">
+                <div class="nb-head">
+                    <input type="text" id="nb-title" maxlength="80" placeholder="Title (optional)" aria-label="Title">
+                    <span class="nb-date" id="nb-date"></span>
+                </div>
+                <textarea id="nb-text" maxlength="5000" rows="12" placeholder="Write here in English, like in your notebook..." aria-label="Your text" spellcheck="false" autocorrect="off"></textarea>
+                <div class="nb-count" id="nb-words"></div>
+            </div>
+            <div class="nb-actions">
+                <button class="main-btn" id="nb-check" onclick="checkNotebook()">✔ Check my writing</button>
+                <label class="nb-online"><input type="checkbox" id="nb-online"> Also check online</label>
+            </div>
+            <p class="note" id="nb-online-note">🌐 To check online, your text is sent to languagetool.org. Turn this off to keep your text only on this device.</p>
+            <p class="status" id="nb-status"></p>
+            <div id="nb-results" aria-live="polite"></div>
+        </div>
+
+        <!-- My Pets (GAMES-14) -->
+        <div id="pets-screen" class="reference-screen hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <button class="small-btn" onclick="takeOffAllClick()">Take everything off</button>
+            </div>
+            <h1>🐾 My Pets</h1>
+            <p class="note" id="mp-owner"></p>
+            <p class="status error" id="mp-save-note"></p>
+            <p class="note" id="mp-image-note"></p>
+            <div class="mp-stage" id="mp-stage"></div>
+            <div id="mp-wardrobe"></div>
+        </div>
+
+        <!-- Worksheet -->
+        <div id="sheet-screen" class="hidden">
+            <div class="sheet-top">
+                <button class="small-btn" onclick="backToMenu()">⬅ Menu</button>
+                <div class="print-menu">
+                    <button class="small-btn" id="print-btn" onclick="togglePrintPanel()" aria-expanded="false">🖨 Print</button>
+                    <div class="print-panel hidden" id="print-panel">
+                        <button class="small-btn" onclick="printGuide('student')">📄 Student sheet</button>
+                        <button class="small-btn" id="print-key-btn" onclick="printGuide('key')">🔑 Answer key</button>
+                    </div>
+                </div>
+                <span class="score-pill" id="score-pill">⭐ 0 pts</span>
+            </div>
+            <div id="sheet-body"></div>
+            <div class="sheet-footer">
+                <button class="main-btn" onclick="finishGuide()">Finish & see my results 🎉</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results-screen" class="results hidden">
+            <h2>Guide Complete! 🎉</h2>
+            <div class="score-display" id="final-score">0 / 0</div>
+            <div class="section-score" id="final-average" style="font-size: 1.3em;"></div>
+            <p id="final-message" style="font-size: 1.1em; font-weight: bold;"></p>
+            <div id="reward-box" aria-live="polite"></div>
+            <table class="result-table" id="result-table"></table>
+            <h3>📝 Review of What You Missed:</h3>
+            <div class="review-box" id="review-box"></div>
+            <div class="actions">
+                <button class="main-btn btn-secondary" onclick="startGuide(currentGuide)">Try This Guide Again 🔁</button>
+                <button class="main-btn" onclick="backToMenu()">Back to Menu 🔄</button>
+            </div>
+        </div>
+    </div>
+    <div id="print-area" aria-hidden="true"></div>
+</div>
+
+<!-- Pets (GAMES-9): always visible at the bottom of the window; filled by js/pets.js -->
+<div id="pets" data-cat-image="" data-dog-image=""></div>
+
+<script src="js/lang.js?v=fdf2f8e8"></script>
+<script src="js/api.js?v=4d6f82d0"></script>
+<script src="js/banks.js?v=71f06430"></script>
+<script src="js/demos.js?v=b7fc7a27"></script>
+<script src="js/listening-stories.js?v=fcde2feb"></script>
+<script src="js/generators.js?v=b0d92cdf"></script>
+<script src="js/grading.js?v=2824bbb7"></script>
+<script src="js/print.js?v=32df8c84"></script>
+<script src="js/verbs-data.js?v=593c63e1"></script>
+<script src="js/conjugation.js?v=dc9458b5"></script>
+<script src="js/grammar-cards.js?v=9a6c9615"></script>
+<script src="js/notebook-check.js?v=72cb7aee"></script>
+<script src="js/pet-rewards.js?v=81696d14"></script>
+<script src="js/progress.js?v=53bb764b"></script>
+<script src="js/environment.js?v=2bee1461"></script>
+<script src="js/holidays.js?v=3c630250"></script>
+<script src="js/engine.js?v=66a28cdd"></script>
+<script src="js/reference.js?v=ba256368"></script>
+<script src="js/notebook.js?v=edb510df"></script>
+<script src="js/pets.js?v=fcbe1085"></script>
+<script src="js/my-pets.js?v=cc2eae4f"></script>
+<script src="js/student.js?v=1c7502b3"></script>
+</body>
+</html>
