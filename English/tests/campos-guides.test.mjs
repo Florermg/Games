@@ -13,7 +13,7 @@ const TYPES = ['choice', 'truefalse', 'match', 'bank', 'classify', 'open'];
 
 // The 21 topics of the guide, in its order (spec, "Contenido de la guía")
 const GUIDE_TITLES = {
-    lenguajes: ['Tipos de sustantivos', 'Palabras variables e invariables', 'Artículos determinados e indeterminados',
+    lenguajes: ['Tipos de sustantivos', 'Clases de palabras: variables e invariables', 'Artículos determinados e indeterminados',
         'Sustantivos y adjetivos', 'Palabras polisémicas', 'Prefijos y sufijos'],
     saberes: ['Huella hídrica y agua virtual', 'Contaminación del agua, aire y suelo', 'Sistema respiratorio',
         'Sistema circulatorio', 'El impacto de nuestras acciones en el ambiente y la salud', 'Acciones para cuidar el ambiente'],
@@ -179,6 +179,59 @@ test('generated guides: 200 guides only from the chosen campos, without repeats 
     const a = JSON.stringify(plain(game.call('generateCamposGuide', { campos: CAMPO_IDS })));
     const b = JSON.stringify(plain(game.call('generateCamposGuide', { campos: CAMPO_IDS })));
     assert.notEqual(a, b);
+});
+
+// ---------- Ejercicios por tema (GAMES-21) ----------
+
+test('every topic has every type of exercise, with its examples to classify', () => {
+    for (const tema of TEMAS) {
+        assert.ok(tema.choice.length >= 4, tema.id + ' choice');
+        assert.ok(tema.truefalse.length >= 4, tema.id + ' truefalse');
+        assert.ok(tema.pairs.length >= 3, tema.id + ' pairs');
+        assert.ok((tema.bank || []).length >= 3, tema.id + ' bank');
+        assert.ok((tema.open || []).length >= 1, tema.id + ' open');
+        assert.ok(CLASIFICA.some(set => set.tema === tema.id), tema.id + ' classify');
+        // Inside one topic the bank answers and the match columns never repeat
+        assert.equal(new Set(tema.bank.map(q => game.call('normalizeEs', q.answer))).size, tema.bank.length, tema.id + ' bank answers');
+        assert.equal(new Set(tema.pairs.map(p => p[0])).size, tema.pairs.length, tema.id + ' pair terms');
+        assert.equal(new Set(tema.pairs.map(p => p[1])).size, tema.pairs.length, tema.id + ' pair definitions');
+    }
+});
+
+test('topics are numbered as in the printed guide, starting at 1 in each campo', () => {
+    assert.equal(game.call('temaNumber', 'sustantivos'), 1);
+    assert.equal(game.call('temaNumber', 'variables'), 2);
+    assert.equal(game.call('temaNumber', 'prefijos'), 6);
+    assert.equal(game.call('temaNumber', 'huella'), 1);
+    assert.equal(game.call('temaNumber', 'reuniones'), 5);
+    assert.equal(game.call('temaHeading', 'variables'), '2. Clases de palabras: variables e invariables');
+});
+
+test('the exercises of one topic: all its questions, every type, nothing from other topics', () => {
+    for (const tema of TEMAS) {
+        const guide = plain(game.call('buildTemaGuide', tema.id));
+        assert.equal(guide.kind, 'campos');
+        assert.equal(guide.tema, tema.id);
+        assert.ok(!guide.demo, 'it can earn a prize like a new guide');
+        assert.ok(guide.subtitle.includes(game.call('temaHeading', tema.id)), tema.id + ' subtitle');
+        checkGuide(guide, [tema.campo]);
+        for (const section of guide.sections) for (const item of section.items) assert.equal(item.tema, tema.id);
+        const count = (type) => guide.sections.filter(s => s.type === type).reduce((n, s) => n + s.items.length, 0);
+        assert.equal(count('choice'), tema.choice.length, tema.id + ' choice');
+        assert.equal(count('truefalse'), tema.truefalse.length, tema.id + ' truefalse');
+        assert.equal(count('match'), tema.pairs.length, tema.id + ' match');
+        assert.equal(count('bank'), tema.bank.length, tema.id + ' bank');
+        assert.equal(count('open'), tema.open.length, tema.id + ' open');
+        const sets = CLASIFICA.filter(set => set.tema === tema.id);
+        assert.equal(count('classify'), sets.reduce((n, set) => n + set.items.length, 0), tema.id + ' classify');
+        assert.deepEqual([...new Set(guide.sections.map(s => s.type))], TYPES, tema.id + ' every type, in order');
+        // Sections are numbered 1, 2, 3…
+        guide.sections.forEach((s, i) => assert.ok(s.title.startsWith((i + 1) + '. '), s.title));
+    }
+});
+
+test('an unknown topic is an error in Spanish', () => {
+    assert.throws(() => game.call('buildTemaGuide', 'nada'), /Ese tema no existe/);
 });
 
 test('a guide without campos is an error in Spanish', () => {

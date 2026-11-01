@@ -150,6 +150,7 @@ Desde el menú, **📓 My Notebook** es un cuaderno para escribir libremente en 
   | Respuesta con tus palabras | 2 |
 
 - La revisión funciona como en inglés: 2 intentos por sección, pistas, promedio sobre 10, tabla de resultados y repaso de lo que faltó. Las respuestas abiertas se califican por ideas clave, sin importar acentos ni mayúsculas, y al final muestran la respuesta modelo.
+- **✏️ Ejercicios por tema** (GAMES-21): los 21 temas, numerados como en la guía (1. Tipos de sustantivos, 2. Clases de palabras: variables e invariables…). Cada tema abre todos sus ejercicios: opción múltiple, verdadero o falso, relacionar, banco de palabras, clasificar ejemplos y respuesta abierta. También se abren con "✏️ Ejercicios de este tema" en cada tarjeta de repaso. Cuentan para el avance y, con 100%, dan premio.
 - 🖨 Hoja del alumno y clave de respuestas. **📚 Tarjetas de repaso**: una por tema; se escuchan con 🔊 y se imprimen en 1 o 2 columnas.
 - Comparte con el juego de inglés las mascotas, los premios y Mis mascotas, el clima y las festividades, todo en español. Con el mismo nombre, los accesorios son los mismos en las dos páginas.
 - **Publicar**: sube también la carpeta `English/campos/` a `nutritrack.mx/quiz/campos/`. Usa los mismos `js/` y `css/` del juego (`../js`, `../css`), y `npm run versions` sella las dos páginas.

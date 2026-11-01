@@ -396,6 +396,22 @@ function generateCamposClick() {
     }
 }
 
+// Ejercicios por tema (GAMES-21)
+function playTemaExercises(id) {
+    startCamposGuide(buildTemaGuide(id));
+    tutor("✏️", "¡Practiquemos «" + temaHeading(id) + "»! Tienes 2 intentos por sección.");
+}
+
+function renderTemaList() {
+    const list = document.getElementById('tema-list');
+    list.innerHTML = CAMPOS.map(campo =>
+        '<details class="tema-group"><summary>' + campo.emoji + ' ' + escapeHtml(campo.name) + '</summary><div class="tema-buttons">' +
+        TEMAS.filter(t => t.campo === campo.id).map(tema =>
+            '<button type="button" class="small-btn tema-btn" data-tema="' + tema.id + '">' + escapeHtml(temaHeading(tema.id)) + '</button>').join('') +
+        '</div></details>').join('');
+    list.querySelectorAll('.tema-btn').forEach(button => { button.onclick = () => playTemaExercises(button.dataset.tema); });
+}
+
 // ---------- Impresión (GAMES-3) ----------
 
 function closePrintPanel() {
@@ -466,7 +482,8 @@ function renderStudyCards() {
             '<div class="ref-card' + (studySelected.has(tema.id) ? ' selected' : '') + '" data-id="' + tema.id + '">' +
             '<div class="study-card-actions"><label class="pick"><input type="checkbox" class="card-pick" value="' + tema.id + '"' +
             (studySelected.has(tema.id) ? ' checked' : '') + '> Imprimir esta tarjeta</label>' +
-            '<button type="button" class="speak-btn" data-say="' + tema.id + '" title="Escuchar" aria-label="Escuchar la tarjeta ' + escapeHtml(tema.title) + '">🔊</button></div>' +
+            '<button type="button" class="speak-btn" data-say="' + tema.id + '" title="Escuchar" aria-label="Escuchar la tarjeta ' + escapeHtml(tema.title) + '">🔊</button>' +
+            '<button type="button" class="small-btn tema-btn" data-tema="' + tema.id + '">✏️ Ejercicios de este tema</button></div>' +
             studyCardHtml(tema) + '</div>').join('') + '</div>').join('');
     box.querySelectorAll('.card-pick').forEach(checkbox => {
         checkbox.onchange = () => {
@@ -476,6 +493,7 @@ function renderStudyCards() {
         };
     });
     box.querySelectorAll('.speak-btn').forEach(button => { button.onclick = () => sayStudyCard(button.dataset.say); });
+    box.querySelectorAll('.tema-btn').forEach(button => { button.onclick = () => playTemaExercises(button.dataset.tema); });
 }
 
 function sayStudyCard(id) {
@@ -506,6 +524,7 @@ function printStudyCards() {
 function setupCamposMenu() {
     const chips = document.getElementById('campos-chips');
     chips.innerHTML = CAMPOS.map(c => '<label class="chip"><input type="checkbox" value="' + c.id + '" checked> ' + c.emoji + ' ' + escapeHtml(c.name) + '</label>').join('');
+    renderTemaList();
 }
 
 if (typeof document !== "undefined") {

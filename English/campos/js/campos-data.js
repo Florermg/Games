@@ -66,10 +66,15 @@ const TEMAS = [
             blank("«Libertad» es un sustantivo ___ porque no la podemos tocar.", "abstracto", "Es una idea, no un objeto."),
             blank("«Mesa» es un sustantivo ___ porque la podemos ver y tocar.", "concreto", "Se puede tocar."),
             blank("«México» es un sustantivo ___ y se escribe con mayúscula.", "propio", "Es el nombre de un país específico.")
+        ],
+        open: [
+            abierta("¿Cuál es la diferencia entre un sustantivo común y uno propio? Da un ejemplo.",
+                [["general", "generales"], ["especifico", "especifica", "mayuscula"]], 2,
+                "El común es un nombre general, como «niño»; el propio nombra a alguien o algo específico y lleva mayúscula, como «Juan».", "Piensa en «ciudad» y «Monterrey».")
         ]
     },
     {
-        id: "variables", campo: "lenguajes", title: "Palabras variables e invariables",
+        id: "variables", campo: "lenguajes", title: "Clases de palabras: variables e invariables",
         card: {
             points: [
                 "<b>Variables:</b> cambian en género (masculino, femenino), número (singular, plural) o persona.",
@@ -129,7 +134,9 @@ const TEMAS = [
             mc("En «Una flor crece en el jardín», ¿qué tipo de artículo es «una»?", ["Indeterminado", "Determinado", "Adjetivo"],
                 "¿Es una flor específica?", "«Una» no habla de una flor específica: es indeterminado."),
             mc("¿Para qué sirven los artículos?", ["Acompañan al sustantivo y lo identifican como específico o no", "Describen cómo es el sustantivo", "Indican una acción"],
-                "Siempre van junto a un sustantivo.", "Los artículos acompañan al sustantivo y dicen si es algo específico o no.")
+                "Siempre van junto a un sustantivo.", "Los artículos acompañan al sustantivo y dicen si es algo específico o no."),
+            mc("¿Qué artículo completa «___ maestra está en el salón» si hablamos de una maestra específica?", ["La", "Una", "Unos"],
+                "Es una maestra específica, femenino y singular.", "«La» es determinado: habla de una maestra específica.")
         ],
         truefalse: [
             tf("«Unos» es un artículo indeterminado.", true, "Un, una, unos, unas son indeterminados."),
@@ -147,6 +154,11 @@ const TEMAS = [
             blank("Vi ___ casa nueva en mi calle. (indeterminado)", "una", "No es una casa específica; es femenino y singular."),
             blank("En el patio juegan ___ niñas de mi salón. (determinado)", "las", "Son niñas específicas, femenino y plural."),
             blank("Tengo ___ amigos en otra escuela. (indeterminado)", "unos", "No son amigos específicos; masculino y plural.")
+        ],
+        open: [
+            abierta("¿Cuándo usamos un artículo indeterminado? Da un ejemplo.",
+                [["especifico", "especifica", "especificos", "especificas"], ["un", "una", "unos", "unas"]], 2,
+                "Cuando el sustantivo no es algo específico, por ejemplo: una casa.", "Piensa en «una flor crece en el jardín».")
         ]
     },
     {
@@ -164,7 +176,9 @@ const TEMAS = [
             mc("En «La mariposa amarilla vuela por el jardín», ¿cuál es el adjetivo?", ["amarilla", "mariposa", "jardín"],
                 "¿Qué palabra dice cómo es la mariposa?", "«Amarilla» describe a la mariposa."),
             mc("¿Cuál de estas palabras es un sustantivo?", ["escuela", "alegre", "pequeño"],
-                "Busca la que nombra un lugar.", "«Escuela» nombra un lugar: es un sustantivo.")
+                "Busca la que nombra un lugar.", "«Escuela» nombra un lugar: es un sustantivo."),
+            mc("En «El perro pequeño duerme», ¿cuál es el sustantivo?", ["perro", "pequeño", "duerme"],
+                "¿Qué palabra nombra al animal?", "«Perro» nombra a un animal: es el sustantivo; «pequeño» es el adjetivo.")
         ],
         truefalse: [
             tf("«Inteligente» es un adjetivo.", true, "Describe una cualidad."),
@@ -174,11 +188,19 @@ const TEMAS = [
         ],
         pairs: [
             ["Sustantivo", "Nombra personas, animales, lugares, objetos o ideas"],
-            ["Adjetivo", "Describe las características o cualidades de un sustantivo"]
+            ["Adjetivo", "Describe las características o cualidades de un sustantivo"],
+            ["Ejemplos de sustantivos", "María, perro, escuela, lápiz, alegría"],
+            ["Ejemplos de adjetivos", "inteligente, pequeño, hermoso, alegre"]
         ],
         bank: [
             blank("En «el perro pequeño», la palabra «pequeño» es un ___.", "adjetivo", "Dice cómo es el perro."),
-            blank("En «la escuela grande», la palabra «escuela» es un ___.", "sustantivo", "Nombra un lugar.")
+            blank("En «la escuela grande», la palabra «escuela» es un ___.", "sustantivo", "Nombra un lugar."),
+            blank("En «La mariposa amarilla vuela por el jardín», el adjetivo es «___».", "amarilla", "Dice de qué color es la mariposa.")
+        ],
+        open: [
+            abierta("¿Qué diferencia hay entre un sustantivo y un adjetivo?",
+                [["nombra", "nombran", "nombrar", "nombre"], ["describe", "describen", "describir", "cualidades", "caracteristicas", "como es"]], 2,
+                "El sustantivo nombra personas, animales, lugares u objetos, y el adjetivo describe sus cualidades.", "Uno nombra y el otro dice cómo es.")
         ]
     },
     {
@@ -214,6 +236,11 @@ const TEMAS = [
             ["«Me lastimé la planta del pie»", "planta: parte inferior del pie"],
             ["«Regué la planta del jardín»", "planta: ser vivo vegetal"],
             ["«Escalamos hasta el pico»", "pico: cima de una montaña"]
+        ],
+        bank: [
+            blank("Subimos hasta el ___ de la montaña.", "pico", "Es la cima de una montaña, pero también la boca de un ave."),
+            blank("Me senté a descansar en un ___ del parque.", "banco", "También es el lugar donde guardamos dinero."),
+            blank("Regué la ___ del jardín.", "planta", "También es la parte inferior del pie.")
         ],
         open: [
             abierta("¿Por qué necesitas leer la oración completa para entender una palabra polisémica?",
@@ -262,6 +289,11 @@ const TEMAS = [
             blank("Pan + ___ = panadero", "adero", "Se agrega al final."),
             blank("Flor + ___ = florero", "ero", "Se agrega al final."),
             blank("Pequeñ + ___ = pequeñito", "ito", "Hace la palabra más pequeña.")
+        ],
+        open: [
+            abierta("¿Cuál es la diferencia entre un prefijo y un sufijo?",
+                [["inicio", "antes", "principio"], ["final", "despues"]], 2,
+                "El prefijo va al inicio de la palabra y el sufijo va al final.", "Piensa en dónde se coloca cada uno.")
         ]
     },
 
@@ -301,7 +333,8 @@ const TEMAS = [
         ],
         bank: [
             blank("El agua que se necesita para fabricar una camiseta es agua ___.", "virtual", "No la vemos en la camiseta."),
-            blank("La huella ___ incluye el agua usada de manera directa e indirecta.", "hídrica", "Hídrica viene de agua.")
+            blank("La huella ___ incluye el agua usada de manera directa e indirecta.", "hídrica", "Hídrica viene de agua."),
+            blank("Cerrar la ___ mientras nos cepillamos los dientes ayuda a ahorrar agua.", "llave", "Por ahí sale el agua del lavabo.")
         ],
         open: [
             abierta("¿Por qué desperdiciar alimentos también significa desperdiciar agua?",
@@ -345,6 +378,11 @@ const TEMAS = [
             ["Contaminación del agua", "Aguas residuales y aceites en ríos y lagos"],
             ["Contaminación del aire", "Humo de automóviles, fábricas e incendios"],
             ["Contaminación del suelo", "Plásticos, derrames de aceite y pesticidas"]
+        ],
+        bank: [
+            blank("El humo de los automóviles contamina el ___.", "aire", "Es lo que respiramos."),
+            blank("Las aguas residuales que llegan a los ríos contaminan el ___.", "agua", "Piensa en ríos y lagos."),
+            blank("El uso excesivo de pesticidas contamina el ___.", "suelo", "Es la tierra donde crecen los cultivos.")
         ],
         open: [
             abierta("¿Cómo se relacionan los tres tipos de contaminación? Da un ejemplo.",
@@ -465,17 +503,25 @@ const TEMAS = [
             mc("¿Qué daño causa el humo de quemar residuos?", ["Irrita y daña el sistema respiratorio", "Fortalece los pulmones", "Limpia el aire"],
                 "¿Qué pasa al respirar humo?", "El humo irrita y daña el sistema respiratorio."),
             mc("¿Por qué cuidar el aire es importante para el cuerpo?", ["Porque respiramos ese aire y la sangre lleva su oxígeno a las células", "Porque el aire no entra al cuerpo", "Porque solo afecta a las plantas"],
-                "Piensa en los dos sistemas que trabajan juntos.", "El respiratorio intercambia gases y el circulatorio lleva el oxígeno a las células.")
+                "Piensa en los dos sistemas que trabajan juntos.", "El respiratorio intercambia gases y el circulatorio lleva el oxígeno a las células."),
+            mc("En el ejemplo de la comunidad agrícola, ¿qué acciones causan el problema?", ["Usar pesticidas en exceso y quemar residuos de los cultivos", "Sembrar árboles y reciclar", "Cerrar las llaves del agua"],
+                "Piensa en lo que se echa a la tierra y lo que se quema.", "El exceso de pesticidas y la quema de residuos dañan el ambiente y la salud.")
         ],
         truefalse: [
             tf("Las actividades humanas pueden alterar el equilibrio de los ecosistemas.", true, "Por ejemplo, con pesticidas o quemas."),
             tf("Los problemas ambientales solo afectan a plantas y animales.", false, "También afectan la salud de las personas."),
-            tf("Algunas sustancias contaminantes pueden entrar al organismo y afectar otros órganos.", true, "Pueden afectar otros órganos y sistemas.")
+            tf("Algunas sustancias contaminantes pueden entrar al organismo y afectar otros órganos.", true, "Pueden afectar otros órganos y sistemas."),
+            tf("El humo de quemar residuos puede dañar el sistema respiratorio.", true, "El humo irrita y daña las vías respiratorias.")
         ],
         pairs: [
             ["Consecuencia ambiental", "Los pesticidas contaminan el suelo y los ríos"],
             ["Consecuencia para la salud", "El humo irrita el sistema respiratorio"],
             ["Relación entre sistemas", "El aire limpio ayuda a respirar y a llevar oxígeno a las células"]
+        ],
+        bank: [
+            blank("Los ___ usados en exceso pueden contaminar el suelo y llegar a los ríos.", "pesticidas", "Se usan en los cultivos."),
+            blank("El ___ de quemar residuos irrita el sistema respiratorio.", "humo", "Sale cuando algo se quema."),
+            blank("El sistema ___ transporta el oxígeno a las células.", "circulatorio", "Es el sistema de la sangre.")
         ],
         open: [
             abierta("Da un ejemplo de cómo una acción humana afecta al ambiente y a la salud.",
@@ -507,7 +553,8 @@ const TEMAS = [
         truefalse: [
             tf("Organizar campañas informativas ayuda a cuidar la salud.", true, "Así más personas conocen cómo cuidar su cuerpo."),
             tf("Quemar basura es una buena forma de deshacernos de ella.", false, "Quemar basura contamina el aire."),
-            tf("Compartir transporte ayuda a reducir la contaminación del aire.", true, "Hay menos autos echando humo.")
+            tf("Compartir transporte ayuda a reducir la contaminación del aire.", true, "Hay menos autos echando humo."),
+            tf("Planear las compras ayuda a no desperdiciar alimentos.", true, "Así compramos solo lo que vamos a usar.")
         ],
         pairs: [
             ["Desperdicio de agua", "Cerrar llaves y reparar fugas"],
@@ -515,6 +562,17 @@ const TEMAS = [
             ["Basura en calles y ríos", "Separar residuos y organizar jornadas de limpieza"],
             ["Contaminación del aire", "Evitar quemar basura y compartir transporte"],
             ["Desconocimiento sobre la salud", "Organizar campañas informativas"]
+        ],
+        bank: [
+            blank("Para no desperdiciar agua, podemos usar una ___ en lugar de la manguera.", "cubeta", "Se llena solo con el agua necesaria."),
+            blank("Para que no haya basura en calles y ríos, debemos ___ los residuos.", "separar", "Orgánicos, papel, plástico…"),
+            blank("Para cuidar el aire, podemos compartir el ___ o caminar.", "transporte", "Ir varios en el mismo carro.")
+        ],
+        open: [
+            abierta("Escribe dos acciones para cuidar el ambiente.",
+                [["llave", "llaves", "fuga", "fugas", "cubeta", "cubetas", "agua"], ["compras", "alimentos", "comida"], ["separar", "residuos", "basura", "limpieza"],
+                    ["quemar", "transporte", "caminar", "bicicleta"], ["campana", "campanas", "informativas"]], 2,
+                "Separar los residuos y evitar quemar basura.", "Piensa en el agua, la comida, la basura y el aire.")
         ]
     },
 
@@ -555,7 +613,9 @@ const TEMAS = [
             ["Rechazar", "Evitar productos que generan residuos innecesarios"]
         ],
         bank: [
-            blank("Volver a usar un objeto sin transformarlo se llama ___.", "reutilizar", "Lo usas otra vez tal como está.")
+            blank("Volver a usar un objeto sin transformarlo se llama ___.", "reutilizar", "Lo usas otra vez tal como está."),
+            blank("Transformar materiales usados en productos nuevos se llama ___.", "reciclar", "El material cambia."),
+            blank("No aceptar popotes ni bolsas desechables es ___.", "rechazar", "Dices «no, gracias».")
         ],
         open: [
             abierta("¿Por qué es importante la sustentabilidad?",
@@ -605,6 +665,11 @@ const TEMAS = [
             blank("La energía ___ aprovecha la radiación del Sol.", "solar", "Usa paneles."),
             blank("La energía ___ usa el calor del interior de la Tierra.", "geotérmica", "«Geo» es Tierra."),
             blank("La energía ___ aprovecha la caída del agua.", "hidráulica", "Piensa en una presa.")
+        ],
+        open: [
+            abierta("¿Cuál es la diferencia entre una energía renovable y una no renovable?",
+                [["reponen", "repone", "renueva", "renuevan", "sol", "viento"], ["limitados", "limitado", "millones", "acaban", "acaba", "petroleo", "carbon"]], 2,
+                "La renovable viene de fuentes que se reponen, como el sol, y la no renovable de recursos limitados, como el petróleo.", "Piensa en el sol y en el petróleo.")
         ]
     },
     {
@@ -643,6 +708,11 @@ const TEMAS = [
             ["Hidrosfera", "Toda el agua del planeta"],
             ["Litosfera", "Parte sólida de rocas y minerales"],
             ["Biosfera", "Seres vivos y regiones donde existe vida"]
+        ],
+        bank: [
+            blank("La ___ es toda el agua del planeta.", "hidrosfera", "«Hidro» significa agua."),
+            blank("La ___ es la parte sólida de rocas y minerales.", "litosfera", "«Lito» significa piedra."),
+            blank("La ___ es el conjunto de los seres vivos y las regiones donde existe vida.", "biosfera", "«Bio» significa vida.")
         ],
         open: [
             abierta("Escribe dos formas de proteger la atmósfera.",
@@ -722,12 +792,15 @@ const TEMAS = [
             mc("¿Qué demuestra el contacto visual?", ["Interés y respeto", "Aburrimiento", "Enojo"],
                 "Mirar a quien habla…", "Mirar a la persona que habla demuestra interés y respeto."),
             mc("Repetir lo que entendiste para confirmar el mensaje es…", ["Resumir y aclarar", "Interrumpir", "Votar"],
-                "Confirma que entendiste bien.", "Resumir y aclarar ayuda a confirmar el mensaje.")
+                "Confirma que entendiste bien.", "Resumir y aclarar ayuda a confirmar el mensaje."),
+            mc("¿Qué debes hacer mientras alguien termina de expresar su idea?", ["Esperar sin interrumpir", "Interrumpir para opinar", "Cambiar de tema"],
+                "Deja que termine.", "Evitar interrumpir es parte de la escucha activa.")
         ],
         truefalse: [
             tf("Escuchar activamente incluye interrumpir para opinar rápido.", false, "Hay que dejar que la persona termine su idea."),
             tf("La escucha activa ayuda a tomar decisiones que benefician a todo el grupo.", true, "Permite comprender mejor las ideas de los demás."),
-            tf("Mirar a la persona que habla demuestra interés.", true, "Es el contacto visual.")
+            tf("Mirar a la persona que habla demuestra interés.", true, "Es el contacto visual."),
+            tf("Resumir lo que entendiste ayuda a confirmar que recibiste bien el mensaje.", true, "Es resumir y aclarar.")
         ],
         pairs: [
             ["Contacto visual", "Mirar a la persona que habla"],
@@ -735,7 +808,9 @@ const TEMAS = [
             ["Evitar interrumpir", "Dejar que la persona termine su idea"]
         ],
         bank: [
-            blank("Mirar a la persona que habla es hacer contacto ___.", "visual", "Se hace con los ojos.")
+            blank("Mirar a la persona que habla es hacer contacto ___.", "visual", "Se hace con los ojos."),
+            blank("Repetir lo que entendiste es ___ y aclarar el mensaje.", "resumir", "Lo dices en pocas palabras."),
+            blank("Debemos evitar ___ a la persona que está hablando.", "interrumpir", "Deja que termine su idea.")
         ],
         open: [
             abierta("¿Por qué es importante escuchar activamente?",
@@ -760,17 +835,30 @@ const TEMAS = [
             mc("¿Cuál es el primer paso para tomar una buena decisión en grupo?", ["Exponer las ideas", "Votar sin hablar", "Terminar rápido"],
                 "Primero hay que conocer lo que piensa cada quien.", "Primero cada persona expone sus ideas."),
             mc("¿Cuál es un beneficio de una decisión grupal?", ["Es más justa y crea respeto y colaboración", "Nadie tiene que opinar", "Solo beneficia a uno"],
-                "Piensa en cómo se siente el grupo.", "La decisión grupal es más justa y crea respeto.")
+                "Piensa en cómo se siente el grupo.", "La decisión grupal es más justa y crea respeto."),
+            mc("¿Qué significa buscar opciones en común?", ["Encontrar una opción que combine los intereses de todos", "Elegir siempre la idea del más fuerte", "No escuchar a nadie"],
+                "Piensa en todos los del grupo.", "Buscar opciones en común es combinar los intereses de todos.")
         ],
         truefalse: [
             tf("En una decisión en grupo, cada persona debe poder expresar su punto de vista.", true, "Es el primer paso."),
             tf("Buscar opciones en común significa ignorar las ideas de los demás.", false, "Es combinar los intereses de todos."),
-            tf("Votar puede ser una forma justa de llegar a un acuerdo.", true, "Así decide el grupo.")
+            tf("Votar puede ser una forma justa de llegar a un acuerdo.", true, "Así decide el grupo."),
+            tf("Una decisión grupal crea un ambiente de respeto y colaboración.", true, "Es uno de sus beneficios.")
         ],
         pairs: [
             ["Exponer las ideas", "Cada persona expresa su punto de vista"],
             ["Buscar opciones en común", "Encontrar una opción que combine los intereses de todos"],
             ["Llegar a un acuerdo", "Votar o acordar una decisión de manera justa"]
+        ],
+        bank: [
+            blank("El primer paso es ___ las ideas: cada persona expresa su punto de vista.", "exponer", "Es contar lo que piensas."),
+            blank("Para llegar a un acuerdo justo, el grupo puede ___.", "votar", "Se levanta la mano."),
+            blank("Una decisión grupal es más ___ y crea respeto.", "justa", "Toma en cuenta a todos.")
+        ],
+        open: [
+            abierta("¿Por qué una decisión en grupo es mejor que la decisión de una sola persona?",
+                [["justa", "justo"], ["respeto", "colaboracion", "todos", "ideas", "opiniones"]], 2,
+                "Porque es más justa, considera las ideas de todos y crea respeto y colaboración.", "Piensa en cómo se siente el grupo.")
         ]
     },
     {
@@ -790,17 +878,25 @@ const TEMAS = [
             mc("¿Qué pregunta ayuda a entender a la otra persona?", ["¿Cómo te sientes?", "¿Por qué siempre lo haces mal?", "¿Quién ganó?"],
                 "Busca la pregunta amable.", "Preguntar «¿cómo te sientes?» ayuda a entender el problema."),
             mc("Si dos compañeros quieren el mismo juguete, ¿qué pueden hacer?", ["Escucharse y turnarse", "Pelearse", "Esconder el juguete"],
-                "Busca una solución para los dos.", "Pueden escucharse y turnarse o buscar otra actividad.")
+                "Busca una solución para los dos.", "Pueden escucharse y turnarse o buscar otra actividad."),
+            mc("¿Cuál es un paso para resolver un conflicto?", ["Escuchar ambas partes", "Gritar más fuerte", "Irse sin hablar"],
+                "Cada quien cuenta lo que pasó.", "Escuchar ambas partes es el primer paso.")
         ],
         truefalse: [
             tf("Para resolver un conflicto hay que escuchar a ambas partes.", true, "Cada quien cuenta su punto de vista."),
             tf("Buscar soluciones juntos ayuda a llegar a un acuerdo para ambas partes.", true, "Así los dos quedan satisfechos."),
-            tf("Gritar es una buena forma de resolver un conflicto.", false, "Los conflictos se resuelven de manera pacífica.")
+            tf("Gritar es una buena forma de resolver un conflicto.", false, "Los conflictos se resuelven de manera pacífica."),
+            tf("Preguntar «¿por qué?» ayuda a entender mejor el problema.", true, "Es hacer preguntas.")
         ],
         pairs: [
             ["Escuchar ambas partes", "Que cada uno cuente lo que pasó sin ser interrumpido"],
             ["Hacer preguntas", "Preguntar «¿por qué?» o «¿cómo te sientes?»"],
             ["Buscar soluciones juntos", "Proponer opciones y acordar algo bueno para ambos"]
+        ],
+        bank: [
+            blank("Los conflictos se resuelven de manera ___ y justa.", "pacífica", "Sin violencia."),
+            blank("Si dos compañeros quieren el mismo juguete, pueden ___.", "turnarse", "Primero uno y luego el otro."),
+            blank("Para resolver un conflicto hay que escuchar a ___ partes.", "ambas", "A las dos.")
         ],
         open: [
             abierta("¿Qué pueden hacer dos compañeros que quieren usar el mismo juguete?",
@@ -825,12 +921,15 @@ const TEMAS = [
             mc("¿Qué es parafrasear?", ["Repetir con nuestras palabras lo que alguien dijo", "Copiar exactamente un texto", "Cambiar de tema"],
                 "Es para asegurarnos de entender.", "Parafrasear es repetir con nuestras palabras lo que alguien dijo."),
             mc("¿Qué significa hablar con respeto?", ["Expresar desacuerdos sin ofender ni elevar la voz", "No decir nunca lo que pienso", "Gritar para que me escuchen"],
-                "Puedes no estar de acuerdo, pero…", "Hablar con respeto es expresar desacuerdos sin ofender ni gritar.")
+                "Puedes no estar de acuerdo, pero…", "Hablar con respeto es expresar desacuerdos sin ofender ni gritar."),
+            mc("¿Cuál es un beneficio de la buena comunicación en grupo?", ["Evita malentendidos y facilita las decisiones", "Hace que solo hable una persona", "Provoca más peleas"],
+                "Piensa en qué se evita.", "Una buena comunicación evita malentendidos y facilita decidir en grupo.")
         ],
         truefalse: [
             tf("Una buena comunicación ayuda a evitar malentendidos.", true, "Es su beneficio."),
             tf("Parafrasear es repetir lo que alguien dijo con nuestras propias palabras.", true, "Así nos aseguramos de entender."),
-            tf("Elevar la voz es parte de hablar con respeto.", false, "Hablar con respeto es sin ofender ni elevar la voz.")
+            tf("Elevar la voz es parte de hablar con respeto.", false, "Hablar con respeto es sin ofender ni elevar la voz."),
+            tf("En la comunicación en grupo todos expresan sus ideas de manera respetuosa y abierta.", true, "Es su definición.")
         ],
         pairs: [
             ["Turnos de palabra", "Hablar por turnos para evitar interrupciones"],
@@ -839,7 +938,13 @@ const TEMAS = [
         ],
         bank: [
             blank("Repetir con nuestras palabras lo que alguien dijo se llama ___.", "parafrasear", "Ayuda a asegurarnos de entender."),
-            blank("Hablar por ___ evita interrupciones.", "turnos", "Uno a la vez.")
+            blank("Hablar por ___ evita interrupciones.", "turnos", "Uno a la vez."),
+            blank("Una buena comunicación ayuda a evitar ___.", "malentendidos", "Cuando alguien entiende otra cosa.")
+        ],
+        open: [
+            abierta("Escribe dos formas de mejorar la comunicación en grupo.",
+                [["turnos", "turno"], ["parafrasear", "parafraseo", "repetir"], ["respeto", "respetuoso", "respetuosa", "ofender", "gritar", "voz"]], 2,
+                "Hablar por turnos y hablar con respeto.", "Piensa en los turnos, parafrasear y el respeto.")
         ]
     },
     {
@@ -859,12 +964,15 @@ const TEMAS = [
             mc("¿Cuál es el primer paso de una reunión efectiva?", ["Preparar los temas a tratar", "Votar antes de hablar", "Terminar rápido"],
                 "Antes de empezar…", "Primero se prepara la lista de temas."),
             mc("¿Qué es llegar a un consenso?", ["Encontrar un punto medio que todos puedan apoyar", "Que gane el que grita más", "No decidir nada"],
-                "Todos están de acuerdo.", "El consenso es un punto medio que todos pueden apoyar.")
+                "Todos están de acuerdo.", "El consenso es un punto medio que todos pueden apoyar."),
+            mc("Si la clase organiza una fiesta, ¿para qué sirve una reunión?", ["Para escuchar las ideas de todos y elegir el tema, la decoración y las actividades", "Para que decida una sola persona", "Para cancelar la fiesta"],
+                "Piensa en el ejemplo de la guía.", "La reunión permite escuchar a todos para elegir el tema, la decoración y las actividades.")
         ],
         truefalse: [
             tf("En una reunión efectiva todos pueden hablar sin ser interrumpidos.", true, "Es escuchar con atención."),
             tf("Tener una lista de temas ayuda a organizar una reunión.", true, "Es preparar los temas a tratar."),
-            tf("En una reunión solo opina una persona.", false, "Todos participan y expresan sus ideas.")
+            tf("En una reunión solo opina una persona.", false, "Todos participan y expresan sus ideas."),
+            tf("Se vota o se llega a un consenso después de que todos expresaron sus ideas.", true, "Primero hablan todos y luego se decide.")
         ],
         pairs: [
             ["Preparar los temas a tratar", "Tener una lista de los temas importantes"],
@@ -872,7 +980,14 @@ const TEMAS = [
             ["Votar o llegar a un consenso", "Elegir una opción que todos puedan apoyar"]
         ],
         bank: [
-            blank("Un ___ es un punto medio que todos pueden apoyar.", "consenso", "Todos están de acuerdo.")
+            blank("Un ___ es un punto medio que todos pueden apoyar.", "consenso", "Todos están de acuerdo."),
+            blank("Antes de la reunión hay que ___ los temas a tratar.", "preparar", "Se hace una lista."),
+            blank("Hay que ___ con atención para que todos hablen sin ser interrumpidos.", "escuchar", "Con los oídos y la atención.")
+        ],
+        open: [
+            abierta("¿Qué pasos sigue una reunión para llegar a acuerdos?",
+                [["preparar", "temas", "lista"], ["escuchar", "atencion"], ["votar", "consenso", "acuerdo"]], 2,
+                "Preparar los temas, escuchar con atención y votar o llegar a un consenso.", "Piensa en antes, durante y al final de la reunión.")
         ]
     }
 ];
@@ -931,6 +1046,62 @@ const CLASIFICA = [
         id: "convivencia", campo: "humano", tema: "comunicacion", prompt: "¿Ayuda o no ayuda a la convivencia en grupo?", categories: ["ayuda", "no ayuda"],
         items: [["Mirar a quien habla", 0], ["Interrumpir a un compañero", 1], ["Hablar por turnos", 0], ["Gritar cuando no estoy de acuerdo", 1],
             ["Parafrasear lo que entendí", 0], ["Ignorar las ideas de los demás", 1], ["Votar de manera justa", 0], ["Burlarse de una opinión", 1]]
+    },
+    // Ejercicios por tema (GAMES-21): un conjunto de ejemplos para cada tema
+    {
+        id: "banco", campo: "lenguajes", tema: "polisemicas", prompt: "¿Qué significa «banco» en cada oración?", categories: ["lugar donde guardamos dinero", "asiento para descansar"],
+        items: [["Mi mamá fue al banco a depositar.", 0], ["Nos sentamos en un banco de la plaza.", 1], ["El banco abre a las nueve.", 0],
+            ["El abuelo descansa en el banco del jardín.", 1], ["Abrí una cuenta de ahorro en el banco.", 0], ["Pintamos de verde el banco del parque.", 1]]
+    },
+    {
+        id: "planta", campo: "lenguajes", tema: "polisemicas", prompt: "¿Qué significa «planta» en cada oración?", categories: ["ser vivo vegetal", "parte inferior del pie"],
+        items: [["La planta creció junto a la ventana.", 0], ["Me duele la planta del pie.", 1], ["Le pusimos agua a la planta.", 0],
+            ["Siento el pasto en la planta del pie.", 1], ["Compramos una planta con flores.", 0], ["Me salió una ampolla en la planta del pie.", 1]]
+    },
+    {
+        id: "huella", campo: "saberes", tema: "huella", prompt: "¿Uso directo del agua o agua virtual?", categories: ["uso directo", "agua virtual"],
+        items: [["El agua con la que nos bañamos", 0], ["El agua para cultivar una manzana", 1], ["El agua para lavarnos las manos", 0],
+            ["El agua para fabricar una camiseta", 1], ["El agua que tomamos en un vaso", 0], ["El agua para producir el papel de un cuaderno", 1]]
+    },
+    {
+        id: "circulatorio", campo: "saberes", tema: "circulatorio", prompt: "¿En qué paso del trabajo de los dos sistemas ocurre?", categories: ["respiración", "circulación", "funcionamiento del cuerpo"],
+        items: [["El oxígeno entra por la nariz", 0], ["El aire llega a los pulmones", 0], ["El oxígeno pasa a la sangre", 1],
+            ["El corazón impulsa la sangre a todo el cuerpo", 1], ["Las células usan el oxígeno", 2], ["Las células producen dióxido de carbono", 2]]
+    },
+    {
+        id: "impacto", campo: "saberes", tema: "impacto", prompt: "¿Consecuencia para el ambiente o para la salud?", categories: ["ambiente", "salud"],
+        items: [["Los pesticidas contaminan el suelo", 0], ["El humo irrita la nariz y la garganta", 1], ["Los pesticidas llegan a los ríos", 0],
+            ["Las personas tienen tos", 1], ["Se dañan plantas y animales", 0], ["Sustancias contaminantes entran al organismo", 1]]
+    },
+    {
+        id: "acciones", campo: "saberes", tema: "acciones", prompt: "¿Qué problema ayuda a resolver?", categories: ["desperdicio de agua", "desperdicio de alimentos", "basura", "contaminación del aire"],
+        items: [["Cerrar las llaves", 0], ["Reparar fugas", 0], ["Planear las compras", 1], ["Aprovechar los alimentos antes de que se echen a perder", 1],
+            ["Separar residuos", 2], ["Organizar jornadas de limpieza", 2], ["Evitar quemar basura", 3], ["Compartir transporte", 3]]
+    },
+    {
+        id: "independencia", campo: "etica", tema: "independencia", prompt: "¿En qué año pasó?", categories: ["1810", "1813", "1821"],
+        items: [["El Grito de Dolores", 0], ["Miguel Hidalgo convoca al levantamiento", 0], ["El Congreso de Chilpancingo", 1],
+            ["Morelos presenta Sentimientos de la Nación", 1], ["El Ejército Trigarante entra a la Ciudad de México", 2], ["Se consuma la Independencia", 2]]
+    },
+    {
+        id: "escucha", campo: "humano", tema: "escucha", prompt: "¿Es escucha activa o no?", categories: ["escucha activa", "no es escucha activa"],
+        items: [["Mirar a los ojos a quien habla", 0], ["Ver el celular mientras te hablan", 1], ["Esperar a que termine su idea", 0],
+            ["Interrumpir para cambiar de tema", 1], ["Repetir lo que entendiste", 0], ["Platicar con otro compañero mientras alguien habla", 1]]
+    },
+    {
+        id: "decisiones", campo: "humano", tema: "decisiones", prompt: "¿Qué paso de la decisión en grupo es?", categories: ["exponer las ideas", "buscar opciones en común", "llegar a un acuerdo"],
+        items: [["Cada uno dice lo que piensa sin ser interrumpido", 0], ["Ana explica su propuesta al grupo", 0], ["Se busca una idea que combine los gustos de todos", 1],
+            ["Juntan dos ideas en una sola opción", 1], ["Todos levantan la mano para votar", 2], ["El grupo acepta la decisión final", 2]]
+    },
+    {
+        id: "conflictos", campo: "humano", tema: "conflictos", prompt: "¿Ayuda a resolver el conflicto o lo empeora?", categories: ["ayuda", "lo empeora"],
+        items: [["Escuchar lo que siente tu compañero", 0], ["Gritarle a tu compañero", 1], ["Preguntar «¿cómo te sientes?»", 0],
+            ["Quitarle el juguete sin hablar", 1], ["Proponer turnarse", 0], ["Burlarse del otro", 1]]
+    },
+    {
+        id: "reuniones", campo: "humano", tema: "reuniones", prompt: "¿Qué paso de la reunión es?", categories: ["preparar los temas", "escuchar con atención", "votar o llegar a un consenso"],
+        items: [["Hacer una lista de lo que se va a decidir", 0], ["Escribir los temas en el pizarrón antes de empezar", 0], ["Dejar hablar a cada compañero sin interrumpir", 1],
+            ["Poner atención a las ideas de todos", 1], ["Levantar la mano para elegir la decoración", 2], ["Encontrar un punto medio que todos apoyen", 2]]
     }
 ];
 
