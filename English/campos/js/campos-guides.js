@@ -154,3 +154,45 @@ function generateCamposGuide({ campos }) {
     if (!valid.length) throw new Error("Elige al menos un campo formativo.");
     return buildCamposGuide(CAMPOS.map(c => c.id).filter(id => valid.includes(id)), Math.random, false);
 }
+
+// ---------- Ejercicios por tema (GAMES-21) ----------
+
+/** El número del tema dentro de su campo, como en la guía impresa (1, 2, 3…). */
+function temaNumber(id) {
+    const tema = TEMA_BY_ID[id];
+    return TEMAS.filter(t => t.campo === tema.campo).indexOf(tema) + 1;
+}
+
+const temaHeading = (id) => temaNumber(id) + ". " + TEMA_BY_ID[id].title;
+
+/**
+ * Todos los ejercicios de un tema, de cada tipo, con las opciones mezcladas.
+ * Clasificar lleva una sección por cada conjunto de ejemplos del tema.
+ */
+function buildTemaGuide(id, random = Math.random) {
+    const tema = TEMA_BY_ID[id];
+    if (!tema) throw new Error("Ese tema no existe.");
+    const sections = [];
+    const add = (plan, built) => {
+        const items = Array.isArray(built) ? built : built.items;
+        if (!items.length) return;
+        const extra = Array.isArray(built) ? {} : built.extra;
+        const title = (sections.length + 1) + ". " + plan.title + (extra.prompt ? " " + extra.prompt : "") + " (un punto cada una)";
+        const section = Object.assign({ type: plan.type, title, items }, extra);
+        delete section.prompt;
+        sections.push(section);
+    };
+    for (const plan of CAMPOS_SECTION_PLAN) {
+        if (plan.type === "classify") {
+            for (const set of CLASIFICA.filter(s => s.tema === id)) {
+                const items = shuffledWith(set.items, random).map(([text, answer]) => ({ text, answer, explanation: text + " → " + set.categories[answer], tema: id }));
+                add(plan, { items, extra: { categories: set.categories.slice(), prompt: set.prompt } });
+            }
+            continue;
+        }
+        const field = plan.type === "match" ? "pairs" : plan.type;
+        add(plan, SECTION_BUILDERS[plan.type]([tema], (tema[field] || []).length, random));
+    }
+    const campo = CAMPO_BY_ID[tema.campo];
+    return { kind: "campos", school: "", tema: id, title: "EJERCICIOS POR TEMA", subtitle: "5.º grado · " + campo.emoji + " " + campo.name + " · " + temaHeading(id), sections };
+}

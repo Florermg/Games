@@ -23,3 +23,34 @@
 .study-card-actions .speak-btn {
     flex-shrink: 0;
 }
+
+.study-card-actions {
+    flex-wrap: wrap;
+}
+
+/* Ejercicios por tema (GAMES-21): un grupo plegable por campo */
+.tema-group {
+    margin-top: 10px;
+    border: 2px solid var(--secondary, #b39ddb);
+    border-radius: 12px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.tema-group summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 4px 0;
+}
+
+.tema-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 0 4px;
+}
+
+.tema-buttons .tema-btn {
+    text-align: left;
+    white-space: normal;
+}
